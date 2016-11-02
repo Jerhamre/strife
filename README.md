@@ -1,0 +1,2 @@
+# strife
+A chat application
