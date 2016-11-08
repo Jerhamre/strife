@@ -6,6 +6,12 @@ var dispatcher = require('httpdispatcher');
 dispatcher.setStatic('resources');
 
 //A sample GET request    
+dispatcher.onGet("/", function(req, res) {
+    res.writeHead(200, {'Content-Type': 'text/plain'});
+    res.end('Root Page');
+});  
+
+//A sample GET request    
 dispatcher.onGet("/page1", function(req, res) {
     res.writeHead(200, {'Content-Type': 'text/plain'});
     res.end('Page One');
