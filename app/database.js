@@ -1,4 +1,5 @@
-password = '';
+var password = '';
+
 fs = require('fs')
 fs.readFile('./password', 'utf8', function (err,data) {
   if (err) {
