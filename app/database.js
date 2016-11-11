@@ -14,7 +14,7 @@ fs.readFile('./password', 'utf8', function (err,data) {
 function connectToDB() {
 	var mysql      = require('mysql');
 	var connection = mysql.createConnection({
-	  host     : 'localhost',
+	  host     : '127.0.0.1',
 	  user     : 'strife',
 	  password : password
 	});
