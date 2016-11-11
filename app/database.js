@@ -6,7 +6,7 @@ fs.readFile('./password', 'utf8', function (err,data) {
     return console.log(err);
   }
   console.log(data);
-  console.log(data.replace(/^\s+|\s+$/g,'');
+  console.log(data.replace(/^\s+|\s+$/g,''));
   console.log(trim(data));
   password = data.replace(/^\s+|\s+$/g,'');
 
