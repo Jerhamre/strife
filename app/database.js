@@ -18,7 +18,7 @@ function connect() {
 
 	connection = mysql.createConnection({
 		host     : 'localhost',
-		user     : 'root',
+		user     : 'strife',
 		password : password
 	});
 
