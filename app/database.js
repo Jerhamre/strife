@@ -6,11 +6,12 @@ fs.readFile('./password', 'utf8', function (err,data) {
   }
   console.log(data);
   password = String(data);
+  console.log("pass again: " + password);
 });
 
-console.log("pass again: " + password);
 
 var mysql      = require('mysql');
+console.log("pass again again: " + password);
 var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
