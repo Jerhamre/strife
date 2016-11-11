@@ -15,20 +15,14 @@ var mysql = require('mysql');
 var connection;
 
 function connect() {
-	console.log("connection: " + connection);
+	
 	connection = mysql.createConnection({
 		host     : 'localhost',
 		user     : 'root',
 		password : password,
 		database : 'strife_db'
 	});
-	console.log("connection: " + connection);
 
-	test();
-}
-
-function test() {
-	console.log("connection: " + connection);
 	connection.connect();
 
 	connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
