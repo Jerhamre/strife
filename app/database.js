@@ -22,6 +22,10 @@ function connectToDB() {
 	  password : 'p9TDAcJG'
 	});*/
 
+	console.log(password)
+	console.log(typeof(password))
+	console.log(typeof(String(password)))
+
 	var connection = mysql.createConnection({
 	  host     : '127.0.0.1',
 	  port     : '3306',
