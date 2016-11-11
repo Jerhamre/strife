@@ -11,25 +11,20 @@ fs.readFile('./password', 'utf8', function (err,data) {
   connectToDB();
 });
 
+var mysql      = require('mysql');
+
 function connectToDB() {
-	var mysql      = require('mysql');
-	var connection = mysql.createConnection({
-	  host     : 'localhost',
-	  user     : 'strife',
-	  password : password
-	});
 
-	connection.connect(function(err) {
-	  if (err) {
-	    console.error('error connecting: ' + err.stack);
-	    return;
-	  }
+	/*var connection = mysql.createConnection({
+	  host     : '127.0.0.1',
+	  port     : '3306',
+	  user     : 'root',
+	  password : 'p9TDAcJG'
+	});*/
 
-	  console.log('connected as id ' + connection.threadId);
-	});
-	/*var mysql      = require('mysql');
 	var connection = mysql.createConnection({
-	  host     : 'localhost',
+	  host     : '127.0.0.1',
+	  port     : '3306',
 	  user     : 'strife',
 	  password : password,
 	  database : 'strife_db'
@@ -43,6 +38,6 @@ function connectToDB() {
 	  console.log('The solution is: ', rows[0].solution);
 	});
 
-	connection.end();*/
+	connection.end();
 }
 
