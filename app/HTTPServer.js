@@ -8,7 +8,7 @@ dispatcher.setStatic('resources');
 
 //A sample GET request    
 dispatcher.onGet("/", function(req, res) {
-    fs.readFile("aboutus.html", function(err, data){
+    fs.readFile("./www/html/about.html", function(err, data){
   	res.writeHead(200, {'Content-Type': 'text/html'});
   	res.write(data);
   	res.end();
