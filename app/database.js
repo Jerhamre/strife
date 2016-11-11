@@ -26,7 +26,7 @@ function connectToDB() {
 	  host     : '127.0.0.1',
 	  port     : '3306',
 	  user     : 'strife',
-	  password : password,
+	  password : 'faLtYNLB',
 	  database : 'strife_db'
 	});
 
