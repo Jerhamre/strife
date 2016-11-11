@@ -5,9 +5,11 @@ fs.readFile('./password', 'utf8', function (err,data) {
   if (err) {
     return console.log(err);
   }
+  console.log("text");
   console.log(data);
+  console.log("text");
   console.log(data.replace(/^\s+|\s+$/g,''));
-  console.log(trim(data));
+  console.log("text");
   password = data.replace(/^\s+|\s+$/g,'');
 
   connectToDB();
