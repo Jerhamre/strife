@@ -3,15 +3,14 @@ fs.readFile('./password', 'utf8', function (err,data) {
   if (err) {
     return console.log(err);
   }
-  console.log(data);
+  password = data;
 });
 
-/*
 var mysql      = require('mysql');
 var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
-  password : 'pass',
+  password : password,
   database : 'strife_db'
 });
 
@@ -24,4 +23,3 @@ connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
 });
 
 connection.end();
-*/
