@@ -4,7 +4,8 @@ fs.readFile('./password', 'utf8', function (err,data) {
   if (err) {
     return console.log(err);
   }
-  password = data;
+  console.log(data);
+  password = str(data);
 });
 
 console.log("pass again: " + password);
