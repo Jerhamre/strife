@@ -1,14 +1,18 @@
 //Lets require/import the HTTP module
 var http = require('http');
 var dispatcher = require('httpdispatcher');
+var fs = require("fs");
 
 //For all your static (js/css/images/etc.) set the directory name (relative path).
 dispatcher.setStatic('resources');
 
 //A sample GET request    
 dispatcher.onGet("/", function(req, res) {
-    res.writeHead(200, {'Content-Type': 'text/html'});
-    res.sendFile('aboutus.html');
+    fs.readFile("index.html", function(err, data){
+  	res.writeHead(200, {'Content-Type': 'text/html'});
+  	res.write(data);
+  	res.end();
+});
 });  
 
 //A sample GET request    
