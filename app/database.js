@@ -1,3 +1,4 @@
+password = '';
 fs = require('fs')
 fs.readFile('./password', 'utf8', function (err,data) {
   if (err) {
@@ -5,6 +6,8 @@ fs.readFile('./password', 'utf8', function (err,data) {
   }
   password = data;
 });
+
+console.log("pass again: " + password);
 
 var mysql      = require('mysql');
 var connection = mysql.createConnection({
