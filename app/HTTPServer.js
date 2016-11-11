@@ -7,8 +7,8 @@ dispatcher.setStatic('resources');
 
 //A sample GET request    
 dispatcher.onGet("/", function(req, res) {
-    res.writeHead(200, {'Content-Type': 'text/plain'});
-    res.end('Root Page');
+    res.writeHead(200, {'Content-Type': 'text/html'});
+    res.sendFile('aboutus.html');
 });  
 
 //A sample GET request    
