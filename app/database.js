@@ -8,27 +8,15 @@ fs.readFile('./password', 'utf8', function (err,data) {
   console.log(data);
   password = String(data);
 
-  connect();
+  connectToDB();
 });
 
-var mysql = require('mysql');
-var connection;
+function connectToDB() {
+	var Client = require('mysql').Client,
+    client = new Client();
+    client.user = 'strife'; 
+    client.password = password;
 
-function connect() {
-
-	connection = mysql.createConnection({
-		host     : 'localhost',
-		user     : 'strife',
-		password : password
-	});
-
-	connection.connect(function(err) {
-		if (err) {
-			console.error('error connecting: ' + err.stack);
-			return;
-		}
-
-		console.log('connected as id ' + connection.threadId);
-	});
+    client.connect();
 }
 
