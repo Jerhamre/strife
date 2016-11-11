@@ -24,7 +24,7 @@ function connect() {
 	});
 	console.log("connection: " + connection);
 
-	//test();
+	test();
 }
 
 function test() {
