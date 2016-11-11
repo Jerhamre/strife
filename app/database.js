@@ -22,7 +22,7 @@ function connect() {
 		database : 'strife_db'
 	});
 
-	test();
+	//test();
 }
 
 function test() {
