@@ -6,7 +6,9 @@ fs.readFile('./password', 'utf8', function (err,data) {
     return console.log(err);
   }
   console.log(data);
-  password = String(data);
+  console.log(data.replace(/^\s+|\s+$/g,'');
+  console.log(trim(data));
+  password = data.replace(/^\s+|\s+$/g,'');
 
   connectToDB();
 });
@@ -22,15 +24,11 @@ function connectToDB() {
 	  password : 'p9TDAcJG'
 	});*/
 
-	console.log(password)
-	console.log(typeof(password))
-	console.log(typeof(String(password)))
-
 	var connection = mysql.createConnection({
 	  host     : '127.0.0.1',
 	  port     : '3306',
 	  user     : 'strife',
-	  password : 'faLtYNLB',
+	  password : password,
 	  database : 'strife_db'
 	});
 
