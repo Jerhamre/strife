@@ -9,7 +9,6 @@ fs.readFile('./password', 'utf8', function (err,data) {
   password = String(data);
 
   connect();
-  test();
 });
 
 var mysql = require('mysql');
@@ -22,6 +21,8 @@ function connect() {
 		password : password,
 		database : 'strife_db'
 	});
+
+	test();
 }
 
 function test() {
