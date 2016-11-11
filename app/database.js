@@ -6,7 +6,7 @@ fs.readFile('./password', 'utf8', function (err,data) {
     return console.log(err);
   }
   console.log(data);
-  password = data;
+  password = String(data);
 
   connect();
   test();
