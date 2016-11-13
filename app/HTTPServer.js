@@ -1,68 +1,76 @@
-// http://stackoverflow.com/questions/21955697/variables-between-node-js-server-and-client
+var express = require('express')
+var path = require('path');
+var app = express()
+var session = require('express-session')
 
-//Lets require/import the HTTP module
-var http = require('http');
-var ejs = require('ejs');
-var fs = require("fs");
+// app settings
+app.set('view engine', 'ejs');
+app.use(express.static(path.join(__dirname, '/../www')));
+app.set('views', path.join(__dirname, '/../www'));
+//app.use(express.cookieParser());
+//app.use(express.session({secret: 'strife12345topkekofdoom666'}));
 
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-var dispatcher = require('httpdispatcher');
-dispatcher.setStatic('resources');
-
-dispatcher.onGet("/", function(req, res) {
-
-    checkLogin();
-
-    res.writeHead(200, {'Content-Type': 'text/html'});
-
-    //since we are in a request handler function
-    //we're using readFile instead of readFileSync
-    fs.readFile('./www/index.html', 'utf-8', function(err, content) {
-        if (err) {
-            res.end('error occurred');
-            return;
-        }
-        var temp = 'some temp';  //here you assign temp variable with needed value
-
-        var renderedHtml = ejs.render(content, {temp: temp});  //get redered HTML code
-        res.end(renderedHtml);
-    });
-});  
-  
-dispatcher.onGet("/about", function(req, res) {
-    fs.readFile("./www/about.html", function(err, data){
-        res.writeHead(200, {'Content-Type': 'text/html'});
-        res.write(data);
-        res.end();
-    });
-});
-
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-//We need a function which handles requests and send response
-function handleRequest(request, response){
-    try {
-        console.log(request.url);
-        //Disptach
-        dispatcher.dispatch(request, response);
-    } catch(err) {
-        console.log(err);
-    }
-}
-
-function checkLogin() {
-    if (!req.session.user_id) {
-        res.send('You are not authorized to view this page');
-    } else {
-        res.send('You are logged in');
-        //next();asd
-    }
-}
-
-//Create a server
+// start server
 const PORT=8080; 
-var server = http.createServer(handleRequest);
-server.listen(PORT, function(){
-    console.log("Server listening on: http://localhost:%s", PORT);
+app.listen(PORT, function () {
+  console.log('Example app listening on port ' + PORT + '!')
+})
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+function checkAuth(req, res, next) {
+    if (!session.user_id) {
+        res.redirect('/login');
+    } else {
+        next();
+    }
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+// Handle 404
+app.use(function(req, res) {
+    res.status(404).send('404: Page not Found')
 });
+
+// Handle 500
+app.use(function(error, req, res, next) {
+    res.status(500).send('500: Internal Server Error')
+});
+
+app.get('/', checkAuth, function (req, res) {
+    res.render('index', { temp : 'ITS OVER 9000!!!!' })
+})
+
+app.get('/login', function (req, res) {
+    if(req.method=='POST') {
+        session.user_id = 1
+        if(session.user_id) {
+            res.redirect('/');
+        } else {
+            res.render('login')
+        }
+    }
+    else if(req.method=='GET') {
+        res.render('login')
+    }
+})
+
+app.get('/register', function (req, res) {
+    if(req.method=='POST') {
+        // register user
+
+        res.redirect('/');
+    }
+    else if(req.method=='GET') {
+        res.render('register')
+    }
+})
+
+app.get('/logout', function (req, res) {
+    session.user_id = undefined
+    res.render('logout')
+})
+
+app.get('/about', function (req, res) {
+    res.render('about')
+})

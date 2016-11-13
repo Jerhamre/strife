@@ -1,12 +1,28 @@
 {
-  "name": "@risingstack/node-hero",
+  "name": "henrik",
   "version": "1.0.0",
-  "description": "",
+  "description": "A chat application",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^2.5.2",
+    "express": "^4.14.0",
+    "express-session": "^1.14.2",
+    "httpdispatcher": "^2.0.1",
+    "mysql": "^2.12.0"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/strifechat/strife.git"
+  },
+  "bugs": {
+    "url": "https://github.com/strifechat/strife/issues"
+  },
+  "homepage": "https://github.com/strifechat/strife#readme"
 }
