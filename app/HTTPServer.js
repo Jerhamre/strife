@@ -27,6 +27,43 @@ function checkAuth(req, res, next) {
 }
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+
+app.get('/', checkAuth, function (req, res) {
+    res.render('index', { temp : 'ITS OVER 9000!!!!' })
+})
+
+app.get('/login', function (req, res) {
+    res.render('login')
+})
+
+app.post('/login', function (req, res) {
+    session.user_id = 1
+    if(session.user_id) {
+        res.redirect('/');
+    } else {
+        res.render('login')
+    }
+})
+
+app.get('/register', function (req, res) {
+    res.render('register')
+})
+
+app.post('/register', function (req, res) {
+    // register user
+    res.redirect('/');
+})
+
+app.get('/logout', function (req, res) {
+    session.user_id = undefined
+    res.redirect('/');
+})
+
+app.get('/about', function (req, res) {
+    res.render('about')
+})
+
 // Handle 404
 app.use(function(req, res) {
     res.status(404).send('404: Page not Found')
@@ -36,41 +73,3 @@ app.use(function(req, res) {
 app.use(function(error, req, res, next) {
     res.status(500).send('500: Internal Server Error')
 });
-
-app.get('/', checkAuth, function (req, res) {
-    res.render('index', { temp : 'ITS OVER 9000!!!!' })
-})
-
-app.get('/login', function (req, res) {
-    if(req.method=='POST') {
-        session.user_id = 1
-        if(session.user_id) {
-            res.redirect('/');
-        } else {
-            res.render('login')
-        }
-    }
-    else if(req.method=='GET') {
-        res.render('login')
-    }
-})
-
-app.get('/register', function (req, res) {
-    if(req.method=='POST') {
-        // register user
-
-        res.redirect('/');
-    }
-    else if(req.method=='GET') {
-        res.render('register')
-    }
-})
-
-app.get('/logout', function (req, res) {
-    session.user_id = undefined
-    res.render('logout')
-})
-
-app.get('/about', function (req, res) {
-    res.render('about')
-})

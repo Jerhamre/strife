@@ -14,13 +14,6 @@ var mysql      = require('mysql');
 
 function connectToDB() {
 
-	/*var connection = mysql.createConnection({
-	  host     : '127.0.0.1',
-	  port     : '3306',
-	  user     : 'root',
-	  password : 'p9TDAcJG'
-	});*/
-
 	var connection = mysql.createConnection({
 	  host     : '127.0.0.1',
 	  port     : '3306',
@@ -29,14 +22,21 @@ function connectToDB() {
 	  database : 'strife_db'
 	});
 
+}
+
+function query(sql, fields) {
+
 	connection.connect();
 
-	connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
+	connection.query(sql, function(err, rows, fields) {
 	  if (err) throw err;
 
-	  console.log('The solution is: ', rows[0].solution);
+	  console.log('sql query returned: ', rows);
 	});
 
 	connection.end();
+
+	return rows;
+
 }
 
