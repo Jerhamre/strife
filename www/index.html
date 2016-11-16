@@ -1,38 +1,105 @@
 <!DOCTYPE html>
 <html>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../index.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
 <head>
-<title>Strife</title>
-<link rel="stylesheet" type="text/css" href="resources/css/index.css">      
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<title>Strife</title>
+	<link rel="stylesheet" type="text/css" href="resources/css/index.css">     
+	<script src="resources/js/index.js"></script> 
 </head>
 <body>
 
 <!-- Sidebar -->
 <div id="sidebar">
-	Includes chatrooms and friends list 
-</div>
 
-<!-- lower sidebar -->
-<div id="lowersidebar">
-	add new server or something 
-</div>
+	<!-- Title header -->
+	<div id="header">
+		<a href="#" id="title">Strife</a>
+	</div>
 
-<!-- Main content -->
-<div id="main">
-	chat
-	<!-- chat input content -->
-	<div id="chatinput">
-		chat input
+	<!-- Rooms & Friends -->
+	<div id="rooms">
+		<a href="#" class="room">
+			<div class="pic"></div>
+			<div class="title">M7011E</div>
+		</a>
+		<a href="#" class="room">
+			<div class="pic"></div>
+			<div class="title">D7013E</div>
+		</a>
+		<a href="#" class="room">
+			<div class="pic"></div>
+			<div class="title">Road to GE</div>
+		</a>
+		<a href="#" class="room">
+			<div class="pic"></div>
+			<div class="title">This is a example with a very long Room name!</div>
+		</a>
+	</div>
+	<hr>
+	<div id="friends">
+		<a href="#" class="friend">
+			<div class="pic"></div>
+			<div class="title">Henrik Nilsson Harnert</div>
+		</a>
+		<a href="#" class="friend">
+			<div class="pic"></div>
+			<div class="title">Anton Jerhamre</div>
+		</a>
+		<a href="#" class="friend">
+			<div class="pic"></div>
+			<div class="title">Lord Gaben</div>
+		</a>
+	</div>
+
+	<!-- lower sidebar -->
+	<div id="bottom">
+		<a href="#" id="new_server" class="new_server_and_friend">New Server</a>
+		<a href="#" id="new_friend" class="new_server_and_friend">New Friend</a>
 	</div>
 </div>
 
+<!-- Main content -->
+<div id="chat">
+	<!-- Top nav bar -->
+	<div id="navBar">
+		<nav>
+			<a href="#" class="navOption selected">Chat</a>
+			<a href="#" class="navOption">Scrum</a>
+			<a href="#" class="navOption">Files</a>
+			<a href="#" class="navOption">Settings</a>
+		</nav>
+	</div>
+	<!-- Messages -->
+	<div id="messageContainer">
+		
+		<div class="message">
+			<div class="text">This is a message</div>
+			<div class="timestamp">16:57</div>
+		</div>
+		
+		<div class="message">
+			<div class="text">This is another message</div>
+			<div class="timestamp">16:57</div>
+		</div>
+		
+		<div class="message">
+			<div class="text">And this is a completely different message</div>
+			<div class="timestamp">16:57</div>
+		</div>
+	</div>
+	<!-- chat input content -->
+	<div id="input">
+		<input id="message">
+		<img id="send" src="resources/images/send_message.png">
+	</div>
+</div>
 
-
+<script>
+onWindowResize();
+</script>
 </body>
 </html>

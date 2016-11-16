@@ -1,27 +1,90 @@
+body {
+	width: 100%;
+	padding: 0px;
+	margin: 0px;
+}
+a {
+	text-decoration: none;
+	display: inline-block;
+}
+a:hover {
+	text-decoration: none;
+}
+a:active {
+	text-decoration: none;
+}
 #chat {
-	margin-left:300px;
+	float: right;
 	height:100%; 
 	background-color: #ccc;
 }
-
-#input {
+#chat #navBar {
 	height: 50px;
+	background-color: #222;
+}
+#chat #navBar nav {
+	margin: 0 auto;
+
+}
+#chat #navBar nav .navOption {
+	text-decoration: none;
+	float: left;
+	color: white;
+	background-color: #555;
+	line-height: 30px;
+	margin: 10px 0px 10px 0px;
+	width: 80px;
+	text-align: center;
+    -webkit-transition: background-color 0.2s; /* For Safari 3.1 to 6.0 */
+    transition: background-color 0.2s;
+}
+#chat #navBar nav .navOption:hover {
+	background-color: #333;
+
+}
+#chat #navBar nav .navOption:active {
+	background-color: #444;
+
+}
+#chat #navBar nav .selected {
+	background-color: #777;
+}
+
+#chat #input {
 	width: 100%;
+	height: 50px;
 	position: fixed;
 	bottom: 0;
-	background-color: #c35;
+	background-color: #222;
 }
-#input #message {
+#chat #input #message {
 	float: left;
 	height: 50px;
+	font-size: 18px;
+	padding: 0px 10px 0px 10px; 
+	background-color: rgba(255,255,255, 0.2);
+	border: none; 
 }
-#chatinput #send {
+#chat #input #send {
 	float: right;
 	height: 50px;
 	width: 50px;
+    padding: 10px;
+    -webkit-transition: opacity 0.2s; /* For Safari 3.1 to 6.0 */
+    transition: opacity 0.2s;
+}
+#chat #input #send:hover {
+	opacity: 0.8;
+}
+#chat #input #send:active {
+	opacity: 0.5;
+
 }
 
-#sidebar{
+/*
+ *	Sidebar
+ */
+#sidebar {
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
@@ -31,15 +94,107 @@
 	overflow: auto;
 	background-color: #555555;
 	color: white;
+	float: left;
+}
+/*
+ *	Sidebar Title
+ */
+#sidebar #header {
+	padding: 10px;
+	height: 50px;
+	background-color: #222;
+	margin-bottom: 10px;
 }
 
-#lowersidebar{
+#sidebar #header #title {
+	font-size: 24px;
+	color: white;
+	text-decoration: none;
+}
+/*
+ *	Sidebar Rooms and Friends
+ */
+#sidebar #rooms, #sidebar #friends {
+	padding: 0px 10px 0px 10px;
+}
+#sidebar #rooms .room, #sidebar #friends .friend {
+	margin: 5px 0px 5px 0px;
+	height: 40px;
+	width: 100%;
+	clear: both;
+}
+#sidebar #rooms .room .pic, #sidebar #friends .friend .pic {
+	width: 40px;
+	height: 40px;
+	background-color: lightgreen;
+	border-radius: 20px;
+	float: left;
+	border: 2px solid #D3D3D3;
+    -webkit-transition: border 0.2s; /* For Safari 3.1 to 6.0 */
+    transition: border 0.2s;
+}
+#sidebar #rooms .room:hover .pic, #sidebar #friends .friend:hover .pic {
+	border: 2px solid #A9A9A9;
+}
+#sidebar #rooms .room:active .pic, #sidebar #friends .friend:active .pic {
+	border: 2px solid #696969;
+}
+#sidebar #rooms .room .title, #sidebar #friends .friend .title {
+	width: 230px;
+	line-height: 40px;
+	float: left;
+	margin-left: 10px;
+    -webkit-transition: color 0.2s; /* For Safari 3.1 to 6.0 */
+    transition: color 0.2s;
+	color: white;
+	white-space: nowrap;
+	overflow: hidden;
+    text-overflow: ellipsis;
+}
+#sidebar #rooms .room:hover .title, #sidebar #friends .friend:hover .title {
+	color: rgb(200, 200, 200);
+}
+#sidebar #rooms .room:active .title, #sidebar #friends .friend:active .title {
+	color: rgb(150, 150, 150);
+
+}
+#sidebar #rooms hr {
+	margin-top: 0px;
+}
+/*
+ *	Sidebar Bottom
+ */
+#sidebar #bottom {
 	list-style-type: none;
     padding: 0;
     width: 300px;
     position: fixed;
     bottom: 0;
     overflow: auto;
-	background-color: #555555;
+	widows: 300px;
 	color: white;
+}
+
+#sidebar #bottom .new_server_and_friend {
+	float: left;
+	background-color: #222;
+	padding: 0;
+	margin: 0;
+	line-height: 50px;
+	font-size: 18px;
+	width: 150px;
+	color: white;
+	text-align: center;
+    -webkit-transition: background-color 0.2s; /* For Safari 3.1 to 6.0 */
+    transition: background-color 0.2s;
+    -webkit-transition: font-size 0.2s; /* For Safari 3.1 to 6.0 */
+    transition: font-size 0.2s;
+}
+#sidebar #bottom .new_server_and_friend:hover {
+	background-color: #333;
+}
+#sidebar #bottom .new_server_and_friend:active {
+	background-color: #444;
+	font-size: 17px;
+
 }
