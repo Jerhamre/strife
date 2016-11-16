@@ -16,7 +16,7 @@ body {
 	width: 100%;
 	padding: 0px;
 	margin: 0px;
-	background-color: var(--color-gray);
+	background-color: var(--color-lightgray);
 }
 a {
 	text-decoration: none;
