@@ -1,7 +1,22 @@
 body {
+	--color-accent: #90ee90;;
+	--color-accent-hover: #81d681;
+	--color-accent-active: #73be73;
+	--color-dimdark: #111;;
+	--color-dark: #222;;
+	--color-lightdark: #333;
+	--color-dimgray: #444;
+	--color-gray: #555;
+	--color-lightgray: #666;
+	--color-dimwhite: #999;
+	--color-lightwhite: #ccc;
+	--color-white: #fff;
+
+
 	width: 100%;
 	padding: 0px;
 	margin: 0px;
+	background-color: var(--color-gray);
 }
 a {
 	text-decoration: none;
@@ -20,13 +35,12 @@ a:active {
 
 #navBar {
 	height: 50px;
-	background-color: #222;
+	background-color: var(--color-dimdark);
 	width: 100%;
 }
 #navBar #header {
 	padding: 10px;
 	height: 50px;
-	background-color: #222;
 	margin-bottom: 10px;
 	float: left;
 }
@@ -44,7 +58,7 @@ a:active {
 	text-decoration: none;
 	float: left;
 	color: white;
-	background-color: #555;
+	background-color: var(--color-lightgray);
 	line-height: 30px;
 	margin: 10px 0px 10px 0px;
 	width: 80px;
@@ -53,22 +67,22 @@ a:active {
     transition: background-color 0.2s;
 }
 #navBar nav .navOption:hover {
-	background-color: #333;
+	background-color: var(--color-gray);
 
 }
 #navBar nav .navOption:active {
-	background-color: #444;
+	background-color: var(--color-dimgray);
 
 }
 #navBar nav .selected {
-	background-color: lightgreen;
+	background-color: var(--color-accent);
 	color: black;
 }
 #navBar nav .selected:hover {
-	background-color: green;
+	background-color: var(--color-accent-hover);
 }
 #navBar nav .selected:active {
-	background-color: darkgreen;
+	background-color: var(--color-accent-active);
 }
 
 /*
@@ -77,22 +91,21 @@ a:active {
 
 #chat {
 	float: right;
-	height:100%; 
-	background-color: #ccc;
+	height: 100%;
 }
 #chat #input {
 	width: 100%;
 	height: 50px;
 	position: fixed;
 	bottom: 0;
-	background-color: #222;
+	background-color: var(--color-dimdark);
 }
 #chat #input #message {
 	float: left;
 	height: 50px;
 	font-size: 18px;
 	padding: 0px 10px 0px 10px; 
-	background-color: rgba(255,255,255, 0.2);
+	background-color: var(--color-dimgray);
 	border: none; 
 	color: white;
 }
@@ -101,14 +114,14 @@ a:active {
 	height: 50px;
 	width: 50px;
     padding: 10px;
-    -webkit-transition: opacity 0.2s; /* For Safari 3.1 to 6.0 */
-    transition: opacity 0.2s;
+    -webkit-transition: background-color 0.2s; /* For Safari 3.1 to 6.0 */
+    transition: background-color 0.2s;
 }
 #chat #input #send:hover {
-	opacity: 0.8;
+	background-color: var(--color-dark)
 }
 #chat #input #send:active {
-	opacity: 0.5;
+	background-color: var(--color-lightdark)
 }
 #chat #messages {}
 #chat #messages .messageContainer {
@@ -125,14 +138,13 @@ a:active {
 	height: 40px;
 	width: 40px;
 	border-radius: 20px;
-
-	background-color: #222;
+	background-color: var(--color-lightdark);
 }
 #chat #messages .messageContainer .message {
-	background-color: #222;
+	background-color: var(--color-lightdark);
 	padding: 5px 10px 5px 10px;
 	margin-left: 50px;
-	color: white;
+	color: var(--color-white);
 
 }
 #chat #messages .messageContainer .message .text {
@@ -155,7 +167,7 @@ a:active {
 	position: fixed;
 	height: 100%;
 	overflow: auto;
-	background-color: #555555;
+	background-color: var(--color-dimgray);
 	color: white;
 	float: left;
 }
@@ -180,15 +192,15 @@ a:active {
 	background-color: lightgreen;
 	border-radius: 20px;
 	float: left;
-	border: 2px solid #D3D3D3;
+	border: 2px solid var(--color-white);
     -webkit-transition: border 0.2s; /* For Safari 3.1 to 6.0 */
     transition: border 0.2s;
 }
 #sidebar #rooms .room:hover .pic, #sidebar #friends .friend:hover .pic {
-	border: 2px solid #A9A9A9;
+	border: 2px solid var(--color-lightwhite);
 }
 #sidebar #rooms .room:active .pic, #sidebar #friends .friend:active .pic {
-	border: 2px solid #696969;
+	border: 2px solid var(--color-dimwhite);
 }
 #sidebar #rooms .room .title, #sidebar #friends .friend .title {
 	width: 230px;
@@ -197,16 +209,16 @@ a:active {
 	margin-left: 10px;
     -webkit-transition: color 0.2s; /* For Safari 3.1 to 6.0 */
     transition: color 0.2s;
-	color: white;
+	color: var(--color-white);
 	white-space: nowrap;
 	overflow: hidden;
     text-overflow: ellipsis;
 }
 #sidebar #rooms .room:hover .title, #sidebar #friends .friend:hover .title {
-	color: rgb(200, 200, 200);
+	color: var(--color-lightwhite);
 }
 #sidebar #rooms .room:active .title, #sidebar #friends .friend:active .title {
-	color: rgb(150, 150, 150);
+	color: var(--color-dimwhite);
 
 }
 #sidebar #rooms hr {
@@ -228,7 +240,7 @@ a:active {
 
 #sidebar #bottom .new_server_and_friend {
 	float: left;
-	background-color: #222;
+	background-color: var(--color-dimdark);
 	padding: 0;
 	margin: 0;
 	line-height: 50px;
@@ -238,14 +250,10 @@ a:active {
 	text-align: center;
     -webkit-transition: background-color 0.2s; /* For Safari 3.1 to 6.0 */
     transition: background-color 0.2s;
-    -webkit-transition: font-size 0.2s; /* For Safari 3.1 to 6.0 */
-    transition: font-size 0.2s;
 }
 #sidebar #bottom .new_server_and_friend:hover {
-	background-color: #333;
+	background-color: var(--color-dark);
 }
 #sidebar #bottom .new_server_and_friend:active {
-	background-color: #444;
-	font-size: 17px;
-
+	background-color: var(--color-lightdark);
 }
