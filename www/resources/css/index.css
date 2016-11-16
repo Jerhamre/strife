@@ -61,7 +61,14 @@ a:active {
 
 }
 #navBar nav .selected {
-	background-color: #777;
+	background-color: lightgreen;
+	color: black;
+}
+#navBar nav .selected:hover {
+	background-color: green;
+}
+#navBar nav .selected:active {
+	background-color: darkgreen;
 }
 
 /*
