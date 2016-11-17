@@ -18,8 +18,8 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 // start server
 const PORT=8080; 
 
-db = null;
-user = null;
+var db = null;
+var user = null;
 
 function startServer(db_in, user_in) {
 
