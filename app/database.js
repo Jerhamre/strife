@@ -24,11 +24,13 @@ function connectToDB() {
 
 }
 
-function query(sql, fields) {
+function query(sql, data) {
 
 	connection.connect();
 
-	connection.query(sql, function(err, rows, fields) {
+	// secure sql vs injection
+
+	connection.query(sql, data, function(err, rows, fields) {
 	  if (err) throw err;
 
 	  console.log('sql query returned: ', rows);
