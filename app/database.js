@@ -41,13 +41,14 @@ function query(sql, data) {
 
 	var rs = null
 
-	connection.query(sql, data, function(err, rows, fields) {
+	var test = connection.query(sql, data, function(err, rows, fields) {
 	  if (err) throw err;
 
 	  console.log('Database query returned: ', rows);
 	  rs = rows;
 	});
 
+	console.log(test)
 	//connection.end()
 	if (rs == null)
 		return;

@@ -59,10 +59,8 @@ app.post('/login', function (req, res) {
     var email = req.body.email
     var password = req.body.psw
 
-
-
     user.login(email, password, session.user_id)
-    
+
     if(session.user_id) {
         res.redirect('/');
     } else {
