@@ -37,6 +37,6 @@ function query(sql, fields) {
 	connection.end();
 
 	return rows;
-
 }
 
+module.exports.query = query

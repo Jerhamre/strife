@@ -2,19 +2,37 @@ var express = require('express')
 var path = require('path');
 var app = express()
 var session = require('express-session')
+var bodyParser = require('body-parser')
 
 // app settings
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, '/../www')));
 app.set('views', path.join(__dirname, '/../www'));
+app.use( bodyParser.json() );       // to support JSON-encoded bodies
+app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+  extended: true
+})); 
 //app.use(express.cookieParser());
 //app.use(express.session({secret: 'strife12345topkekofdoom666'}));
 
 // start server
 const PORT=8080; 
-app.listen(PORT, function () {
-  console.log('Example app listening on port ' + PORT + '!')
-})
+
+function startServer(db, user) {
+
+    this.db     = db
+    this.user   = user
+
+    user.register("email", "fname", "lname", "password")
+    this.user.register("email", "fname", "lname", "password")
+
+    this.db.test()
+
+
+    app.listen(PORT, function () {
+      console.log('Example app listening on port ' + PORT + '!')
+    })
+}
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
@@ -38,6 +56,9 @@ app.get('/login', function (req, res) {
 })
 
 app.post('/login', function (req, res) {
+    var email = req.body.email
+    var password = req.body.psw
+
     session.user_id = 1
     if(session.user_id) {
         res.redirect('/');
@@ -51,6 +72,15 @@ app.get('/register', function (req, res) {
 })
 
 app.post('/register', function (req, res) {
+    var email = req.body.email
+    var fname = req.body.fname
+    var lname = req.body.lname
+    var psw = req.body.psw
+    var confirmpsw = req.body.confirmpsw
+
+    if (psw != confirmpsw)
+        res.redirect('/register');
+
     // register user
     res.redirect('/');
 })
@@ -73,3 +103,6 @@ app.use(function(req, res) {
 app.use(function(error, req, res, next) {
     res.status(500).send('500: Internal Server Error')
 });
+
+
+module.exports.startServer = startServer

@@ -4,18 +4,29 @@ function User(db) {
 	this.db = db;
 };
 
-User.prototype.login = function() {
-	
+User.prototype.login = function(email, password) {
+
+	var sql = 'SELECT * FROM users WHERE email=?;'
+	/*
+	var rs = this.db.query(sql, [email])
+	console.log(rs)
+
+	// hash password and compare
+
+	*/
 };
 
 User.prototype.register = function(email, fname, lname, password) {
 	
 	var salt = crypto.randomBytes(64).toString('base64');
+	var hash = crypto.createHmac('sha256', password).update(salt).digest('hex');
 
-	var sql = 'INSERT INTO users (email, fname, lname, password, salt) VALUES (?, ?, ?, ?, ' + salt + ');'
+	var sql = 'INSERT INTO users (email, fname, lname, password, salt) VALUES (?, ?, ?, ' + hash + ', ' + salt + ');'
 
 	console.log(sql)
-	//this.db.query(sql, [email, fname, lname, password])
+	console.log(hash)
+
+	this.db.query(sql, [email, fname, lname])
 };
 
-module.exports.User 	= User
+module.exports.User = User
