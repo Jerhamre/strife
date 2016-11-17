@@ -24,15 +24,13 @@ function connectToDB() {
 	  database : 'strife_db'
 	});
 
-	/*connection.connect(function(err) {
+	connection.connect(function(err) {
 		if (err) {
 			console.error('error connecting: ' + err.stack);
 			return;
 		}
 		console.log('connected as id ' + connection.threadId);
-	});*/
-
-	connection.connect();
+	});
 
 	connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
 	  if (err) throw err;
@@ -46,12 +44,11 @@ function connectToDB() {
 	  console.log('Users: ', rows);
 	});
 
-	connection.end();
 }
 
 function query(sql, data) {
 
-	connection.connect();
+	//connection.connect();
 
 	// secure sql vs injection
 
@@ -59,9 +56,11 @@ function query(sql, data) {
 
 	connection.query(sql, data, function(err, rows, fields) {
 	  if (err) throw err;
+
+	  console.log('Database query returned: ', rows);
 	});
 
-	connection.end()
+	//connection.end()
 	if (rows == null)
 		return;
 	return rows;
