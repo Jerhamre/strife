@@ -23,12 +23,6 @@ function startServer(db, user) {
     this.db     = db
     this.user   = user
 
-    user.register("email", "fname", "lname", "password")
-    this.user.register("email", "fname", "lname", "password")
-
-    this.db.test()
-
-
     app.listen(PORT, function () {
       console.log('Example app listening on port ' + PORT + '!')
     })
@@ -72,14 +66,19 @@ app.get('/register', function (req, res) {
 })
 
 app.post('/register', function (req, res) {
+
     var email = req.body.email
     var fname = req.body.fname
     var lname = req.body.lname
-    var psw = req.body.psw
-    var confirmpsw = req.body.confirmpsw
+    var password = req.body.password
+    var confirmpassword = req.body.confirmpassword
 
-    if (psw != confirmpsw)
+    // control so that email is email
+    
+    if (password != confirmpassword)
         res.redirect('/register');
+
+    this.user.register(email, fname, lname, password)
 
     // register user
     res.redirect('/');
