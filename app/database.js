@@ -12,9 +12,11 @@ fs.readFile('./password', 'utf8', function (err,data) {
 
 var mysql      = require('mysql');
 
+var connection = null;
+
 function connectToDB() {
 
-	var connection = mysql.createConnection({
+	connection = mysql.createConnection({
 	  host     : '127.0.0.1',
 	  port     : '3306',
 	  user     : 'strife',
