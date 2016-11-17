@@ -40,10 +40,6 @@ function connectToDB() {
 	  console.log('The solution is: ', rows[0].solution);
 	});
 
-	connection.end();
-
-	connection.connect();
-
 	connection.query('SELECT * FROM users WHERE 1;', function(err, rows, fields) {
 	  if (err) throw err;
 
