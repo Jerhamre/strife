@@ -74,7 +74,7 @@ app.post('/register', function (req, res) {
     var confirmpassword = req.body.confirmpassword
 
     // control so that email is email
-    
+
     if (password != confirmpassword)
         res.redirect('/register');
 
@@ -100,7 +100,7 @@ app.use(function(req, res) {
 
 // Handle 500
 app.use(function(error, req, res, next) {
-    res.status(500).send('500: Internal Server Error')
+    res.status(500).send('500: Internal Server Error\n ' + error)
 });
 
 
