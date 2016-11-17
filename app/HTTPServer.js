@@ -53,10 +53,16 @@ app.get('/login', function (req, res) {
 })
 
 app.post('/login', function (req, res) {
+
+    console.log(req.body)
+
     var email = req.body.email
     var password = req.body.psw
 
-    session.user_id = 1
+
+
+    user.login(email, password, session.user_id)
+    
     if(session.user_id) {
         res.redirect('/');
     } else {
@@ -80,13 +86,6 @@ app.post('/register', function (req, res) {
 
     if (password != confirmpassword)
         res.redirect('/register');
-
-    console.log(email)
-    console.log(fname)
-    console.log(lname)
-    console.log(password)
-    console.log(confirmpassword)
-    console.log(req.body)
 
     user.register(email, fname, lname, password)
 

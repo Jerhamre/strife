@@ -41,12 +41,11 @@ function query(sql, data) {
 
 	connection.query(sql, data, function(err, rows, fields) {
 	  if (err) throw err;
-
-	  console.log('sql query returned: ', rows);
 	});
 
 	//connection.end();
-
+	if (rows == null)
+		return;
 	return rows;
 }
 
