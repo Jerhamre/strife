@@ -31,19 +31,6 @@ function connectToDB() {
 		}
 		console.log('connected as id ' + connection.threadId);
 	});
-
-	connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
-	  if (err) throw err;
-
-	  console.log('The solution is: ', rows[0].solution);
-	});
-
-	connection.query('SELECT * FROM users WHERE 1;', function(err, rows, fields) {
-	  if (err) throw err;
-
-	  console.log('Users: ', rows);
-	});
-
 }
 
 function query(sql, data) {
@@ -52,18 +39,19 @@ function query(sql, data) {
 
 	// secure sql vs injection
 
-	var rows = null
+	var rs = null
 
 	connection.query(sql, data, function(err, rows, fields) {
 	  if (err) throw err;
 
 	  console.log('Database query returned: ', rows);
+	  rs = rows;
 	});
 
 	//connection.end()
-	if (rows == null)
+	if (rs == null)
 		return;
-	return rows;
+	return rs;
 }
 
 module.exports.query = query
