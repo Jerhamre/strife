@@ -18,10 +18,13 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 // start server
 const PORT=8080; 
 
-function startServer(db, user) {
+db = null;
+user = null;
 
-    this.db     = db
-    this.user   = user
+function startServer(db_in, user_in) {
+
+    db     = db_in
+    user   = user_in
 
     app.listen(PORT, function () {
       console.log('Example app listening on port ' + PORT + '!')
@@ -78,7 +81,7 @@ app.post('/register', function (req, res) {
     if (password != confirmpassword)
         res.redirect('/register');
 
-    this.user.register(email, fname, lname, password)
+    user.register(email, fname, lname, password)
 
     // register user
     res.redirect('/');
