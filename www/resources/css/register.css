@@ -6,10 +6,10 @@ body {
     background-size: cover;
 }
 
-#login {
+#register {
     border-radius: 15px;
     width: 400px;
-    height: 300px;
+    height: 400px;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -18,18 +18,18 @@ body {
     background-color: rgba(255, 255, 255, 0.8);
     box-shadow: 1px 1px 3px rgba(180, 180, 180, 1);
 }
-#login h1 {
+#register h1 {
     text-align: center;
 
 }
 
-#login input {
+#register input {
     margin: 0px 25px 0px 25px;
     width: 350px;
     height: 40px;
     padding: 0px 5px 0px 5px;
 }
-#login input[type="submit"] {
+#register input[type="submit"] {
     background-color: #555555; 
     border: none;
     color: white;
@@ -42,7 +42,7 @@ body {
     cursor: pointer;
     height: 80px;
 }
-#login #register_and_about {
+#register #register_and_about {
     margin: 10px;
     text-align: center;
 }
