@@ -35,7 +35,7 @@ function connectToDB() {
 
 function query(sql, data) {
 
-	connection.connect();
+	//connection.connect();
 
 	// secure sql vs injection
 
@@ -45,7 +45,7 @@ function query(sql, data) {
 	  console.log('sql query returned: ', rows);
 	});
 
-	connection.end();
+	//connection.end();
 
 	return rows;
 }
