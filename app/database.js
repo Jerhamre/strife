@@ -24,26 +24,28 @@ function connectToDB() {
 	  database : 'strife_db'
 	});
 
-	connection.connect(function(err) {
+	/*connection.connect(function(err) {
 		if (err) {
 			console.error('error connecting: ' + err.stack);
 			return;
 		}
 		console.log('connected as id ' + connection.threadId);
-	});
+	});*/
 }
 
 function query(sql, data) {
 
-	//connection.connect();
+	connection.connect();
 
 	// secure sql vs injection
+
+	var rows = null
 
 	connection.query(sql, data, function(err, rows, fields) {
 	  if (err) throw err;
 	});
 
-	//connection.end();
+	connection.end()
 	if (rows == null)
 		return;
 	return rows;
