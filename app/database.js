@@ -41,6 +41,16 @@ function connectToDB() {
 	});
 
 	connection.end();
+
+	connection.connect();
+
+	connection.query('SELECT * FROM users WHERE 1;', function(err, rows, fields) {
+	  if (err) throw err;
+
+	  console.log('Users: ', rows);
+	});
+
+	connection.end();
 }
 
 function query(sql, data) {
