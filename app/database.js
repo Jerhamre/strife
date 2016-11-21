@@ -45,14 +45,9 @@ function query(sql, data) {
 	  if (err) throw err;
 
 	  console.log('Database query returned: ', rows);
-	  rs = rows;
-	  return rows;
 	});
 
 	//connection.end()
-	if (rs == null)
-		return;
-	return rs;
 }
 
 module.exports.query = query
