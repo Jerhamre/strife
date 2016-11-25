@@ -41,14 +41,14 @@ function query(callback, sql, data) {
 		console.log("query done, handle result")
 		if (err) {
 			console.log('Database query returned error: ', rows);
-			if typeof callback === "function"
+			if (typeof callback === "function")
 				return callback(err, null);
         }
 
         json = JSON.stringify(rows);
         console.log('JSON-result:', json);
 
-		if typeof callback === "function"
+		if (typeof callback === "function")
 			callback(null, json);
 	});
 }
