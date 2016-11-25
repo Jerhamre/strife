@@ -94,9 +94,10 @@ function doQuery(callback, sql, data) {
 
 	connection.query(sql, data, function(err, rows, fields) {
 		console.log("query done, handle result")
-		if (err)
+		if (err) {
 			console.log('Database query returned error: ', rows);
             return callback(err, null);
+        }
 
 
         console.log('The query-result is: ', results[0]);
