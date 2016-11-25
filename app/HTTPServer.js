@@ -35,7 +35,7 @@ function startServer(db_in, user_in) {
 
     db     = db_in
     user   = user_in
-
+    
     var server = https.createServer(options, app).listen(port, function(){
         console.log("Express server listening on port " + port);
     });
