@@ -134,9 +134,12 @@ app.post('/api', function (req, res) {
 
     var method = json['method'];
 
-    if(!method)
+    if(!method){
         return;
-
+    }
+    if(method == 'getFriends'){
+        return user.getFriends(res);
+    }
     return 'OK';
 })
 

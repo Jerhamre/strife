@@ -48,4 +48,26 @@ User.prototype.register = function(email, fname, lname, password) {
 	db.query(sql, [email, fname, lname, hash, salt])
 };
 
+user.prototype.getFriends = function(idusers, res) {
+
+	var sql = 'SELECT * FROM users_has_users WHERE users_idusers=?;'
+
+	var callback = function(err, result) {
+
+		console.log("getFriends")
+        
+
+       
+    };
+
+	db.query(callback, sql, [idusers])
+
+};
+
 module.exports.User = User
+
+
+
+
+
+
