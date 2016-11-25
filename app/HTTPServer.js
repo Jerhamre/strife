@@ -61,11 +61,11 @@ app.post('/login', function (req, res) {
 
     user.login(email, password, session.user_id, res)
 
-    if(session.user_id) {
+    /*if(session.user_id) {
         res.redirect('/');
     } else {
         res.render('login')
-    }
+    }*/
 })
 
 app.get('/register', function (req, res) {
