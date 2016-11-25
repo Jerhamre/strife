@@ -16,11 +16,10 @@ User.prototype.login = function(email, password, user_session) {
         console.log('err:', err);
         console.log('json:', result);
 
-        result = JSON.parse(result);
+        result = JSON.parse(result)[0];
 
         console.log(result);
-        console.log(result[0]);
-        console.log(result[0]['salt']);
+        console.log(result['salt']);
 
         var salt = result['salt'];
 
