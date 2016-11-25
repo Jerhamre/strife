@@ -42,8 +42,21 @@ function query(sql, data) {
 	var rs = null
 
 	var query = connection.query(sql, data, function(err, rows, fields) {
-	  if (err) throw err;
-	console.log('Database query returned: ', rows);
+		if (err)
+			console.log('Database query returned: ', rows);
+            return callback(err, null);
+
+        console.log('The query-result is: ', results[0]);
+
+        // wrap result-set as json
+        json = JSON.stringify(results);
+
+        /***************
+        * Correction 2: Nest the callback correctly!
+        ***************/
+        connection.end();
+        console.log('JSON-result:', json);
+        callback(null, json);
 	});
 
 	query.on('error', function(err) {
