@@ -6,13 +6,10 @@ var path        = require('path')
 var session     = require('express-session')
 var bodyParser  = require('body-parser')
 
-
-var privateKey  = fs.readFileSync('/etc/letsencrypt/live/cloud-59.skelabb.ltu.se/privkey.pem').toString();
-var certificate = fs.readFileSync('/etc/letsencrypt/live/cloud-59.skelabb.ltu.se/cert.pem').toString(); 
-
 var options = {
-    key: privateKey,
-    cert: certificate,
+    key: fs.readFileSync('/etc/letsencrypt/live/cloud-59.skelabb.ltu.se/privkey.pem'),
+    cert: fs.readFileSync('/etc/letsencrypt/live/cloud-59.skelabb.ltu.se/fullchain.pem'),
+    ca: fs.readFileSync('/etc/letsencrypt/live/cloud-59.skelabb.ltu.se/chain.pem')
 };
 
 var app = express()
