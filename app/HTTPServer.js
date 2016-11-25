@@ -8,7 +8,7 @@ var bodyParser  = require('body-parser')
 
 var options = {
     key: fs.readFileSync('/etc/letsencrypt/live/cloud-59.skelabb.ltu.se/privkey.pem'),
-    cert: fs.readFileSync('/etc/letsencrypt/live/cloud-59.skelabb.ltu.se/fullchain.pem'),
+    cert: fs.readFileSync('/etc/letsencrypt/live/cloud-59.skelabb.ltu.se/cert.pem'),
     ca: fs.readFileSync('/etc/letsencrypt/live/cloud-59.skelabb.ltu.se/chain.pem')
 };
 
