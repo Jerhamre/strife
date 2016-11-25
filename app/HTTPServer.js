@@ -16,7 +16,7 @@ app.use( bodyParser.json() );       // to support JSON-encoded bodies
 //app.use(express.session({secret: 'strife12345topkekofdoom666'}));
 
 // start server
-const PORT=8080; 
+const PORT=80; 
 
 var db = null;
 var user = null;
@@ -108,6 +108,21 @@ app.use(function(req, res) {
 app.use(function(error, req, res, next) {
     res.status(500).send('500: Internal Server Error\n ' + error)
 });
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+app.post('/api', function (req, res) {
+    var json = JSON.parse(req.body);
+
+    var method = json['method'];
+
+    if(!method)
+        return;
+
+    return 'OK';
+})
+
 
 
 module.exports.startServer = startServer

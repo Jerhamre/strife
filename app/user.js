@@ -14,19 +14,11 @@ User.prototype.login = function(email, password, res) {
 
 	var callback = function(err, result) {
 
-		console.log("this is in User-Login")
-        console.log('err:', err);
-        console.log('json:', result);
+		console.log("Login")
 
         result = JSON.parse(result)[0];
 
-        console.log(result);
-        console.log(result['salt']);
-
         var salt = result['salt'];
-
-        console.log('salt: ' + salt);
-        console.log('password input: ' + password);
 
 		var hash = crypto.createHmac('sha256', password).update(salt).digest('hex');
 
