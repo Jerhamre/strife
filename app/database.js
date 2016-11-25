@@ -44,7 +44,20 @@ function query(sql, data) {
 	connection.query(sql, data, function(err, rows, fields) {
 	  if (err) throw err;
 
-	  console.log('Database query returned: ', rows);
+
+	query.on('error', function(err) {
+    	throw err;
+	});
+ 
+	query.on('fields', function(fields) {
+  	  console.log(fields);
+	});
+ 
+	query.on('result', function(row) {
+	    console.log(row.post_title);
+	});
+
+	console.log('Database query returned: ', rows);
 	});
 
 	//connection.end()
