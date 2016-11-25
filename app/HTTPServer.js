@@ -65,6 +65,9 @@ function setSessionUserID(user_id, next_page, res) {
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
+app.get("*", function (req, res, next) {
+    res.redirect("https://" + req.headers.host + "/" + req.path);
+});
 
 app.get('/', checkAuth, function (req, res) {
     res.render('index', { temp : 'ITS OVER 9000!!!!' })
