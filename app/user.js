@@ -10,14 +10,20 @@ User.prototype.login = function(email, password, user_session) {
 
 	var sql = 'SELECT * FROM users WHERE email=?;'
 	
-	var rs = db.query(sql, [email])
-	
-	console.log(rs)
 
-	// hash password and compare
+	var callback = function(err, result) {
+		console.log("this is in User-Login")
+        console.log('err:', err);
+        console.log('json:', result);
 
-	
+		// hash password and compare
+    };
+
+	db.query(callback, sql, [email])
+
 };
+
+
 
 User.prototype.register = function(email, fname, lname, password) {
 	
