@@ -89,8 +89,6 @@ function query(sql, data) {
 }
 
 function doQuery(callback, sql, data) {
-	
-	connection.connect();
 
 	console.log("connected to DB, doing query now")
 
