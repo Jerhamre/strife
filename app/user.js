@@ -10,12 +10,12 @@ User.prototype.login = function(email, password, user_session) {
 
 	var sql = 'SELECT * FROM users WHERE email=?;'
 
-	var test = 'qwe'
+	var password = password
 	
 
 	var callback = function(err, result) {
 
-		console.log(test);
+		console.log(password);
 		
 		console.log("this is in User-Login")
         console.log('err:', err);
