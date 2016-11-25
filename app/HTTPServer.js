@@ -142,12 +142,13 @@ app.post('/api', function (req, res) {
     var json = JSON.parse(req.body);
 
     var method = json['method'];
+    var useridtest = 2; // for testing
 
     if(!method){
         return;
     }
     if(method == 'getFriends'){
-        return user.getFriends(res);
+        return user.getFriends(useridtest, res);
     }
     return 'OK';
 })
