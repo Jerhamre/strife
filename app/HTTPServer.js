@@ -61,7 +61,7 @@ app.post('/login', function (req, res) {
 
     user.login(email, password, session.user_id)
 
-    session.user_id = 1;
+    //session.user_id = 1;
 
     if(session.user_id) {
         res.redirect('/');

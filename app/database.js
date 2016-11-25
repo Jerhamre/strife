@@ -89,10 +89,17 @@ function query(sql, data) {
 }
 
 function doQuery(callback, sql, data) {
+	
+	connection.connect();
+
+	console.log("connected to DB, doing query now")
+
 	connection.query(sql, data, function(err, rows, fields) {
+		console.log("query done, handle result")
 		if (err)
-			console.log('Database query returned: ', rows);
+			console.log('Database query returned error: ', rows);
             return callback(err, null);
+
 
         console.log('The query-result is: ', results[0]);
 
