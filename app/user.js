@@ -6,7 +6,7 @@ function User(db_in) {
 	db = db_in;
 };
 
-User.prototype.login = function(email, password, user_session) {
+User.prototype.login = function(email, password, session_user_id, res) {
 
 	var sql = 'SELECT * FROM users WHERE email=?;'	
 
@@ -32,7 +32,13 @@ User.prototype.login = function(email, password, user_session) {
 		console.log('pass: ' + result['password']);
 
 		if(hash == result['password'])
-			user_session.user_id = 1;
+			session_user_id = 1;
+
+		if(session_user_id) {
+	        res.redirect('/');
+	    } else {
+	        res.render('login')
+	    }
     };
 
 	db.query(callback, sql, [email])
