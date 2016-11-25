@@ -64,7 +64,7 @@ app.post('/login', function (req, res) {
     var email = req.body.email
     var password = req.body.password
 
-    user.login(email, password, session.user_id, res)
+    user.login(email, password, res)
 })
 
 app.get('/register', function (req, res) {
