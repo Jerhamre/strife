@@ -8,7 +8,7 @@ function User(db_in, server_in) {
 	server = server_in;
 };
 
-User.prototype.login = function(email, password, session_user_id, res) {
+User.prototype.login = function(email, password, res) {
 
 	var sql = 'SELECT * FROM users WHERE email=?;'	
 
@@ -34,9 +34,9 @@ User.prototype.login = function(email, password, session_user_id, res) {
 		console.log('pass: ' + result['password']);
 
 		if(hash == result['password']) {
-			server.setSessionUserID(result['idusers'], '/')
+			server.setSessionUserID(result['idusers'], '/', res)
 		} else {
-			server.setSessionUserID(null, '/login')
+			server.setSessionUserID(null, '/login', res)
 		}
     };
 

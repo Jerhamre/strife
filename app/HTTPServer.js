@@ -41,7 +41,7 @@ function checkAuth(req, res, next) {
     }
 }
 
-function setSessionUserID(user_id, next_page) {
+function setSessionUserID(user_id, next_page, res) {
     session.user_id = user_id;
     res.redirect(next_page);
 }
