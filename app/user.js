@@ -8,15 +8,12 @@ function User(db_in) {
 
 User.prototype.login = function(email, password, user_session) {
 
-	var sql = 'SELECT * FROM users WHERE email=?;'
-
-	var password = password
-	
+	var sql = 'SELECT * FROM users WHERE email=?;'	
 
 	var callback = function(err, result) {
 
 		console.log(password);
-		
+
 		console.log("this is in User-Login")
         console.log('err:', err);
         console.log('json:', result);
