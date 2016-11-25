@@ -33,6 +33,7 @@ User.prototype.login = function(email, password, session_user_id, res) {
 
 		if(hash == result['password'])
 			session_user_id = 1;
+		console.log('session_user_id = 1 ');
 
 		if(session_user_id) {
 	        res.redirect('/');
