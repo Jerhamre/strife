@@ -16,7 +16,9 @@ User.prototype.login = function(email, password, user_session) {
         console.log('err:', err);
         console.log('json:', result);
 
-        var salt = result['salt']
+        var salt = result['salt'];
+
+        console.log('salt: ' + salt);
 
 		var hash = crypto.createHmac('sha256', password).update(salt).digest('hex');
 
