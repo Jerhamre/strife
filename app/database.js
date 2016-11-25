@@ -79,6 +79,7 @@ function query(sql, data) {
             'Content-Type' : 'x-application/json'
         });*/
         console.log("OUR WANTED RESULT IS BELOW!?");
+        console.log('err:', err);
         console.log('json:', result);
         //res.end(result);
         return result;
