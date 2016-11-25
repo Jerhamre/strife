@@ -75,11 +75,13 @@ function query(sql, data) {
 
 
 	var callback = function(err, result) {
-        res.writeHead(200, {
+        /*res.writeHead(200, {
             'Content-Type' : 'x-application/json'
-        });
+        });*/
+        console.log("OUR WANTED RESULT IS BELOW!?");
         console.log('json:', result);
-        res.end(result);
+        //res.end(result);
+        return result;
     };
 
     doQuery(callback, sql, data);
