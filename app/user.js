@@ -16,7 +16,8 @@ User.prototype.login = function(email, password, user_session) {
         console.log('err:', err);
         console.log('json:', result);
 
-        result = JSON.parse(result);
+        //result = JSON.parse(result);
+        result = result[0];
 
         var salt = result['salt'];
 
