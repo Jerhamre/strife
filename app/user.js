@@ -24,11 +24,12 @@ User.prototype.login = function(email, password, user_session) {
         var salt = result['salt'];
 
         console.log('salt: ' + salt);
+        console.log('password input: ' + password);
 
 		var hash = crypto.createHmac('sha256', password).update(salt).digest('hex');
 
 		console.log('hash: ' + hash);
-		console.log('pass: ' + password);
+		console.log('pass: ' + result['password']);
 
 		if(hash == result['password'])
 			session.user_id = 1;
