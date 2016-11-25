@@ -1,9 +1,11 @@
 var crypto = require('crypto')
 
 var db = null;
+var server = null;
 
-function User(db_in) {
+function User(db_in, server_in) {
 	db = db_in;
+	server = server_in;
 };
 
 User.prototype.login = function(email, password, session_user_id, res) {
@@ -31,14 +33,11 @@ User.prototype.login = function(email, password, session_user_id, res) {
 		console.log('hash: ' + hash);
 		console.log('pass: ' + result['password']);
 
-		if(hash == result['password'])
-			session_user_id = 1;
-
-		if(session_user_id) {
-	        res.redirect('/');
-	    } else {
-	        res.render('login')
-	    }
+		if(hash == result['password']) {
+			server.setSessionUserID(result['idusers'], '/')
+		} else {
+			server.setSessionUserID(null, '/login')
+		}
     };
 
 	db.query(callback, sql, [email])

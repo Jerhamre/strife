@@ -7,7 +7,7 @@ var db 		= require('./app/database')
 var user 	= require('./app/user')
 var server 	= require('./app/HTTPServer')
 
-user = new user.User(db)
+user = new user.User(db, server)
 
 server.startServer(db, user)
 

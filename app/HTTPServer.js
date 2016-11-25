@@ -41,6 +41,11 @@ function checkAuth(req, res, next) {
     }
 }
 
+function setSessionUserID(user_id, next_page) {
+    session.user_id = user_id;
+    res.redirect(next_page);
+}
+
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 
@@ -60,12 +65,6 @@ app.post('/login', function (req, res) {
     var password = req.body.password
 
     user.login(email, password, session.user_id, res)
-
-    /*if(session.user_id) {
-        res.redirect('/');
-    } else {
-        res.render('login')
-    }*/
 })
 
 app.get('/register', function (req, res) {
@@ -112,3 +111,4 @@ app.use(function(error, req, res, next) {
 
 
 module.exports.startServer = startServer
+module.exports.setSessionUserID = setSessionUserID
