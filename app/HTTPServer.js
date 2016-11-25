@@ -12,9 +12,6 @@ var options = {
     ca: fs.readFileSync('/etc/letsencrypt/live/cloud-59.skelabb.ltu.se/chain.pem')
 };
 
-var net=require('net');
-var handle=net.createServer().listen(80)
-
 var app = express()
 
 // app settings
@@ -40,10 +37,10 @@ function startServer(db_in, user_in) {
     db     = db_in
     user   = user_in
 
-    http.createServer(app).listen(handle, function(){
+    http.createServer(app).listen(port, function(){
         console.log("Express HTTP server listening on port " + port);
     });
-    https.createServer(options, app).listen(handle, function(){
+    https.createServer(options, app).listen(portSSL, function(){
         console.log("Express HTTPS server listening on port " + portSSL);
     });
     /*app.listen(PORT, function () {
