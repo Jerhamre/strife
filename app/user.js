@@ -16,6 +16,16 @@ User.prototype.login = function(email, password, user_session) {
         console.log('err:', err);
         console.log('json:', result);
 
+        var salt = result['salt']
+
+		var hash = crypto.createHmac('sha256', password).update(salt).digest('hex');
+
+		console.log('hash: ' + hash);
+		console.log('pass: ' + password);
+
+		if(hash == result['password'])
+			session.user_id = 1;
+
 		// hash password and compare
     };
 

@@ -41,12 +41,17 @@ function query(callback, sql, data) {
 		console.log("query done, handle result")
 		if (err) {
 			console.log('Database query returned error: ', rows);
+			if callback == null
+				return
             return callback(err, null);
         }
 
         json = JSON.stringify(rows);
         console.log('JSON-result:', json);
 
+		if callback == null
+			return
+        
         callback(null, json);
 	});
 }
