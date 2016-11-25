@@ -37,9 +37,9 @@ function startServer(db_in, user_in) {
     db     = db_in
     user   = user_in
 
-    http.createServer(app).listen(port, function(){
+    /*http.createServer(app).listen(port, function(){
         console.log("Express HTTP server listening on port " + port);
-    });
+    });*/
     https.createServer(options, app).listen(portSSL, function(){
         console.log("Express HTTPS server listening on port " + portSSL);
     });
