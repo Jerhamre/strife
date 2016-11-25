@@ -1,14 +1,21 @@
-var express = require('express')
-var fs = require('fs')
-var path = require('path')
-var session = require('express-session')
-var bodyParser = require('body-parser')
+var express     = require('express')
+var fs          = require('fs')
+var http        = require('http')
+var https       = require('https')
+var path        = require('path')
+var session     = require('express-session')
+var bodyParser  = require('body-parser')
 
 
-var privateKey = fs.readFileSync('/etc/letsencrypt/live/cloud-59.skelabb.ltu.se/privkey.pem').toString();
+var privateKey  = fs.readFileSync('/etc/letsencrypt/live/cloud-59.skelabb.ltu.se/privkey.pem').toString();
 var certificate = fs.readFileSync('/etc/letsencrypt/live/cloud-59.skelabb.ltu.se/cert.pem').toString(); 
 
-var app = module.exports = express.createServer({key: privateKey, cert: certificate});
+var options = {
+    key: privateKey,
+    cert: certificate,
+};
+
+var app = express()
 
 // app settings
 app.set('view engine', 'ejs');
@@ -22,7 +29,7 @@ app.use( bodyParser.json() );       // to support JSON-encoded bodies
 //app.use(express.session({secret: 'strife12345topkekofdoom666'}));
 
 // start server
-const PORT=80; 
+const port=80; 
 
 var db = null;
 var user = null;
@@ -32,9 +39,12 @@ function startServer(db_in, user_in) {
     db     = db_in
     user   = user_in
 
-    app.listen(PORT, function () {
+    var server = https.createServer(options, app).listen(port, function(){
+        console.log("Express server listening on port " + port);
+    });
+    /*app.listen(PORT, function () {
       console.log('Example app listening on port ' + PORT + '!')
-    })
+    })*/
 }
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
