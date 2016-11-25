@@ -26,7 +26,7 @@ app.use( bodyParser.json() );       // to support JSON-encoded bodies
 //app.use(express.session({secret: 'strife12345topkekofdoom666'}));
 
 // start server
-const port=80; 
+const port=443; 
 
 var db = null;
 var user = null;
@@ -35,7 +35,7 @@ function startServer(db_in, user_in) {
 
     db     = db_in
     user   = user_in
-    
+
     var server = https.createServer(options, app).listen(port, function(){
         console.log("Express server listening on port " + port);
     });
