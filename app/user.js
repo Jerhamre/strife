@@ -12,8 +12,6 @@ User.prototype.login = function(email, password, user_session) {
 
 	var callback = function(err, result) {
 
-		console.log(password);
-
 		console.log("this is in User-Login")
         console.log('err:', err);
         console.log('json:', result);
@@ -34,9 +32,7 @@ User.prototype.login = function(email, password, user_session) {
 		console.log('pass: ' + result['password']);
 
 		if(hash == result['password'])
-			session.user_id = 1;
-
-		// hash password and compare
+			user_session.user_id = 1;
     };
 
 	db.query(callback, sql, [email])
