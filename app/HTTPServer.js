@@ -12,6 +12,9 @@ var options = {
     ca: fs.readFileSync('/etc/letsencrypt/live/cloud-59.skelabb.ltu.se/chain.pem')
 };
 
+var net=require('net');
+var handle=net.createServer().listen(80)
+
 var app = express()
 
 // app settings
@@ -37,10 +40,10 @@ function startServer(db_in, user_in) {
     db     = db_in
     user   = user_in
 
-    /*http.createServer(app).listen(port, function(){
+    http.createServer(app).listen(handle, function(){
         console.log("Express HTTP server listening on port " + port);
-    });*/
-    https.createServer(options, app).listen(portSSL, function(){
+    });
+    https.createServer(options, app).listen(handle, function(){
         console.log("Express HTTPS server listening on port " + portSSL);
     });
     /*app.listen(PORT, function () {
@@ -65,15 +68,15 @@ function setSessionUserID(user_id, next_page, res) {
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-app.get("*", function (req, res, next) {
+/*app.get("*", function (req, res, next) {
     /*console.log("req.headers.host: " + req.headers.host)
     console.log("req.path: " + req.path)
     if(req.path == "/"){
         res.redirect("https://" + req.headers.host + req.path);
     } else { 
         res.redirect("https://" + req.headers.host + req.path);
-    }*/
-});
+    }
+});*/
 
 app.get('/', checkAuth, function (req, res) {
     res.render('index', { temp : 'ITS OVER 9000!!!!' })
