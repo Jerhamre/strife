@@ -66,10 +66,12 @@ function setSessionUserID(user_id, next_page, res) {
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 app.get("*", function (req, res, next) {
+    console.log("req.headers.host: " + req.headers.host)
+    console.log("req.path: " + req.path)
     if(req.path == "/"){
-        res.redirect("https://" + req.headers.host + "/");
+        //res.redirect("https://" + req.headers.host + "/");
     } else {
-        res.redirect("https://" + req.headers.host + "/" + req.path);
+        //res.redirect("https://" + req.headers.host + "/" + req.path);
     }
 });
 
