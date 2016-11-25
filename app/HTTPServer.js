@@ -69,9 +69,10 @@ app.get("*", function (req, res, next) {
     console.log("req.headers.host: " + req.headers.host)
     console.log("req.path: " + req.path)
     if(req.path == "/"){
-        //res.redirect("https://" + req.headers.host + "/");
+        //"https://" + 
+        res.redirect(req.headers.host + req.path);
     } else {
-        //res.redirect("https://" + req.headers.host + "/" + req.path);
+        res.redirect(req.headers.host + req.path);
     }
 });
 
