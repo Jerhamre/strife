@@ -18,15 +18,10 @@ User.prototype.login = function(email, password, res) {
 
         var user = JSON.parse(result)[0];
 
-        console.log(user)
-
         if(typeof user === 'undefined' || !user) {
-        	console.log("length 0")
 			server.setSessionUserID(null, '/login', res)
 			return
         }
-
-        console.log("length not 0")
 
         var salt = user['salt'];
 
@@ -40,7 +35,7 @@ User.prototype.login = function(email, password, res) {
 		} else {
 			server.setSessionUserID(null, '/login', res)
 		}
-		
+
 		return
     };
 
