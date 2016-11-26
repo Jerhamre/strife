@@ -64,7 +64,7 @@ function setSessionUserID(user_id, next_page, res) {
 }
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
- 
+
 app.use(function requireHTTPS(req, res, next) {
   if (!req.secure) {
     return res.redirect('https://' + req.headers.host + req.url);
@@ -137,14 +137,17 @@ app.use(function(error, req, res, next) {
 
 app.post('/api', function (req, res) {
     var json = JSON.parse(req.body);
+
     console.log(req.body);
+
+    console.log("api json: " + json)
     var method = json['method'];
     var useridtest = 2; // for testing
 
     if(!method){
         return;
     }
-    if(method == 'getFriends'){
+    if(method == 'getFriends') {
         return user.getFriends(useridtest, res);
     }
     return 'OK';
