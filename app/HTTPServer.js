@@ -122,17 +122,6 @@ app.get('/about', function (req, res) {
     res.render('about')
 })
 
-// Handle 404
-app.use(function(req, res) {
-    res.status(404).send('404: Page not Found')
-});
-
-// Handle 500
-app.use(function(error, req, res, next) {
-    res.status(500).send('500: Internal Server Error\n ' + error)
-});
-
-
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 /*
@@ -162,6 +151,17 @@ app.post('/api', function (req, res) {
     return 'OK';
 })
 
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+// Handle 404
+app.use(function(req, res) {
+    res.status(404).send('404: Page not Found')
+});
+
+// Handle 500
+app.use(function(error, req, res, next) {
+    res.status(500).send('500: Internal Server Error\n ' + error)
+});
 
 
 module.exports.startServer = startServer
