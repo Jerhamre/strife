@@ -20,7 +20,7 @@ function friendList(event){
     		document.getElementById("friends").innerHTML = this.responseText;
     	}
   	};
-  	xhttp.open("POST", "cloud-59.skelabb.ltu.se/api", jsontest);
+  	xhttp.open("POST", "/api", jsontest);
   	xhttp.send();
 
 }
