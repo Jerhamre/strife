@@ -13,7 +13,7 @@ function onWindowResize(event) {
 function friendList(event){
 	// request friendlist from server and prints the response in <div> friends </div>
 	var jsontest = {"getFriends":[{"method":"getFriends", "userid":"2"}]}
-
+	console.log("onload friendList");
 	var xhttp = new XMLHttpRequest();
   	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
