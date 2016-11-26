@@ -51,10 +51,11 @@ User.prototype.register = function(email, fname, lname, password) {
 User.prototype.getFriends = function(idusers, res) {
 
 	var sql = 'SELECT * FROM users_has_users WHERE users_idusers=?;'
-
+	console.log("-------------INSIDE-GET-FRIENDS--------------")
+	console.log("getFriends")
+	console.log(sql)
 	var callback = function(err, result) {
 
-		console.log("getFriends")
         
 
        
