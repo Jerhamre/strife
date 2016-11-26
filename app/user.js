@@ -18,6 +18,8 @@ User.prototype.login = function(email, password, res) {
 
         var user = JSON.parse(result)[0];
 
+        console.log(user)
+
         if(!Object.keys(user).length) {
         	console.log("length 0")
         	return
