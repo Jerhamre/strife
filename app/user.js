@@ -16,17 +16,24 @@ User.prototype.login = function(email, password, res) {
 
 		console.log("Login")
 
-        result = JSON.parse(result)[0];
+        var user = JSON.parse(result)[0];
 
-        var salt = result['salt'];
+        if(!Object.keys(user).length) {
+        	console.log("length 0")
+        	return
+        }
+
+        console.log("length not 0")
+
+        var salt = user['salt'];
 
 		var hash = crypto.createHmac('sha256', password).update(salt).digest('hex');
 
 		console.log('hash: ' + hash);
-		console.log('pass: ' + result['password']);
+		console.log('pass: ' + user['password']);
 
-		if(hash == result['password']) {
-			server.setSessionUserID(result['idusers'], '/', res)
+		if(hash == user['password']) {
+			server.setSessionUserID(user['idusers'], '/', res)
 		} else {
 			server.setSessionUserID(null, '/login', res)
 		}
