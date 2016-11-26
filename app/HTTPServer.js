@@ -64,16 +64,13 @@ function setSessionUserID(user_id, next_page, res) {
 }
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-/*app.get("*", function (req, res, next) {
-    /*console.log("req.headers.host: " + req.headers.host)
-    console.log("req.path: " + req.path)
-    if(req.path == "/"){
-        res.redirect("https://" + req.headers.host + req.path);
-    } else { 
-        res.redirect("https://" + req.headers.host + req.path);
-    }
-});*/
+ 
+app.use(function requireHTTPS(req, res, next) {
+  if (!req.secure) {
+    return res.redirect('https://' + req.headers.host + req.url);
+  }
+  next();
+})
 
 app.get('/', checkAuth, function (req, res) {
     res.render('index', { temp : 'ITS OVER 9000!!!!' })
