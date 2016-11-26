@@ -20,7 +20,7 @@ app.use(express.static(path.join(__dirname, '/../www')));
 app.set('views', path.join(__dirname, '/../www'));
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
-})); 
+}));
 app.use( bodyParser.json() );       // to support JSON-encoded bodies
 //app.use(express.cookieParser());
 //app.use(express.session({secret: 'strife12345topkekofdoom666'}));
