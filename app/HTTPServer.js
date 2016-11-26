@@ -137,7 +137,7 @@ app.use(function(error, req, res, next) {
 
 app.post('/api', function (req, res) {
     var json = JSON.parse(req.body);
-
+    console.log(req.body);
     var method = json['method'];
     var useridtest = 2; // for testing
 
