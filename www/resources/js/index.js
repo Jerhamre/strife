@@ -20,7 +20,7 @@ function friendList(event){
     		document.getElementById("friends").innerHTML = this.responseText;
     	}
   	};
-  	xhttp.open("POST", "/api", jsontest);
+  	xhttp.open("GET", "/api", jsontest);
   	xhttp.send();
 
 }
