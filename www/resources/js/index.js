@@ -1,5 +1,5 @@
 window.onresize = onWindowResize;
-document.getElementById("friends").onload = friendList();
+document.getElementById("friends").onload = function() {friendList()};
 
 
 function onWindowResize(event) {	
