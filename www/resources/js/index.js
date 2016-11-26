@@ -1,5 +1,6 @@
 window.onresize = onWindowResize;
-window.onload = friendList;
+document.getElementById("friends").onload = friendList();
+
 
 function onWindowResize(event) {	
 	var w = window.innerWidth;
