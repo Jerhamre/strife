@@ -20,9 +20,9 @@ User.prototype.login = function(email, password, res) {
 
         console.log(user)
 
-        if(user === null) {
+        if(typeof user === 'undefined' || !user) {
         	console.log("length 0")
-        	return
+			server.setSessionUserID(null, '/login', res)
         }
 
         console.log("length not 0")
