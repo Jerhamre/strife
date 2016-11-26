@@ -134,9 +134,12 @@ app.get('/about', function (req, res) {
 */
 
 app.post('/api', function (req, res) {
-    var json = JSON.parse(req.body);
+
+    console.log("api")
 
     console.log(req.body);
+    
+    var json = JSON.parse(req.body);
 
     console.log("api json: " + json)
     var method = json['method'];
