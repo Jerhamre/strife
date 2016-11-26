@@ -1,5 +1,4 @@
 window.onresize = onWindowResize;
-document.getElementById("friends").onload = function() {friendList()};
 
 
 function onWindowResize(event) {	
@@ -11,7 +10,7 @@ function onWindowResize(event) {
 	document.getElementById('message').style.width = (w - sidebarW - sidebarSendW) + 'px';
 };
 
-function friendList(event){
+window.onload = function friendList(){
 	// request friendlist from server and prints the response in <div> friends </div>
 	var jsontest = {"getFriends":[{"method":"getFriends", "userid":"2"}]}
 	console.log("onload friendList");
