@@ -20,7 +20,7 @@ User.prototype.login = function(email, password, res) {
 
         console.log(user)
 
-        if(!Object.keys(user).length) {
+        if(user === null) {
         	console.log("length 0")
         	return
         }
