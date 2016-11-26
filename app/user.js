@@ -23,6 +23,7 @@ User.prototype.login = function(email, password, res) {
         if(typeof user === 'undefined' || !user) {
         	console.log("length 0")
 			server.setSessionUserID(null, '/login', res)
+			return
         }
 
         console.log("length not 0")
@@ -39,6 +40,8 @@ User.prototype.login = function(email, password, res) {
 		} else {
 			server.setSessionUserID(null, '/login', res)
 		}
+		
+		return
     };
 
 	db.query(callback, sql, [email])
