@@ -135,7 +135,16 @@ app.use(function(error, req, res, next) {
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-app.get('/api', function (req, res) {
+/*
+
+{
+"method": "getFriends",
+"data": []
+}
+
+*/
+
+app.post('/api', function (req, res) {
     var json = JSON.parse(req.body);
 
     console.log(req.body);
