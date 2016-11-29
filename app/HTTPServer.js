@@ -136,11 +136,12 @@ app.get('/about', function (req, res) {
 app.post('/api', function (req, res) {
 
     json = req.body
-
+    console.log(req.body)
     try {
         JSON.parse(json);
     } catch (e) {
         console.log("/api not json body")
+
         return false;
     }
 
