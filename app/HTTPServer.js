@@ -137,6 +137,7 @@ app.post('/api', function (req, res) {
 
     json = req.body
     console.log(req.body)
+    console.log(req.body['test'])
     try {
         JSON.parse(json);
     } catch (e) {
