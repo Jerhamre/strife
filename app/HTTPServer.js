@@ -135,21 +135,21 @@ app.get('/about', function (req, res) {
 
 app.post('/api', function (req, res) {
 
-    console.log("api")
+    json = req.body
 
-    console.log(req.body);
-    
-    var json = JSON.parse(req.body);
+    if(typeof response != 'object') {
+        return "not json data"
+    }
 
     console.log("api json: " + json)
+    
     var method = json['method'];
-    var useridtest = 2; // for testing
 
     if(!method){
         return;
     }
     if(method == 'getFriends') {
-        return user.getFriends(useridtest, res);
+        return user.getFriends(session.user_id, res);
     }
     return 'OK';
 })
