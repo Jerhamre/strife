@@ -137,10 +137,13 @@ app.post('/api', function (req, res) {
 
     json = req.body
 
-    if(typeof response != 'object') {
-        console.log("not json data")
-        return "not json data"
+    try {
+        JSON.parse(json);
+    } catch (e) {
+        console.log("/api not json body")
+        return false;
     }
+
 
     console.log("api json: " + json)
     
