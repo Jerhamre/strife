@@ -54,7 +54,7 @@ User.prototype.register = function(email, fname, lname, password) {
 
 	var sql = 'INSERT INTO users (email, fname, lname, password, salt) VALUES (?, ?, ?, ?, ?);'
 
-	db.query(sql, [email, fname, lname, hash, salt])
+	db.query(null, sql, [email, fname, lname, hash, salt])
 };
 
 User.prototype.getFriends = function(idusers, res) {
