@@ -9,7 +9,7 @@ var user 	= require('./app/user')
 var server 	= require('./app/HTTPServer')
 
 api = new api.Api(db,server)
-user = new user.User(db, server)
+user = new user.User(db, server, api)
 
 server.startServer(db, user)
 

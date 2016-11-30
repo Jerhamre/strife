@@ -2,10 +2,12 @@ var crypto = require('crypto')
 
 var db = null;
 var server = null;
+var api = null;
 
-function User(db_in, server_in) {
+function User(db_in, server_in, api_in) {
 	db = db_in;
 	server = server_in;
+	api = api_in;
 };
 
 User.prototype.login = function(email, password, res) {
