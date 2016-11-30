@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<% include head %>
+	<% include resources/utilhtml/head %>
 	<link rel="stylesheet" type="text/css" href="resources/css/index.css">
 	<script src="resources/js/index.js"></script>
 </head>
 <body>
+
+<% include resources/utilhtml/modal %>
 
 <!-- Top nav bar -->
 <div id="navBar">
@@ -62,8 +64,8 @@
 
 	<!-- lower sidebar -->
 	<div id="bottom">
-		<a href="#" id="new_server" class="new_server_and_friend">New Server</a>
-		<a href="#" id="new_friend" class="new_server_and_friend">New Friend</a>
+		<div id="new_server" class="new_server_and_friend" onclick="click_handleservers()">Handle servers</div>
+		<div id="new_friend" class="new_server_and_friend" onclick="click_newfriend();">New friend</div>
 	</div>
 </div>
 
