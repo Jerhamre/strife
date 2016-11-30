@@ -132,7 +132,6 @@ app.post('/api', function (req, res) {
 
     json = req.body
     console.log(req.body)
-    console.log(req.body['test'])
  
 
     console.log("api json: " + json)
@@ -144,7 +143,7 @@ app.post('/api', function (req, res) {
     }
     console.log("method: " + method)
     if(method == 'getFriends') {
-        response.write(user.getFriends(session.user_id, res))
+        user.getFriends(session.user_id, res)
     }
     return 'OK';
 })
