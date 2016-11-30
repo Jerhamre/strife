@@ -64,13 +64,40 @@ User.prototype.getFriends = function(idusers, res) {
 	console.log("getFriends")
 	console.log(sql)
 
-	var callback = function(err, result,res) {
+	var callback = function(err, result) {
 		console.log(result)
+		getFriendsName(result['users_idusers1'],res)
+       
+    };
+
+	db.query(callback, sql, [idusers])
+
+
+
+
+};
+
+User.prototype.getFriendsName = function(idusers, res) {
+
+	var sql = 'SELECT * FROM users WHERE idusers=?;'
+	console.log("-------------INSIDE-GET-FRIENDS-NAME-------------")
+	console.log("getFriends")
+	console.log(sql)
+
+	var callback = function(err, result) {
+		console.log(result)
+
+		
+		db.query(callback, sql, [idusers])
+
         api.sendResponse(result,res)
        
     };
 
-	db.query(callback, sql, [idusers],res)
+	db.query(callback, sql, [idusers])
+
+
+
 
 };
 

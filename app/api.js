@@ -9,7 +9,7 @@ function Api(db_in, server_in) {
 
 Api.prototype.sendResponse = function(result, res) {
 
-	res.send(JSON.stringify(result));
+	res.send((result));
 
 };
 
