@@ -132,15 +132,7 @@ app.post('/api', function (req, res) {
 
     json = req.body
     console.log(req.body)
-    console.log(req.body['test'])
-    try {
-        JSON.parse(json);
-    } catch (e) {
-        console.log("/api not json body")
-
-        return false;
-    }
-
+ 
 
     console.log("api json: " + json)
     
@@ -149,8 +141,9 @@ app.post('/api', function (req, res) {
     if(!method){
         return;
     }
+    console.log("method: " + method)
     if(method == 'getFriends') {
-        return user.getFriends(session.user_id, res);
+        user.getFriends(session.user_id, res)
     }
     return 'OK';
 })

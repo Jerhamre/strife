@@ -2,10 +2,12 @@ var crypto = require('crypto')
 
 var db = null;
 var server = null;
+var api = null;
 
-function User(db_in, server_in) {
+function User(db_in, server_in, api_in) {
 	db = db_in;
 	server = server_in;
+	api = api_in;
 };
 
 User.prototype.login = function(email, password, res) {
@@ -61,14 +63,14 @@ User.prototype.getFriends = function(idusers, res) {
 	console.log("-------------INSIDE-GET-FRIENDS--------------")
 	console.log("getFriends")
 	console.log(sql)
-	var callback = function(err, result) {
 
-        
-
+	var callback = function(err, result,res) {
+		console.log(result)
+        api.sendResponse(result,res)
        
     };
 
-	db.query(callback, sql, [idusers])
+	db.query(callback, sql, [idusers],res)
 
 };
 
