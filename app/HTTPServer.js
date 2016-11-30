@@ -29,11 +29,13 @@ const portSSL=443;
 
 var db = null;
 var user = null;
+var api = null;
 
-function startServer(db_in, user_in) {
+function startServer(db_in, user_in, api_in) {
 
     db     = db_in
     user   = user_in
+    api    = api_in
 
     http.createServer(app).listen(port, function(){
         console.log("Express HTTP server listening on port " + port);
@@ -76,8 +78,6 @@ app.get('/login', function (req, res) {
 })
 
 app.post('/login', function (req, res) {
-
-    console.log(req.body)
 
     var email = req.body.email
     var password = req.body.password
@@ -130,6 +130,8 @@ app.get('/about', function (req, res) {
 
 app.post('/api', function (req, res) {
 
+
+/*
     json = req.body
     console.log(req.body)
  
@@ -145,7 +147,9 @@ app.post('/api', function (req, res) {
     if(method == 'getFriends') {
         user.getFriends(session.user_id, res)
     }
-    return 'OK';
+    return 'OK';*/
+
+    api.handleRequest(req.body, res)
 })
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */

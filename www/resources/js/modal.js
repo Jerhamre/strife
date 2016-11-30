@@ -11,9 +11,7 @@ function closeModal() {
 }
 
 function centerModal() {
-	console.log(currentActiveModal.style.height)
 	var modalContent = $(currentActiveModal).find('.modal-content');
-	console.log(modalContent.outerHeight());
 	modalContent.css('margin-top', -modalContent.outerHeight()/4*3);
 }
 
@@ -28,7 +26,7 @@ function click_newfriend() {
 	showModal();
 }
 
-function click_handleservers() {
-	currentActiveModal = document.getElementById('modal_handleservers');
+function click_handlerooms() {
+	currentActiveModal = document.getElementById('modal_handlerooms');
 	showModal();
 }

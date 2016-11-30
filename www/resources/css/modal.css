@@ -43,19 +43,20 @@
     line-height: 40px;
     width: 160px;
 }
-.modal-content .left {
-    width: 50%;
+.modal-content .left{
     float: left;
 }
 .modal-content .right {
-    width: 50%;
     float: right;
 }
-.modal-content .pane input, .modal-content .pane h4 {
-    width: 329px;
-    margin: 20px; 
+
+.modal-content .pane {
+    width: 360px;
 }
 
+.modal-content .pane input, .modal-content .pane h4 {
+    width: 100%;
+}
 
 /* The Close Button */
 .close {
