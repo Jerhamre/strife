@@ -63,7 +63,8 @@ User.prototype.getFriends = function(idusers, res) {
 	console.log(sql)
 	var callback = function(err, result) {
 		console.log(result)
-        response.write(result)
+        //response.write(result)
+        res.send(JSON.stringify(result));
 
        
     };
