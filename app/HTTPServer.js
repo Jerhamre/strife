@@ -144,7 +144,7 @@ app.post('/api', function (req, res) {
     }
     console.log("method: " + method)
     if(method == 'getFriends') {
-        user.getFriends(session.user_id, res);
+        response.write(user.getFriends(session.user_id, res))
     }
     return 'OK';
 })
