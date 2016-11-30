@@ -64,13 +64,13 @@ User.prototype.getFriends = function(idusers, res) {
 
 	var callback = function(err, result,res) {
 		console.log(result)
-        
+        return result
 
        
     };
 
 	db.query(callback, sql, [idusers],res)
-	res.send(JSON.stringify("result"));
+	res.send(JSON.stringify(result));
 
 };
 
