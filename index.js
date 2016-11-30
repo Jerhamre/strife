@@ -9,6 +9,7 @@ var room 	= require('./app/room')
 var server 	= require('./app/HTTPServer')
 
 user = new user.User(db, server, api)
+room = new room.Room(db, api)
 
 api = new api.Api(user, room)
 

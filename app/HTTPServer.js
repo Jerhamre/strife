@@ -48,15 +48,15 @@ function startServer(db_in, user_in, api_in) {
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 function checkAuth(req, res, next) {
-    if (!session.user_id) {
+    if (!session.idusers) {
         res.redirect('/login');
     } else {
         next();
     }
 }
 
-function setSessionUserID(user_id, next_page, res) {
-    session.user_id = user_id;
+function setSessionUserID(idusers, next_page, res) {
+    session.idusers = idusers;
     res.redirect(next_page);
 }
 
@@ -109,7 +109,7 @@ app.post('/register', function (req, res) {
 })
 
 app.get('/logout', function (req, res) {
-    session.user_id = undefined
+    session.idusers = undefined
     res.redirect('/');
 })
 

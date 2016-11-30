@@ -1,18 +1,36 @@
 
 
 var db = null;
-var server = null;
 var api = null;
 
 function Room(db_in, server_in, api_in) {
 	db = db_in;
-	server = server_in;
 	api = api_in;
 };
 
-Room.prototype.getRooms = function(usersid) {
+Room.prototype.getRooms = function(session) {
 
-	console.log(usersid)
+	var sql = "SELECT * FROM users_has_room WHERE users_idusers=?"
+
+
+	var callback = function(err, result) {
+
+		result = JSON.parse(result)
+
+		console.log(result)
+
+		for (var i = 0; i < result.length; i++) {
+			
+
+			console.log(result[0]['room_idroom'])
+
+
+		}
+
+	}
+
+	db.query(callback, sql, [session.idusers])
+
 
 }
 

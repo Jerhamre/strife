@@ -18,7 +18,7 @@ Api.prototype.handleRequest = function(req, res, session) {
 
 	if (method == 'getRooms') {
 		console.log('getRooms')
-		room.getRooms('1')
+		room.getRooms(session)
 	}
 
 
