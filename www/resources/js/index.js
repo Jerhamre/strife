@@ -10,26 +10,37 @@ function onWindowResize(event) {
 	document.getElementById('message').style.width = (w - sidebarW - sidebarSendW) + 'px';
 };
 
-window.onload = function friendList(){
+window.onload = function getDataOnLoad(){
+	friendList()
+	roomsList()
+
+}
+function friendList(){
 	// request friendlist from server and prints the response in <div> friends </div>
 	var json = {
 			"method": "getFriends",
 			"data": [],
 		}
-	document.getElementById("friends").innerHTML = "hejhej";
 	var xhttp = new XMLHttpRequest();
   	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
-    		document.getElementById("friends").innerHTML = this.responseText;
+			var response = JSON.parse(this.responseText)
+			console.log(response['fname'])
+    		document.getElementById("friends").innerHTML = "";
+    		document.getElementById("friends").innerHTML += '<a href="#" class="friend"><div class="pic"></div><div class="title">'+
+    		response['fname']+' '+response['lname']+'</div></a>';
+    		
+    		
+    		//
     	}
   	};
-  	xhttp.open("GET", "/api");
+  	xhttp.open("POST", "/api");
 	xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
   	xhttp.send(JSON.stringify(json));
 
 }
 
-window.onload = function roomsList() {
+function roomsList() {
 	var json = {
 			"method": "getRooms",
 			"data": [],

@@ -18,22 +18,17 @@ Api.prototype.handleRequest = function(req, res, session) {
 
 	if (method == 'getRooms') {
 		console.log('getRooms')
-		room.getRooms('1')
+		//room.getRooms('1')
 	}
 
 
 	if (method == 'getFriends') {
+		console.log('in api: getFriends')
 		user.getFriends(session.user_id, res)
 	}
 
 
 }
 
-
-Api.prototype.sendResponse = function(result, res) {
-
-	res.send((result));
-
-};
 
 module.exports.Api = Api
