@@ -17,7 +17,7 @@ var connection = null;
 function connectToDB() {
 
 	connection = mysql.createConnection({
-	  host     : '127.0.0.1',
+	  host     : 'cloud-59.skelabb.ltu.se',//'127.0.0.1',
 	  port     : '3306',
 	  user     : 'strife',
 	  password : password,

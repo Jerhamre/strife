@@ -1,16 +1,16 @@
 var express     = require('express')
 var fs          = require('fs')
 var http        = require('http')
-var https       = require('https')
+//var https       = require('https')
 var path        = require('path')
 var session     = require('express-session')
 var bodyParser  = require('body-parser')
 
-var options = {
+/*var options = {
     key: fs.readFileSync('/etc/letsencrypt/live/cloud-59.skelabb.ltu.se/privkey.pem'),
     cert: fs.readFileSync('/etc/letsencrypt/live/cloud-59.skelabb.ltu.se/cert.pem'),
     ca: fs.readFileSync('/etc/letsencrypt/live/cloud-59.skelabb.ltu.se/chain.pem')
-};
+};*/
 
 var app = express()
 
@@ -22,8 +22,6 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
 }));
 app.use( bodyParser.json() );       // to support JSON-encoded bodies
-//app.use(express.cookieParser());
-//app.use(express.session({secret: 'strife12345topkekofdoom666'}));
 
 // start server
 const port=80; 
@@ -40,12 +38,9 @@ function startServer(db_in, user_in) {
     http.createServer(app).listen(port, function(){
         console.log("Express HTTP server listening on port " + port);
     });
-    https.createServer(options, app).listen(portSSL, function(){
+    /*https.createServer(options, app).listen(portSSL, function(){
         console.log("Express HTTPS server listening on port " + portSSL);
-    });
-    /*app.listen(PORT, function () {
-      console.log('Example app listening on port ' + PORT + '!')
-    })*/
+    });*/
 }
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -65,12 +60,12 @@ function setSessionUserID(user_id, next_page, res) {
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-app.use(function requireHTTPS(req, res, next) {
+/*app.use(function requireHTTPS(req, res, next) {
   if (!req.secure) {
     return res.redirect('https://' + req.headers.host + req.url);
   }
   next();
-})
+})*/
 
 app.get('/', checkAuth, function (req, res) {
     res.render('index', { temp : 'ITS OVER 9000!!!!' })
