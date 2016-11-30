@@ -93,14 +93,14 @@ User.prototype.getFriends = function(idusers, res) {
 			var friend = listoffriends[i];
 			console.log(friend);
 			console.log(friend['users_idusers1']);
-   			getFriendsName(friend['users_idusers1'],res)
+   			getFriendsName(friend['users_idusers1'], friend['chat_idchat'], res)
 		}
     };
 
 	db.query(callback, sql, [idusers])
 };
 
-function getFriendsName(idusers, res) {
+function getFriendsName(idusers, chatid,res) {
 
 	var sql = 'SELECT * FROM users WHERE idusers=?;'
 	console.log("-------------INSIDE-GET-FRIENDS-NAME-------------")
@@ -111,8 +111,10 @@ function getFriendsName(idusers, res) {
 		console.log("result "+result)
 
 		var friend = JSON.parse(result)[0];
+		var response = {'fname':friend['fname'] ,'lname':friend['lname'], 'chatid':chatid}
 
-        res.send(friend['fname']);    
+
+        res.send(response);    
     };
 
 	db.query(callback, sql, [idusers])
