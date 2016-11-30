@@ -61,15 +61,14 @@ User.prototype.getFriends = function(idusers, res) {
 	console.log("-------------INSIDE-GET-FRIENDS--------------")
 	console.log("getFriends")
 	console.log(sql)
-	var callback = function(err, result) {
+	var callback = function(err, result,res) {
 		console.log(result)
-        //response.write(result)
         res.send(JSON.stringify(result));
 
        
     };
 
-	db.query(callback, sql, [idusers])
+	db.query(callback, sql, [idusers],res)
 
 };
 
