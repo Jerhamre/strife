@@ -47,14 +47,35 @@ User.prototype.login = function(email, password, res) {
 
 
 
-User.prototype.register = function(email, fname, lname, password) {
+User.prototype.register = function(email, fname, lname, password, res) {
 	
 	var salt = crypto.randomBytes(64).toString('base64');
 	var hash = crypto.createHmac('sha256', password).update(salt).digest('hex');
 
 	var sql = 'INSERT INTO users (email, fname, lname, password, salt) VALUES (?, ?, ?, ?, ?);'
 
-	db.query(null, sql, [email, fname, lname, hash, salt])
+	var callback = function (err, result) {
+
+		var sql = 'SELECT * FROM users WHERE email=? AND password=?'
+
+		var callback = function(err, result) {
+
+			result = JSON.parse(result)
+
+			idusers = result[0]['idusers']
+			if (idusers == null || idusers == '') {
+				server.setSessionUserID(null, '/', res)
+			} else {
+				server.setSessionUserID(idusers, '/', res)
+			}
+		}
+
+		db.query(callback, sql, [email, hash])
+
+	}
+	
+	db.query(callback, sql, [email, fname, lname, hash, salt])
+
 };
 
 User.prototype.getFriends = function(idusers, res) {

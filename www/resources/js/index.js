@@ -37,7 +37,25 @@ window.onload = function roomsList() {
 	var xhttp = new XMLHttpRequest()
 	xhttp.onreadystatechange = function () {
 		if (this.readyState == 4 && this.status == 200) {
-			console.log(this.responseText)
+
+			/*<a href="#" class="room">
+				<div class="pic"></div>
+				<div class="title">M7011E</div>
+			</a>*/
+
+			var result = JSON.parse(this.responseText)
+
+			var text = ''
+
+			for(var i = 0; i < result.length; i++) {
+				text += '<a href="#" class="room">'
+				text += '<div class="pic"></div>'
+				text += '<div class="title">'+ result[i]['room_name']+'</div>'
+				text += '</a>'
+			}
+			console.log(text)
+
+			document.getElementById('rooms').innerHTML = text
 		}
 	}
 	xhttp.open("POST", "/api")
