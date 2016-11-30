@@ -22,6 +22,11 @@ Api.prototype.handleRequest = function(req, res, session) {
 	}
 
 
+	if (method == 'getFriends') {
+		user.getFriends(session.user_id, res)
+	}
+
+
 }
 
 
