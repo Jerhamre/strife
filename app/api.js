@@ -24,7 +24,7 @@ Api.prototype.handleRequest = function(req, res, session) {
 
 	if (method == 'getFriends') {
 		console.log('in api: getFriends')
-		user.getFriends(session.user_id, res)
+		user.getFriends(session.idusers, res)
 	}
 
 
