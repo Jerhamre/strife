@@ -7,7 +7,7 @@ function Api(user_in, room_in) {
 };
 
 
-Api.prototype.handleRequest = function(req, res) {
+Api.prototype.handleRequest = function(req, res, session) {
 
 	console.log(req)
 

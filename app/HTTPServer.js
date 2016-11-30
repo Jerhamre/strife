@@ -149,7 +149,7 @@ app.post('/api', function (req, res) {
     }
     return 'OK';*/
 
-    api.handleRequest(req.body, res)
+    api.handleRequest(req.body, res, session)
 })
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
