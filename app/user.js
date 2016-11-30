@@ -66,18 +66,20 @@ User.prototype.getFriends = function(idusers, res) {
 
 	var callback = function(err, result) {
 		console.log(result)
-		getFriendsName(result['users_idusers1'],res)
-       
+		var listoffriends = JSON.parse(result);
+
+		for(i = 0; i < listoffriends.length; i++){
+			var friend = listoffriends[i];
+			console.log(friend);
+			console.log(friend['users_idusers1']);
+   			getFriendsName(friend['users_idusers1'],res)
+		}
     };
 
 	db.query(callback, sql, [idusers])
-
-
-
-
 };
 
-User.prototype.getFriendsName = function(idusers, res) {
+function getFriendsName(idusers, res) {
 
 	var sql = 'SELECT * FROM users WHERE idusers=?;'
 	console.log("-------------INSIDE-GET-FRIENDS-NAME-------------")
@@ -85,20 +87,14 @@ User.prototype.getFriendsName = function(idusers, res) {
 	console.log(sql)
 
 	var callback = function(err, result) {
-		console.log(result)
+		console.log("result "+result)
 
-		
-		db.query(callback, sql, [idusers])
+		var friend = JSON.parse(result)[0];
 
-        api.sendResponse(result,res)
-       
+        res.send(friend['fname']);    
     };
 
 	db.query(callback, sql, [idusers])
-
-
-
-
 };
 
 module.exports.User = User
