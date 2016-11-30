@@ -15,7 +15,6 @@ function centerModal() {
 	var modalContent = $(currentActiveModal).find('.modal-content');
 	console.log(modalContent.outerHeight());
 	modalContent.css('margin-top', -modalContent.outerHeight()/4*3);
-
 }
 
 window.onclick = function(event) {
