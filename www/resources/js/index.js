@@ -24,13 +24,18 @@ function friendList(){
 	var xhttp = new XMLHttpRequest();
   	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
-			var response = JSON.parse(this.responseText)
-			console.log(response['fname'])
-    		document.getElementById("friends").innerHTML = "";
-    		document.getElementById("friends").innerHTML += '<a href="#" class="friend"><div class="pic"></div><div class="title">'+
-    		response['fname']+' '+response['lname']+'</div></a>';
     		
-    		
+    		var result = JSON.parse(this.responseText)
+
+			var text = ''
+
+			for(var i = 0; i < result.length; i++) {
+				text += '<a href="#" class="friend">'
+				text += '<div class="pic"></div>'
+				text += '<div class="title">'+ result[i]['fname']+' '+result[i]['lname']+'</div>'
+				text += '</a>'
+			}
+    		document.getElementById("friends").innerHTML = text;
     		//
     	}
   	};
