@@ -89,12 +89,40 @@ User.prototype.getFriends = function(idusers, res) {
 		console.log(result)
 		var listoffriends = JSON.parse(result);
 
-		for(i = 0; i < listoffriends.length; i++){
-			var friend = listoffriends[i];
-			console.log(friend);
-			console.log(friend['users_idusers1']);
-   			getFriendsName(friend['users_idusers1'], friend['chat_idchat'], res)
+
+		// legacy code
+		//for(i = 0; i < listoffriends.length; i++){
+		//	var friend = listoffriends[i];
+		//	console.log(friend);
+		//	console.log(friend['users_idusers1']);
+   		//	getFriendsName(friend['users_idusers1'], friend['chat_idchat'], res)
+		//}
+		//
+
+
+		var idusers = "";
+		var chat_id = "";
+		for (var i = 0; i < listoffriends.length; i++) {
+			
+			if(i == listoffriends.length-1) {
+				idusers += listoffriends[i]['users_idusers1']
+				chat_id += listoffriends[i]['chat_idchat']
+			} else {
+				idusers += listoffriends[i]['users_idusers1'] + ', '
+				chat_id += listoffriends[i]['chat_idchat'] + ', '
+			}
+
 		}
+
+		if(listoffriends.length == 0){
+			console.log("you do not have any friends :(")
+			res.send(JSON.stringify("you do not have any friends :("))
+			return;
+		}
+
+		getFriendsName(idusers, chat_id, res)
+
+
     };
 
 	db.query(callback, sql, [idusers])
@@ -102,19 +130,22 @@ User.prototype.getFriends = function(idusers, res) {
 
 function getFriendsName(idusers, chatid,res) {
 
-	var sql = 'SELECT * FROM users WHERE idusers=?;'
+	var sql = 'SELECT * FROM users WHERE idusers IN (?);'
 	console.log("-------------INSIDE-GET-FRIENDS-NAME-------------")
 	console.log("getFriends")
 	console.log(sql)
 
 	var callback = function(err, result) {
-		console.log("result "+result)
+		var response = []
+		result = JSON.parse(result)
+		for (var i = 0; i < result.length; i++) {
+			var jsonrow = {'fname':result[i]['fname'] ,'lname':result[i]['lname'], 'chatid':chatid[i]}
+			response.push(jsonrow) 
+				
 
-		var friend = JSON.parse(result)[0];
-		var response = {'fname':friend['fname'] ,'lname':friend['lname'], 'chatid':chatid}
+		}
 
-
-        res.send(response);    
+        res.send(JSON.stringify(response));    
     };
 
 	db.query(callback, sql, [idusers])
