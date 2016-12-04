@@ -21,13 +21,14 @@ Api.prototype.handleRequest = function(req, res, session) {
 		room.getRooms(session, res)
 	}
 
-
 	if (method == 'getFriends') {
 		console.log('in api: getFriends')
 		user.getFriends(session.idusers, res)
 	}
 
-
+	if (method == 'sendFriendRequest') {
+		user.sendFriendRequest(req['data'], session.idusers, res)
+	}
 }
 
 

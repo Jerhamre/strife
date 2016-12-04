@@ -31,7 +31,7 @@
     height: 40px;
     padding: 0px 5px 0px 5px;
 }
-.modal-content input[type="submit"] {
+.modal-content button {
     background-color: #555555; 
     border: none;
     color: white;
@@ -54,7 +54,7 @@
     width: 360px;
 }
 
-.modal-content .pane input, .modal-content .pane h4 {
+.modal-content .pane input, .modal-content .pane button, .modal-content .pane h4 {
     width: 100%;
 }
 

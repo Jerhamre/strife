@@ -120,6 +120,88 @@ function getFriendsName(idusers, chatid,res) {
 	db.query(callback, sql, [idusers])
 };
 
+User.prototype.sendFriendRequest = function(data, idusers, res) {
+	console.log("sendFriendRequest")
+
+	var response = {'error': '', 'response': ''}
+
+	var email = data[0]['email']
+
+	// TODO validate email
+
+	var sql = "SELECT * FROM users WHERE email=?"
+
+	var callback = function(err, result) {
+		console.log("result " + result) 
+
+		var json = JSON.parse(result)
+		console.log("000")
+
+		// User not found
+		if(json.length == 0) {
+			response['error'] = 'User not found'
+			res.send(JSON.stringify(response)); 
+			return
+		}
+		console.log("111")
+
+		// Cant add yourself
+		if (json[0]["idusers"] == idusers) {
+			response['error'] = 'You can\'t be a friend with yourself... lul'
+			res.send(JSON.stringify(response)); 
+			return
+		}
+		console.log("222")
+
+		var sql = 'INSERT INTO chat VALUES (null);'
+
+		var callback = function(err, result) {
+
+			console.log("create chat")
+			console.log(err)
+			console.log(result)
+			result = JSON.parse(result)
+
+			var chatid = result['insertId']
+			console.log('chatid: ' + chatid)
+
+			var sql = "INSERT INTO users_has_users (users_idusers, users_idusers1, chat_idchat, invite) VALUES (?,?,?,?);"
+
+			console.log("333")
+
+
+			var callback = function(err, result) {
+				console.log("444")
+
+				console.log(err)
+				console.log(result)
+
+				if(err) {
+
+					var sql = 'DELETE FROM chat WHERE idchat=?;'
+					db.query(null, sql, [chatid])
+
+					response['error'] = 'There was a problem sending request...'
+				} else {
+					response['response'] = 'Friend request sent!'
+				}
+				res.send(JSON.stringify(response)); 
+				return
+
+		    };
+
+			db.query(callback, sql, [idusers, json[0]["idusers"], chatid, 1])
+			
+	    };
+
+	    db.query(callback, sql, [])
+
+    };
+	
+	db.query(callback, sql, [email])
+
+};
+
 module.exports.User = User
 
 

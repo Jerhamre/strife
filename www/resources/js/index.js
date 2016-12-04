@@ -59,12 +59,11 @@ function roomsList() {
 			var text = ''
 
 			for(var i = 0; i < result.length; i++) {
-				text += '<a href="#" class="room">'
+				text += '<a href="/room/' + result[i]['idchat'] + '" class="room">'
 				text += '<div class="pic"></div>'
 				text += '<div class="title">'+ result[i]['room_name']+'</div>'
 				text += '</a>'
 			}
-			console.log(text)
 
 			document.getElementById('rooms').innerHTML = text
 		}
@@ -72,4 +71,50 @@ function roomsList() {
 	xhttp.open("POST", "/api")
 	xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 	xhttp.send(JSON.stringify(json))
+}
+
+function sendFriendRequest() {
+
+	var email = $('#sendFriendRequest').val()
+
+	if (email == "") {
+		sendFriendRequestError('Please enter a valid email')
+		return
+	}
+
+	var json = {
+			"method": "sendFriendRequest",
+			"data": [{"email": email}],
+		}
+
+	console.log(json)
+
+	var xhttp = new XMLHttpRequest()
+	xhttp.onreadystatechange = function () {
+		if (this.readyState == 4 && this.status == 200) {
+			var json = JSON.parse(this.responseText)
+			console.log(json)
+			if (json['error'] != '') {
+				sendFriendRequestError(json['error'])
+			} else {
+				sendFriendRequestError(json['response'])
+			}
+		} else {
+			sendFriendRequestError('There was a problem connecting to server')
+		}
+	}
+	xhttp.open("POST", "/api")
+	xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+	xhttp.send(JSON.stringify(json))
+
+}
+
+function sendFriendRequestError(error) {
+	console.log("sendFriendRequestError")
+	document.getElementById('sendFriendRequestError').innerHTML = error
+}
+
+function sendFriendRequestSuccess(message) {
+	console.log("sendFriendRequestSuccess")
+	document.getElementById('sendFriendRequestSuccess').innerHTML = message
 }

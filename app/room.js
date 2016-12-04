@@ -50,12 +50,10 @@ Room.prototype.getRooms = function(session, res) {
 
 			console.log(retval)
 
-        	res.send(JSON.stringify(retval))    
+        	res.send(JSON.stringify(retval))
 		}
 
 		db.query(callback, sql, [rooms])
-
-		
 
 	}
 

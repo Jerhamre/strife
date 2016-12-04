@@ -21,10 +21,10 @@
   <div class="modal-content">
     <span class="close" onclick="closeModal()">×</span>
     <h2>Send friend request</h2>
-    <form action="" method="post">
-  		<input type="text" name="email" placeholder="Friends email" required autofocus>
-    	<input type="submit" value="Send request">
-    </form>
+    <div id="sendFriendRequestError" class="statusMessage"></div>
+    <div id="sendFriendRequestSuccess" class="statusMessage"></div>
+  	<input id="sendFriendRequest" type="text" name="email" placeholder="Friends email" required autofocus>
+    <button type="button" onclick="sendFriendRequest()">Send request</button>
   </div>
 </div>
 
@@ -39,17 +39,18 @@
     <div>
     	<div class="left pane">
     		<h4>Create room</h4>
-    		<form action="" method="post">
-	  			<input type="text" name="servername" placeholder="Name of server" required autofocus>
-	    		<input type="submit" value="Create server">
+        <div id="createRoomError" class="statusMessage"></div>
+        <div id="createRoomSuccess" class="statusMessage"></div>
+	  		<input type="text" name="roomname" placeholder="Name of room" required autofocus>
+        <button type="button" onclick="createRoom()">Create room</button>
     		</form>
     	</div>
     	<div class="right pane">
     		<h4>Join room</h4>
-    		<form action="" method="post">
-		  		<input type="text" name="servername" placeholder="Name of server" required autofocus>
-		    	<input type="submit" value="Join server">
-		    </form>
+        <div id="joinRoomError" class="statusMessage"></div>
+        <div id="joinRoomSuccess" class="statusMessage"></div>
+		  	<input type="text" name="roomname" placeholder="ID of room" required autofocus>
+        <button type="button" onclick="joinRoom()">Join room</button>
     	</div>
     	<div class="clearfix"></div>
     </div>
