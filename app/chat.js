@@ -61,10 +61,10 @@ Chat.prototype.postToChat = function(data, idusers, res){
 
 	function callback(err, result){
 		console.log("---callback---")
-		console.log(result)
-		console.log('INSERT ID: '+result['insertid'])
+		result = JSON.parse(result)
+		console.log('INSERT ID: '+result['insertId'])
 		console.log('IDUSER: '+idusers)
-		addmessageToChat(idusers,result['insertid'],res)
+		addmessageToChat(idusers,result['insertId'],res)
 	}
 
 
