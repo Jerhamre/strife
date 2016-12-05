@@ -32,6 +32,10 @@ Api.prototype.handleRequest = function(req, res, session) {
 		user.sendFriendRequest(req['data'], session.idusers, res)
 	}
 
+	if (method == 'respondToFriendRequest') {
+		user.respondToFriendRequest(req['data'], res)
+	}
+
 	if (method == 'loadChat') {
 		console.log('in api: getchat')
 		chat.loadChat(req['data'], res)
