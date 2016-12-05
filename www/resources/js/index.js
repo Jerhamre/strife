@@ -156,7 +156,6 @@ function sendFriendRequestSuccess(message) {
 	document.getElementById('sendFriendRequestSuccess').innerHTML = message
 }
 
-<<<<<<< HEAD
 $(document).keyup(function (e) {
     if ($("#message").is(":focus") && (e.keyCode == 13)) {
         postMessageInChat();
@@ -177,9 +176,6 @@ function postMessageInChat() {
 }
 
 function respondToFriendRequest(iduser1, iduser2, answer) {
-	console.log(iduser1)
-	console.log(iduser2)
-	console.log(answer)
 
 	var json = {
 		"method": "respondToFriendRequest",
