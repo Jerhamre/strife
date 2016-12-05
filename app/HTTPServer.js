@@ -73,6 +73,16 @@ app.get('/', checkAuth, function (req, res) {
     res.render('index', { temp : 'ITS OVER 9000!!!!' })
 })
 
+app.get('/room/:idroom', checkAuth, function (req, res) {
+    //req.params.idroom
+    res.render('index', { temp : 'ITS OVER 9000!!!!' })
+})
+
+app.get('/chat/:idchat', checkAuth, function (req, res) {
+    //req.params.idchat
+    res.render('index', { temp : 'ITS OVER 9000!!!!' })
+})
+
 app.get('/login', function (req, res) {
     res.render('login')
 })
