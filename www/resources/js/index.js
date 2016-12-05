@@ -123,3 +123,36 @@ function sendFriendRequestSuccess(message) {
 	console.log("sendFriendRequestSuccess")
 	document.getElementById('sendFriendRequestSuccess').innerHTML = message
 }
+
+$(document).keyup(function (e) {
+    if ($("#message").is(":focus") && (e.keyCode == 13)) {
+        postMessageInChat();
+    }
+});
+
+function postMessageInChat() {
+	console.log("postMessageInChat client side");
+	console.log(window.location.href);
+
+	var queryString = (window.location.href).substr((window.location.href).indexOf('/room/') + 1);
+	var room = decodeURIComponent(queryString);
+	console.log(room);
+	var json = {
+			"method": "postToChat",
+			"data": [{"iduser": room, "message": document.getElementById('message').value}],
+		}
+
+	console.log(json)
+
+	var xhttp = new XMLHttpRequest()
+	xhttp.onreadystatechange = function () {
+		if (this.readyState == 4 && this.status == 200) {
+			var json = JSON.parse(this.responseText)
+			
+		}
+	}
+	xhttp.open("POST", "/api")
+	xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+	xhttp.send(JSON.stringify(json))
+
+}

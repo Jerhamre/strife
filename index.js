@@ -7,11 +7,12 @@ var api 	= require('./app/api')
 var user 	= require('./app/user')
 var room 	= require('./app/room')
 var server 	= require('./app/HTTPServer')
+var chat 	= require('./app/chat') 
 
 user = new user.User(db, server, api)
 room = new room.Room(db, api)
-
-api = new api.Api(user, room)
+chat = new chat.Chat(db,api)
+api = new api.Api(user, room, chat)
 
 server.startServer(db, user, api)
 

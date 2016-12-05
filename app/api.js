@@ -1,9 +1,11 @@
 var user = null;
 var room = null;
+var chat = null;
 
-function Api(user_in, room_in) {
+function Api(user_in, room_in, chat_in) {
 	user = user_in;
 	room = room_in;
+	chat = chat_in;
 };
 
 
@@ -28,6 +30,16 @@ Api.prototype.handleRequest = function(req, res, session) {
 
 	if (method == 'sendFriendRequest') {
 		user.sendFriendRequest(req['data'], session.idusers, res)
+	}
+
+	if (method == 'loadChat') {
+		console.log('in api: getchat')
+		chat.loadChat(req['data'], res)
+	}
+
+	if (method == 'postToChat'){
+		console.log('in api: postToChat')
+		chat.postToChat(req['data'], res)
 	}
 }
 
