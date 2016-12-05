@@ -73,6 +73,16 @@ app.get('/', checkAuth, function (req, res) {
     res.render('index', { temp : 'ITS OVER 9000!!!!' })
 })
 
+app.get('/room/:idroom', checkAuth, function (req, res) {
+    //req.params.idroom
+    res.render('index', { temp : 'ITS OVER 9000!!!!' })
+})
+
+app.get('/chat/:idchat', checkAuth, function (req, res) {
+    //req.params.idchat
+    res.render('index', { temp : 'ITS OVER 9000!!!!' })
+})
+
 app.get('/login', function (req, res) {
     res.render('login')
 })
@@ -116,35 +126,15 @@ app.get('/about', function (req, res) {
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-/*
-
-{
-"method": "getFriends",
-"data": []
-}
-
+/*  {
+    "method": "getFriends",
+    "data": []
+    }                                   
 */
 
+
+
 app.post('/api', function (req, res) {
-
-
-/*
-    json = req.body
-    console.log(req.body)
- 
-
-    console.log("api json: " + json)
-    
-    var method = json['method'];
-
-    if(!method){
-        return;
-    }
-    console.log("method: " + method)
-    if(method == 'getFriends') {
-        user.getFriends(session.user_id, res)
-    }
-    return 'OK';*/
 
     api.handleRequest(req.body, res, session)
 })

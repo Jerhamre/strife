@@ -21,33 +21,33 @@ Room.prototype.getRooms = function(session, res) {
 
 		result = JSON.parse(result)
 
-		rooms = ''
+		rooms = []
 
 		for (var i = 0; i < result.length; i++) {
-			
-			if(i == result.length-1) {
-				rooms += result[i]['room_idroom']
-			} else {
-				rooms += result[i]['room_idroom'] + ', '
-			}
-
+			rooms.push(result[i]['room_idroom'])
 		}
 
 		if (rooms.length == 0) {
 			return;
 		}
 
-		var sql = "SELECT * FROM room WHERE idroom IN (?)"
+		console.log("rooms")
+		console.log(rooms)
+
+		var sql = "SELECT * FROM room WHERE idroom IN (?);"
 
 		var callback = function(err, result) {
 
 			result = JSON.parse(result)
+			console.log("result.length")
+			console.log(result.length)
 
 			for (var i = 0; i < result.length; i++) {
 				var retjson = {'idchat': result[i]['chat_idchat'], 'room_name': result[i]['room_name']}
 				retval.push(retjson)
 			}
 
+			console.log("retval")
 			console.log(retval)
 
         	res.send(JSON.stringify(retval))

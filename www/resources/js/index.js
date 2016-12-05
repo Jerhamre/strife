@@ -29,14 +29,45 @@ function friendList(){
 
 			var text = ''
 
+
+			//requests
 			for(var i = 0; i < result.length; i++) {
-				text += '<a href="#" class="friend">'
-				text += '<div class="pic"></div>'
-				text += '<div class="title">'+ result[i]['fname']+' '+result[i]['lname']+'</div>'
-				text += '</a>'
+				if(result[i]['invite'] != 1)
+					continue;
+				text += '<div class="friend">'
+				text += '<a href="/chat/' + result[i]['chatid'] + '" class="pic"></a>'
+				text += '<a href="/chat/' + result[i]['chatid'] + '" class="title">'+ result[i]['fname']+' '+result[i]['lname'] + '</a>';
+				text += '<div class="invite">';
+				text += 	'<div class="button accept" onclick="respondToFriendRequest(' + result[i]['users'][0] + ', ' +  result[i]['users'][1] + ', ' + 1 + ')">A</div>';
+				text += 	'<div class="button decline" onclick="respondToFriendRequest(' + result[i]['users'][0] + ', ' + result[i]['users'][1] + ', ' + 0 + ')">D</div>';
+				text += '</div>';
+				text += '</div>'
+				console.log()
 			}
+			//friends
+			for(var i = 0; i < result.length; i++) {
+				if(result[i]['invite'] != 0)
+					continue;
+				text += '<div class="friend">'
+				text += '<a href="/chat/' + result[i]['chatid'] + '" class="pic"></a>'
+				text += '<a href="/chat/' + result[i]['chatid'] + '" class="title">'+ result[i]['fname']+' '+result[i]['lname'] + '</a>';
+				text += '</div>'
+			}
+
+			//pending
+			for(var i = 0; i < result.length; i++) {
+				if(result[i]['invite'] != -1)
+					continue;
+				text += '<div class="friend">'
+				text += '<a href="/chat/' + result[i]['chatid'] + '" class="pic"></a>'
+				text += '<a href="/chat/' + result[i]['chatid'] + '" class="title">'+ result[i]['fname']+' '+result[i]['lname'] + '</a>';
+				text += '<div class="invite">';
+				text += 	'<div class="button pending">P</div>';
+				text += '</div>';
+				text += '</div>'
+			}
+
     		document.getElementById("friends").innerHTML = text;
-    		//
     	}
   	};
   	xhttp.open("POST", "/api");
@@ -107,6 +138,7 @@ function sendFriendRequest() {
 		} else {
 			sendFriendRequestError('There was a problem connecting to server')
 		}
+		friendList()
 	}
 	xhttp.open("POST", "/api")
 	xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -124,6 +156,7 @@ function sendFriendRequestSuccess(message) {
 	document.getElementById('sendFriendRequestSuccess').innerHTML = message
 }
 
+<<<<<<< HEAD
 $(document).keyup(function (e) {
     if ($("#message").is(":focus") && (e.keyCode == 13)) {
         postMessageInChat();
@@ -141,14 +174,24 @@ function postMessageInChat() {
 			"method": "postToChat",
 			"data": [{"iduser": room, "message": document.getElementById('message').value}],
 		}
+}
 
-	console.log(json)
+function respondToFriendRequest(iduser1, iduser2, answer) {
+	console.log(iduser1)
+	console.log(iduser2)
+	console.log(answer)
+
+	var json = {
+		"method": "respondToFriendRequest",
+		"data": [{'idusers': iduser1, 'idusers1': iduser2, 'answer': answer}],
+	}
 
 	var xhttp = new XMLHttpRequest()
 	xhttp.onreadystatechange = function () {
 		if (this.readyState == 4 && this.status == 200) {
 			var json = JSON.parse(this.responseText)
-			
+			friendList()
+
 		}
 	}
 	xhttp.open("POST", "/api")

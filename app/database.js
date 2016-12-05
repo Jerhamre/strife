@@ -37,10 +37,12 @@ function query(callback, sql, data) {
 
 	console.log("connected to DB, doing query now")
 
-	connection.query(sql, data, function(err, rows, fields) {
+	connection.query(sql, data, function(err, rows) {
 		console.log("query done, handle result")
 		if (err) {
-			console.log('Database query returned error: ', rows);
+			console.log('Database query returned error: ', err);
+			console.log('sql query was: ', sql);
+
 			if (typeof callback === "function")
 				return callback(err, null);
         }

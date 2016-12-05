@@ -39,7 +39,7 @@ Api.prototype.handleRequest = function(req, res, session) {
 
 	if (method == 'postToChat'){
 		console.log('in api: postToChat')
-		chat.postToChat(req['data'], res)
+		chat.postToChat(req['data'], session.idusers, res)
 	}
 }
 
