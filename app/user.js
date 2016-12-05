@@ -198,11 +198,8 @@ User.prototype.sendFriendRequest = function(data, idusers, res) {
 
 			var sql = "INSERT INTO users_has_users (users_idusers, users_idusers1, chat_idchat, invite) VALUES (?,?,?,?);"
 
-			console.log("333")
-
 
 			var callback = function(err, result) {
-				console.log("444")
 
 				console.log(err)
 				console.log(result)
@@ -213,15 +210,36 @@ User.prototype.sendFriendRequest = function(data, idusers, res) {
 					db.query(null, sql, [chatid])
 
 					response['error'] = 'There was a problem sending request...'
+					res.send(JSON.stringify(response)); 
+					return
+
 				} else {
-					response['response'] = 'Friend request sent!'
+
+					var sql = "INSERT INTO users_has_users (users_idusers, users_idusers1, chat_idchat, invite) VALUES (?,?,?,?);"
+
+					var callback = function(err, result) {
+
+						if(err) {
+
+							var sql = 'DELETE FROM users_has_users WHERE users_idusers=? AND users_idusers1=?;'
+							db.query(null, sql, [idusers, json[0]["idusers"]])
+
+							response['error'] = 'There was a problem sending request...'
+						} else {
+							response['response'] = 'Friend request sent!'
+						}
+
+						res.send(JSON.stringify(response)); 
+						return
+
+					}
+
+					db.query(callback, sql, [json[0]["idusers"], idusers, chatid, 1])
 				}
-				res.send(JSON.stringify(response)); 
-				return
 
 		    };
 
-			db.query(callback, sql, [idusers, json[0]["idusers"], chatid, 1])
+			db.query(callback, sql, [idusers, json[0]["idusers"], chatid, 2])
 			
 	    };
 
