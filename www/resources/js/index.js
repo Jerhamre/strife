@@ -138,6 +138,7 @@ function sendFriendRequest() {
 		} else {
 			sendFriendRequestError('There was a problem connecting to server')
 		}
+		friendList()
 	}
 	xhttp.open("POST", "/api")
 	xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
