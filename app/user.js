@@ -80,7 +80,7 @@ User.prototype.register = function(email, fname, lname, password, res) {
 
 User.prototype.getFriends = function(idusers, res) {
 
-	var sql = 'SELECT * FROM users_has_users WHERE users_idusers=?;'
+	var sql = 'SELECT * FROM users_has_users WHERE users_idusers=? ORDER BY invite DESC;'
 	console.log("-------------INSIDE-GET-FRIENDS--------------")
 	console.log("getFriends")
 	console.log(sql)
@@ -100,18 +100,15 @@ User.prototype.getFriends = function(idusers, res) {
 		//
 
 
-		var idusers = "";
-		var chat_id = "";
+		var idusers = [];
+		var chat_id = {};
+		var invite = {};
+		var bothusers = [];
 		for (var i = 0; i < listoffriends.length; i++) {
-			
-			if(i == listoffriends.length-1) {
-				idusers += listoffriends[i]['users_idusers1']
-				chat_id += listoffriends[i]['chat_idchat']
-			} else {
-				idusers += listoffriends[i]['users_idusers1'] + ', '
-				chat_id += listoffriends[i]['chat_idchat'] + ', '
-			}
-
+			idusers.push(listoffriends[i]['users_idusers1'])
+			chat_id[listoffriends[i]['users_idusers1']] = listoffriends[i]['chat_idchat']
+			invite[listoffriends[i]['users_idusers1']] = listoffriends[i]['invite']
+			bothusers.push(listoffriends[i]['users_idusers'], listoffriends[i]['users_idusers1'])
 		}
 
 		if(listoffriends.length == 0){
@@ -120,7 +117,7 @@ User.prototype.getFriends = function(idusers, res) {
 			return;
 		}
 
-		getFriendsName(idusers, chat_id, res)
+		getFriendsName(idusers, bothusers, chat_id, invite, res)
 
 
     };
@@ -128,7 +125,7 @@ User.prototype.getFriends = function(idusers, res) {
 	db.query(callback, sql, [idusers])
 };
 
-function getFriendsName(idusers, chatid,res) {
+function getFriendsName(idusers, bothusers, chatid, invite, res) {
 
 	var sql = 'SELECT * FROM users WHERE idusers IN (?);'
 	console.log("-------------INSIDE-GET-FRIENDS-NAME-------------")
@@ -139,7 +136,7 @@ function getFriendsName(idusers, chatid,res) {
 		var response = []
 		result = JSON.parse(result)
 		for (var i = 0; i < result.length; i++) {
-			var jsonrow = {'fname':result[i]['fname'] ,'lname':result[i]['lname'], 'chatid':chatid[i]}
+			var jsonrow = {'fname':result[i]['fname'] ,'lname':result[i]['lname'], 'chatid':chatid[result[i]['idusers']], 'invite': invite[result[i]['idusers']], 'users': bothusers}
 			response.push(jsonrow) 
 				
 
@@ -239,7 +236,7 @@ User.prototype.sendFriendRequest = function(data, idusers, res) {
 
 		    };
 
-			db.query(callback, sql, [idusers, json[0]["idusers"], chatid, 2])
+			db.query(callback, sql, [idusers, json[0]["idusers"], chatid, -1])
 			
 	    };
 
@@ -250,6 +247,48 @@ User.prototype.sendFriendRequest = function(data, idusers, res) {
 	db.query(callback, sql, [email])
 
 };
+
+User.prototype.respondToFriendRequest = function(data, res) {
+
+	data = data[0]
+
+	// accept
+	if (data['answer'] == 1) {
+
+		var sql = 'UPDATE users_has_users SET invite=0 WHERE users_idusers=? AND users_idusers1=?'
+
+		var callback = function(err, result) {
+			var sql = 'UPDATE users_has_users SET invite=0 WHERE users_idusers=? AND users_idusers1=?'
+
+			var callback = function(err, result) {
+				res.send('ok'); 
+			}
+
+			db.query(callback, sql, [data['idusers'], data['idusers1']])
+		}
+
+		db.query(callback, sql, [data['idusers1'], data['idusers']])
+	}
+
+	// decline 
+	if (data['answer'] == 0) {
+
+		var sql = 'DELETE FROM users_has_users WHERE users_idusers=? AND users_idusers1=?'
+
+		var callback = function(err, result) {
+
+			var sql = 'DELETE FROM users_has_users WHERE users_idusers=? AND users_idusers1=?'
+
+			var callback = function(err, result) {
+				res.send('ok'); 
+			}
+
+			db.query(callback, sql, [data['idusers1'], data['idusers']])
+		}
+
+		db.query(callback, sql, [data['idusers'], data['idusers1']])
+	}
+}
 
 module.exports.User = User
 

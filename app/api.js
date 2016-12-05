@@ -29,6 +29,10 @@ Api.prototype.handleRequest = function(req, res, session) {
 	if (method == 'sendFriendRequest') {
 		user.sendFriendRequest(req['data'], session.idusers, res)
 	}
+
+	if (method == 'respondToFriendRequest') {
+		user.respondToFriendRequest(req['data'], res)
+	}
 }
 
 

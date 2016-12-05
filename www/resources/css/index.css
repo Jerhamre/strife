@@ -196,14 +196,14 @@ a:active {
     -webkit-transition: border 0.2s; /* For Safari 3.1 to 6.0 */
     transition: border 0.2s;
 }
-#sidebar #rooms .room:hover .pic, #sidebar #friends .friend:hover .pic {
+#sidebar #rooms .room .pic:hover, #sidebar #friends .friend .pic:hover {
 	border: 2px solid var(--color-lightwhite);
 }
-#sidebar #rooms .room:active .pic, #sidebar #friends .friend:active .pic {
+#sidebar #rooms .room .pic:active, #sidebar #friends .friend .pic:active {
 	border: 2px solid var(--color-dimwhite);
 }
 #sidebar #rooms .room .title, #sidebar #friends .friend .title {
-	width: 230px;
+	max-width: 230px;
 	line-height: 40px;
 	float: left;
 	margin-left: 10px;
@@ -213,11 +213,47 @@ a:active {
 	white-space: nowrap;
 	overflow: hidden;
     text-overflow: ellipsis;
+    float: left;
 }
-#sidebar #rooms .room:hover .title, #sidebar #friends .friend:hover .title {
+#sidebar #friends .friend .invite {
+	float: right;
+}
+#sidebar #friends .friend .invite .button {
+	width: 30px;
+	height: 30px;
+	background-color: blue;
+	float: left;
+	margin: 5px 0px 5px 5px;
+	border-radius: 15px;
+	border: 2px solid var(--color-white);
+	padding-left: 8px;
+	line-height: 28px;
+	font-weight: bold;
+	text-shadow: 1px 1px #000;
+}
+#sidebar #friends .friend .invite .button {
+}
+#sidebar #friends .friend .invite .accept {
+	background-color: lightgreen;
+	cursor: pointer;
+}
+#sidebar #friends .friend .invite .decline {
+	background-color: Tomato;
+	cursor: pointer;
+}
+#sidebar #friends .friend .invite .accept:hover, #sidebar #friends .friend .invite .decline:hover {
+	border: 2px solid var(--color-lightwhite);
+}
+#sidebar #friends .friend .invite .accept:active, #sidebar #friends .friend .invite .decline:active {
+	border: 2px solid var(--color-dimwhite);
+}
+#sidebar #friends .friend .invite .pending {
+	background-color: var(--color-gray);
+}
+#sidebar #rooms .room .title:hover, #sidebar #friends .friend .title:hover {
 	color: var(--color-lightwhite);
 }
-#sidebar #rooms .room:active .title, #sidebar #friends .friend:active .title {
+#sidebar #rooms .room .title:active, #sidebar #friends .friend .title:active {
 	color: var(--color-dimwhite);
 
 }
