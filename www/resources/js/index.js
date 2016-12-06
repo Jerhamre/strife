@@ -165,15 +165,26 @@ $(document).keyup(function (e) {
 
 function postMessageInChat() {
 	console.log("postMessageInChat client side");
-	console.log(window.location.href);
 
-	var queryString = (window.location.href).substr((window.location.href).indexOf('/room/') + 1);
+	var queryString = (window.location.href).split("/").pop(-1);
 	var room = decodeURIComponent(queryString);
 	console.log(room);
 	var json = {
 			"method": "postToChat",
-			"data": [{"iduser": room, "message": document.getElementById('message').value}],
+			"data": [{"idchat": room, "message":"hej" }],//document.getElementById('message').value
 		}
+
+	var xhttp = new XMLHttpRequest()
+	xhttp.onreadystatechange = function () {
+		if (this.readyState == 4 && this.status == 200) {
+			var json = JSON.parse(this.responseText)
+			console.log("response recieved")
+
+		}
+	}
+	xhttp.open("POST", "/api")
+	xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+	xhttp.send(JSON.stringify(json))
 }
 
 function respondToFriendRequest(iduser1, iduser2, answer) {
