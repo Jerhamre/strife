@@ -4,17 +4,18 @@ window.onresize = onWindowResize;
 function onWindowResize(event) {	
 	var w = window.innerWidth;
 	var sidebarW = document.getElementById('sidebar').offsetWidth;
-	var sidebarSendW = document.getElementById('send').offsetWidth;
-	document.getElementById('chat').style.width = (w - sidebarW) + 'px';
-	document.getElementById('input').style.width = (w - sidebarW) + 'px';
-	document.getElementById('message').style.width = (w - sidebarW - sidebarSendW) + 'px';
+	document.getElementById('content').style.width = (w - sidebarW) + 'px';
+
+	chatResize()
 };
 
 window.onload = function getDataOnLoad(){
 	friendList()
 	roomsList()
-
+	displayNav() 		//nav.js
+	displayContent() 	//nav.js
 }
+
 function friendList(){
 	// request friendlist from server and prints the response in <div> friends </div>
 	var json = {
@@ -35,8 +36,8 @@ function friendList(){
 				if(result[i]['invite'] != 1)
 					continue;
 				text += '<div class="friend">'
-				text += '<a href="/chat/' + result[i]['chatid'] + '" class="pic"></a>'
-				text += '<a href="/chat/' + result[i]['chatid'] + '" class="title">'+ result[i]['fname']+' '+result[i]['lname'] + '</a>';
+				text += '<a href="/friend/' + result[i]['chatid'] + '" class="pic"></a>'
+				text += '<a href="/friend/' + result[i]['chatid'] + '" class="title">'+ result[i]['fname']+' '+result[i]['lname'] + '</a>';
 				text += '<div class="invite">';
 				text += 	'<div class="button accept" onclick="respondToFriendRequest(' + result[i]['users'][0] + ', ' +  result[i]['users'][1] + ', ' + 1 + ')">A</div>';
 				text += 	'<div class="button decline" onclick="respondToFriendRequest(' + result[i]['users'][0] + ', ' + result[i]['users'][1] + ', ' + 0 + ')">D</div>';
@@ -49,8 +50,8 @@ function friendList(){
 				if(result[i]['invite'] != 0)
 					continue;
 				text += '<div class="friend">'
-				text += '<a href="/chat/' + result[i]['chatid'] + '" class="pic"></a>'
-				text += '<a href="/chat/' + result[i]['chatid'] + '" class="title">'+ result[i]['fname']+' '+result[i]['lname'] + '</a>';
+				text += '<a href="/friend/' + result[i]['chatid'] + '" class="pic"></a>'
+				text += '<a href="/friend/' + result[i]['chatid'] + '" class="title">'+ result[i]['fname']+' '+result[i]['lname'] + '</a>';
 				text += '</div>'
 			}
 
@@ -59,8 +60,8 @@ function friendList(){
 				if(result[i]['invite'] != -1)
 					continue;
 				text += '<div class="friend">'
-				text += '<a href="/chat/' + result[i]['chatid'] + '" class="pic"></a>'
-				text += '<a href="/chat/' + result[i]['chatid'] + '" class="title">'+ result[i]['fname']+' '+result[i]['lname'] + '</a>';
+				text += '<a href="/friend/' + result[i]['chatid'] + '" class="pic"></a>'
+				text += '<a href="/friend/' + result[i]['chatid'] + '" class="title">'+ result[i]['fname']+' '+result[i]['lname'] + '</a>';
 				text += '<div class="invite">';
 				text += 	'<div class="button pending">P</div>';
 				text += '</div>';

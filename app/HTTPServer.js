@@ -75,12 +75,22 @@ app.get('/', checkAuth, function (req, res) {
 
 app.get('/room/:idroom', checkAuth, function (req, res) {
     //req.params.idroom
-    res.render('index', { temp : 'ITS OVER 9000!!!!' })
+    res.render('index', { idroom : req.params.idroom })
 })
 
-app.get('/chat/:idchat', checkAuth, function (req, res) {
+app.get('/room/:idroom/:nav', checkAuth, function (req, res) {
+    //req.params.idroom
+    res.render('index', { idroom : req.params.idroom, nav : req.params.nav })
+})
+
+app.get('/friend/:idchat', checkAuth, function (req, res) {
     //req.params.idchat
-    res.render('index', { temp : 'ITS OVER 9000!!!!' })
+    res.render('index', { idchat : req.params.idchat })
+})
+
+app.get('/friend/:idchat/:nav', checkAuth, function (req, res) {
+    //req.params.idchat
+    res.render('index', { idchat : req.params.idchat, nav : req.params.nav })
 })
 
 app.get('/login', function (req, res) {
