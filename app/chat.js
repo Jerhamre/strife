@@ -7,10 +7,7 @@ function Chat(db_in, api_in) {
 };
 
 Chat.prototype.loadChat = function(chatid, res){
-	
-	var sql = 'SELECT * FROM chat_has_message WHERE chat_idchat =? ORDER BY message_idmessage DESC LIMIT 20'
-	console.log(sql)
-
+	var sql = 'SELECT * FROM chat_has_message WHERE chat_idchat =? ORDER BY message_idmessage DESC LIMIT 20;'
 	function callback(err, result){
 		var message_id = JSON.parse(result);
 
@@ -19,24 +16,26 @@ Chat.prototype.loadChat = function(chatid, res){
 			message_idmessage.push(message_id[i]['message_idmessage'])
 			
 		}
-
-		loadMessage(message_idmessage, res);
+		console.log(message_idmessage)
+		if(typeof message_idmessage !== 'undefined' && message_idmessage.length > 0){
+			loadMessage(message_idmessage, res);
+		}
 	}
 
 
-	db.query(callback, sql, [chatid])
+	db.query(callback, sql, [chatid[0]['idchat']])
 }
 
 
-function loadMessage(message_idmessage, res){
+function loadMessage(result, res){
 	var sql = 'SELECT * FROM message WHERE idmessage IN (?);'
-
+	console.log(result)
 	function callback(err, result){
 
 		var response = []
 		result = JSON.parse(result)
 		for (var i = 0; i < result.length; i++) {
-			var jsonrow = {'message':result[i]['message']}
+			var jsonrow = {'message':result[i]['message'],'iduser':result[i]['iduser'],'timestamp':result[i]['timestamp']}
 			response.push(jsonrow)
 			console.log(jsonrow) 
 				
@@ -47,7 +46,7 @@ function loadMessage(message_idmessage, res){
 	}
 
 
-	db.query(callback, sql, [message_idmessage])
+	db.query(callback, sql, [result])
 }
 
 
@@ -79,7 +78,7 @@ function addmessageToChat(chat_idchat, message_idmessage, res){
 	
 	function callback(err, result){
 		console.log(result)
-		
+		res.send()
 	}
 
 
