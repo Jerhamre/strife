@@ -3,8 +3,11 @@ window.onresize = onWindowResize;
 
 function onWindowResize(event) {	
 	var w = window.innerWidth;
+	var h = window.innerHeight;
 	var sidebarW = document.getElementById('sidebar').offsetWidth;
+	var navBarH = document.getElementById('navBar').offsetHeight;
 	document.getElementById('content').style.width = (w - sidebarW) + 'px';
+	document.getElementById('content').style.height = (h - navBarH) + 'px';
 
 	chatResize()
 };
@@ -178,9 +181,7 @@ function postMessageInChat() {
 	var xhttp = new XMLHttpRequest()
 	xhttp.onreadystatechange = function () {
 		if (this.readyState == 4 && this.status == 200) {
-			var json = JSON.parse(this.responseText)
 			loadChat()
-
 		}
 	}
 	xhttp.open("POST", "/api")
@@ -221,12 +222,12 @@ function printChat() {
 				*/
 				for(var i = 0; i < result.length; i++) {
 					text += '<div class="messageContainer">'
-					text += '<div class="name">'+result[i]['iduser']+'</div>'
-					text += '<div class="pic"></div>'
-					text += '<div class="message">'
-					text += '<div class="text">'+result[i]['message']+'</div>'
-					text += '<div class="timestamp">'+result[i]['timestamp']+'</div>'
-					text += '</div>'
+					text += 	'<div class="name">'+result[i]['iduser']+'</div>'
+					text += 	'<div class="pic"></div>'
+					text += 	'<div class="message">'
+					text += 		'<div class="text">'+result[i]['message']+'</div>'
+					text += 		'<div class="timestamp">'+result[i]['timestamp']+'</div>'
+					text += 	'</div>'
 					text += '</div>'
 			}
 

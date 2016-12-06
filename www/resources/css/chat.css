@@ -3,9 +3,9 @@
  *	CHAT
  */
 
-#content #chat {
-	float: right;
-	height: 100%;
+#content #chat {}
+#content #chat #messages {
+	overflow-y: auto;
 }
 #content #chat #input {
 	width: 100%;

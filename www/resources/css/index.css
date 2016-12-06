@@ -17,6 +17,8 @@ body {
 	padding: 0px;
 	margin: 0px;
 	background-color: var(--color-lightgray);
+	overflow-y: none;
+	overflow-x: none;
 }
 a {
 	text-decoration: none;
