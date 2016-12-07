@@ -220,13 +220,24 @@ function printChat() {
 					</div>
 				</div>
 				*/
+
 				for(var i = 0; i < result.length; i++) {
+					var date = new Date(result[i]['timestamp'])
+					var currentdate = new Date();
+					var time = ''
+
+					if( !(date.getFullYear() == currentdate.getFullYear() && date.getMonth() == currentdate.getMonth() && date.getDate() == currentdate.getDate())) {
+						console.log("nottoday")
+						time = date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate() + ' '
+					}
+					time += date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds()
+
 					text += '<div class="messageContainer">'
 					text += 	'<div class="name">'+result[i]['iduser']+'</div>'
 					text += 	'<div class="pic"></div>'
 					text += 	'<div class="message">'
 					text += 		'<div class="text">'+result[i]['message']+'</div>'
-					text += 		'<div class="timestamp">'+result[i]['timestamp']+'</div>'
+					text += 		'<div class="timestamp">'+time+'</div>'
 					text += 	'</div>'
 					text += '</div>'
 			}
@@ -239,6 +250,9 @@ function printChat() {
 	xhttp.open("POST", "/api")
 	xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 	xhttp.send(JSON.stringify(json))
+}
+function twodigits(number) {
+	return ("0" + number).slice(-2);
 }
 
 function respondToFriendRequest(iduser1, iduser2, answer) {
