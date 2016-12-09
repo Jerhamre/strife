@@ -16,7 +16,7 @@ Chat.prototype.loadChat = function(chatid, res){
 			message_idmessage.push(message_id[i]['message_idmessage'])
 			
 		}
-		console.log(message_idmessage)
+
 		if(typeof message_idmessage !== 'undefined' && message_idmessage.length > 0){
 			loadMessage(message_idmessage, res);
 		}
@@ -28,14 +28,14 @@ Chat.prototype.loadChat = function(chatid, res){
 
 
 function loadMessage(result, res){
-	var sql = 'SELECT * FROM message WHERE idmessage IN (?);'
-	console.log(result)
+	var sql = 'SELECT message.message, message.timestamp, users.fname, users.lname FROM message INNER JOIN users ON message.iduser=users.idusers  WHERE message.idmessage IN (?);'
 	function callback(err, result){
 
-		var response = []
 		result = JSON.parse(result)
+		var response = []
+
 		for (var i = 0; i < result.length; i++) {
-			var jsonrow = {'message':result[i]['message'],'iduser':result[i]['iduser'],'timestamp':result[i]['timestamp']}
+			var jsonrow = {'message':result[i]['message'],'fname':result[i]['fname'],'lname':result[i]['lname'],'timestamp':result[i]['timestamp']}
 			response.push(jsonrow)
 			console.log(jsonrow) 
 				
@@ -63,7 +63,7 @@ Chat.prototype.postToChat = function(data, idusers, res){
 		result = JSON.parse(result)
 		console.log('INSERT ID: '+result['insertId'])
 		console.log('IDUSER: '+idusers)
-		addmessageToChat(idusers,result['insertId'],res)
+		addmessageToChat(data[0]['idchat'],result['insertId'],res)
 	}
 
 

@@ -233,7 +233,7 @@ function printChat() {
 					time += date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds()
 
 					text += '<div class="messageContainer">'
-					text += 	'<div class="name">'+result[i]['iduser']+'</div>'
+					text += 	'<div class="name">'+result[i]['fname']+' '+result[i]['lname']+'</div>'
 					text += 	'<div class="pic"></div>'
 					text += 	'<div class="message">'
 					text += 		'<div class="text">'+result[i]['message']+'</div>'
