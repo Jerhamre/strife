@@ -8,7 +8,8 @@ var Session     = require('express-session')
 var bodyParser  = require('body-parser')
 var ios = require('socket.io-express-session')
 var SessionStore = require('session-file-store')(Session);
-var session = Session({store: new SessionStore({path: __dirname+'/tmp/sessions'}), secret: secret, resave: true, saveUninitialized: true});
+//store: new SessionStore({path: __dirname+'/tmp/sessions'}), 
+var session = Session({secret: secret, resave: true, saveUninitialized: true});
 
 /*var options = {
     key: fs.readFileSync('/etc/letsencrypt/live/cloud-59.skelabb.ltu.se/privkey.pem'),
@@ -34,6 +35,7 @@ const portSSL=443;
 var io
 var clients = {}
 var sequence = 1;
+console.log(Object.keys(clients).length)
 
 var db = null;
 var user = null;
@@ -58,24 +60,27 @@ function startServer(db_in, user_in, api_in) {
     io = require('socket.io')(server);
     io.use(ios(session));
     io.sockets.on('connection', function (socket) {
-        //console.log("Session: ", session.idusers)
-        console.info('New client connected (idusers=' + session.idusers +', id=' + socket.id + ')')
-        //clients[session.idusers] = socket.id
-        clients[session.idusers] = socket
+        if(socket.handshake.session.idusers != null) {
+            //console.log("Session: ", socket.handshake.session.idusers)
+            console.info('New client connected (idusers=' + socket.handshake.session.idusers +', id=' + socket.id + ')')
+            clients[socket.handshake.session.idusers] = socket
 
-        // When socket disconnects, remove it from the list
-        socket.on('disconnect', function() {
-            console.info('Client disconnected (id=' + socket.id + ')')
-            delete clients[socket.id]
-        });
+            // When socket disconnects, remove it from the list
+            socket.on('disconnect', function() {
+                console.info('Client disconnected (id=' + socket.id + ')')
+                delete clients[socket.handshake.session.idusers]
+            });
+        }
     });
 }
 setInterval(function() {
     var message = { message: sequence++ }
+    console.log("clients length " + Object.keys(clients).length)
     sendSocketMessage([1,2], 'message', message)
 }, 1000);
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
 function sendSocketMessage(ids, type, message) {
     for(var i = 0; i < ids.length; i++) {
         if(clients[ids[i]]) {
@@ -85,7 +90,7 @@ function sendSocketMessage(ids, type, message) {
 }
 
 function checkAuth(req, res, next) {
-    if (!session.idusers) {
+    if (!req.session.idusers) {
         res.redirect('/login');
     } else {
         next();
@@ -93,7 +98,7 @@ function checkAuth(req, res, next) {
 }
 
 function setSessionUserID(idusers, next_page, res) {
-    session.idusers = idusers
+    //session.idusers = idusers
 
     res.redirect(next_page);
 }
@@ -141,7 +146,8 @@ app.post('/login', function (req, res) {
     var email = req.body.email
     var password = req.body.password
 
-    user.login(email, password, res)
+    req.session.test2 = "derp"
+    user.login(email, password, req.session, res)
 })
 
 app.get('/register', function (req, res) {
@@ -165,7 +171,8 @@ app.post('/register', function (req, res) {
 })
 
 app.get('/logout', function (req, res) {
-    session.idusers = undefined
+    req.session.destroy()
+    session.idusers = null
     res.redirect('/');
 })
 
@@ -185,7 +192,7 @@ app.get('/about', function (req, res) {
 
 app.post('/api', function (req, res) {
 
-    api.handleRequest(req.body, res, session)
+    api.handleRequest(req.body, res, req.session)
 })
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -197,6 +204,7 @@ app.use(function(req, res) {
 
 // Handle 500
 app.use(function(error, req, res, next) {
+    console.log('500: Internal Server Error\n ' + error)
     res.status(500).send('500: Internal Server Error\n ' + error)
 });
 
