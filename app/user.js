@@ -10,18 +10,16 @@ function User(db_in, server_in, api_in) {
 	api = api_in;
 };
 
-User.prototype.login = function(email, password, res) {
+User.prototype.login = function(email, password, session, res) {
 
 	var sql = 'SELECT * FROM users WHERE email=?;'	
 
 	var callback = function(err, result) {
 
-		console.log("Login")
-
         var user = JSON.parse(result)[0];
 
         if(typeof user === 'undefined' || !user) {
-			server.setSessionUserID(null, '/login', res)
+			res.redirect('/login')
 			return
         }
 
@@ -29,13 +27,14 @@ User.prototype.login = function(email, password, res) {
 
 		var hash = crypto.createHmac('sha256', password).update(salt).digest('hex');
 
-		console.log('hash: ' + hash);
-		console.log('pass: ' + user['password']);
+		//console.log('hash: ' + hash);
+		//console.log('pass: ' + user['password']);
 
 		if(hash == user['password']) {
-			server.setSessionUserID(user['idusers'], '/', res)
+			session.idusers = user['idusers']
+			res.redirect('/')
 		} else {
-			server.setSessionUserID(null, '/login', res)
+			res.redirect('/login')
 		}
 
 		return
