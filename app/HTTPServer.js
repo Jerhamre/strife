@@ -198,3 +198,4 @@ app.use(function(error, req, res, next) {
 
 
 module.exports.startServer = startServer
+module.exports.sendSocketMessage = sendSocketMessage
