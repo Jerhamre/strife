@@ -61,7 +61,6 @@ function startServer(db_in, user_in, api_in) {
     io.use(ios(session));
     io.sockets.on('connection', function (socket) {
         if(socket.handshake.session.idusers != null) {
-            //console.log("Session: ", socket.handshake.session.idusers)
             console.info('New client connected (idusers=' + socket.handshake.session.idusers +', id=' + socket.id + ')')
             clients[socket.handshake.session.idusers] = socket
 
@@ -73,14 +72,9 @@ function startServer(db_in, user_in, api_in) {
         }
     });
 }
-setInterval(function() {
-    var message = { message: sequence++ }
-    console.log("clients length " + Object.keys(clients).length)
-    sendSocketMessage([1,2], 'message', message)
-}, 1000);
-
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
+//[array of idusers], type of message (socketIO on function), json
 function sendSocketMessage(ids, type, message) {
     for(var i = 0; i < ids.length; i++) {
         if(clients[ids[i]]) {
@@ -95,12 +89,6 @@ function checkAuth(req, res, next) {
     } else {
         next();
     }
-}
-
-function setSessionUserID(idusers, next_page, res) {
-    //session.idusers = idusers
-
-    res.redirect(next_page);
 }
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -210,4 +198,3 @@ app.use(function(error, req, res, next) {
 
 
 module.exports.startServer = startServer
-module.exports.setSessionUserID = setSessionUserID

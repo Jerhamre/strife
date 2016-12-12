@@ -20,7 +20,6 @@ User.prototype.login = function(email, password, session, res) {
 
         if(typeof user === 'undefined' || !user) {
 			res.redirect('/login')
-			//server.setSessionUserID(null, '/login', res)
 			return
         }
 
@@ -32,17 +31,11 @@ User.prototype.login = function(email, password, session, res) {
 		//console.log('pass: ' + user['password']);
 
 		if(hash == user['password']) {
-			console.log('11')
 			session.idusers = user['idusers']
-			console.log(session)
 			res.redirect('/')
-			//server.setSessionUserID(user['idusers'], '/', res)
 		} else {
-			console.log('22')
 			res.redirect('/login')
-			//server.setSessionUserID(null, '/login', res)
 		}
-		console.log('33')
 
 		return
     };
