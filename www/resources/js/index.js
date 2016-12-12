@@ -23,7 +23,7 @@ window.onload = function getDataOnLoad(){
 }
 
 function initSocket() {
-    var socket = io.connect('http://localhost:80');
+    var socket = io.connect('http://cloud-59.skelabb.ltu.se:80');
     socket.on('message', function (data) {
         if(data.message) {
             console.log(data.message)
@@ -256,6 +256,8 @@ function printChat() {
 			}
 
 			document.getElementById('messages').innerHTML = text
+			var div = document.getElementById('messages');
+			div.scrollTop = div.scrollHeight - div.clientHeight;;
 		}
 
 	}

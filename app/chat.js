@@ -7,7 +7,9 @@ function Chat(db_in, api_in) {
 };
 
 Chat.prototype.loadChat = function(chatid, res){
+
 	var sql = 'SELECT * FROM chat_has_message WHERE chat_idchat =? ORDER BY message_idmessage DESC LIMIT 20;'
+
 	function callback(err, result){
 		var message_id = JSON.parse(result);
 
@@ -28,7 +30,9 @@ Chat.prototype.loadChat = function(chatid, res){
 
 
 function loadMessage(result, res){
+
 	var sql = 'SELECT message.message, message.timestamp, users.fname, users.lname FROM message INNER JOIN users ON message.iduser=users.idusers  WHERE message.idmessage IN (?);'
+	
 	function callback(err, result){
 
 		result = JSON.parse(result)
@@ -37,7 +41,6 @@ function loadMessage(result, res){
 		for (var i = 0; i < result.length; i++) {
 			var jsonrow = {'message':result[i]['message'],'fname':result[i]['fname'],'lname':result[i]['lname'],'timestamp':result[i]['timestamp']}
 			response.push(jsonrow)
-			console.log(jsonrow) 
 				
 
 		}
@@ -52,17 +55,10 @@ function loadMessage(result, res){
 
 Chat.prototype.postToChat = function(data, idusers, res){
 	var sql = 'INSERT INTO message (message, iduser) VALUES (?,?);'	
-	console.log(sql)
-	console.log("performing query in post chat")
-	console.log(data[0]['message'])
-	console.log(idusers)
 	var message = data[0]['message'];
 
 	function callback(err, result){
-		console.log("---callback---")
 		result = JSON.parse(result)
-		console.log('INSERT ID: '+result['insertId'])
-		console.log('IDUSER: '+idusers)
 		addmessageToChat(data[0]['idchat'],result['insertId'],res)
 	}
 
@@ -71,13 +67,11 @@ Chat.prototype.postToChat = function(data, idusers, res){
 }
 
 function addmessageToChat(chat_idchat, message_idmessage, res){
-	console.log("---------------addmessageToChat---------------------")
+	
 	var sql = 'INSERT INTO chat_has_message (chat_idchat, message_idmessage) VALUES (?,?);'
-	console.log(sql)
-	console.log("chat_idchat:" + chat_idchat + " message_idmessage: "+ message_idmessage)
+	
 	
 	function callback(err, result){
-		console.log(result)
 		res.send()
 	}
 
