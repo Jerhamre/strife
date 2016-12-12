@@ -19,7 +19,6 @@ Api.prototype.handleRequest = function(req, res, session) {
 		res.send('bad json request')
 
 	if (method == 'getRooms') {
-		console.log('getRooms')
 		room.getRooms(session, res)
 	}
 

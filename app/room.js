@@ -14,9 +14,6 @@ Room.prototype.getRooms = function(session, res) {
 
 	var retval = []
 
-	console.log(sql)
-
-
 	var callback = function(err, result) {
 
 		result = JSON.parse(result)
@@ -31,24 +28,16 @@ Room.prototype.getRooms = function(session, res) {
 			return;
 		}
 
-		console.log("rooms")
-		console.log(rooms)
-
 		var sql = "SELECT * FROM room WHERE idroom IN (?);"
 
 		var callback = function(err, result) {
 
 			result = JSON.parse(result)
-			console.log("result.length")
-			console.log(result.length)
 
 			for (var i = 0; i < result.length; i++) {
 				var retjson = {'idchat': result[i]['chat_idchat'], 'room_name': result[i]['room_name']}
 				retval.push(retjson)
 			}
-
-			console.log("retval")
-			console.log(retval)
 
         	res.send(JSON.stringify(retval))
 		}
@@ -58,7 +47,6 @@ Room.prototype.getRooms = function(session, res) {
 	}
 
 	db.query(callback, sql, [session.idusers])
-
 
 }
 

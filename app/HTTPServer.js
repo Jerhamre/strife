@@ -1,10 +1,14 @@
+var secret = 'testtopkek321123'
 var express     = require('express')
 var fs          = require('fs')
 var http        = require('http')
 //var https       = require('https')
 var path        = require('path')
-var session     = require('express-session')
+var Session     = require('express-session')
 var bodyParser  = require('body-parser')
+var ios = require('socket.io-express-session')
+var SessionStore = require('session-file-store')(Session);
+var session = Session({store: new SessionStore({path: __dirname+'/tmp/sessions'}), secret: secret, resave: true, saveUninitialized: true});
 
 /*var options = {
     key: fs.readFileSync('/etc/letsencrypt/live/cloud-59.skelabb.ltu.se/privkey.pem'),
@@ -22,10 +26,14 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
 }));
 app.use( bodyParser.json() );       // to support JSON-encoded bodies
+app.use(session)
 
 // start server
 const port=80; 
-const portSSL=443; 
+const portSSL=443;
+var io
+var clients = {}
+var sequence = 1;
 
 var db = null;
 var user = null;
@@ -37,15 +45,44 @@ function startServer(db_in, user_in, api_in) {
     user   = user_in
     api    = api_in
 
+    /* legacy backup
     http.createServer(app).listen(port, function(){
         console.log("Express HTTP server listening on port " + port);
     });
     /*https.createServer(options, app).listen(portSSL, function(){
         console.log("Express HTTPS server listening on port " + portSSL);
     });*/
+    var server = http.createServer(app);
+    server.listen(port); // start listening
+
+    io = require('socket.io')(server);
+    io.use(ios(session));
+    io.sockets.on('connection', function (socket) {
+        //console.log("Session: ", session.idusers)
+        console.info('New client connected (idusers=' + session.idusers +', id=' + socket.id + ')')
+        //clients[session.idusers] = socket.id
+        clients[session.idusers] = socket
+
+        // When socket disconnects, remove it from the list
+        socket.on('disconnect', function() {
+            console.info('Client disconnected (id=' + socket.id + ')')
+            delete clients[socket.id]
+        });
+    });
 }
+setInterval(function() {
+    var message = { message: sequence++ }
+    sendSocketMessage([1,2], 'message', message)
+}, 1000);
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+function sendSocketMessage(ids, type, message) {
+    for(var i = 0; i < ids.length; i++) {
+        if(clients[ids[i]]) {
+            clients[ids[i]].emit(type, message);
+        }
+    }
+}
 
 function checkAuth(req, res, next) {
     if (!session.idusers) {
@@ -56,7 +93,8 @@ function checkAuth(req, res, next) {
 }
 
 function setSessionUserID(idusers, next_page, res) {
-    session.idusers = idusers;
+    session.idusers = idusers
+
     res.redirect(next_page);
 }
 
@@ -70,6 +108,7 @@ function setSessionUserID(idusers, next_page, res) {
 })*/
 
 app.get('/', checkAuth, function (req, res) {
+    req.session.test = 'test'
     res.render('index', { temp : 'ITS OVER 9000!!!!' })
 })
 

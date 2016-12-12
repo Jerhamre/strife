@@ -35,10 +35,8 @@ function connectToDB() {
 
 function query(callback, sql, data) {
 
-	console.log("connected to DB, doing query now")
-
 	connection.query(sql, data, function(err, rows) {
-		console.log("query done, handle result")
+
 		if (err) {
 			console.log('Database query returned error: ', err);
 			console.log('sql query was: ', sql);
@@ -48,7 +46,7 @@ function query(callback, sql, data) {
         }
 
         json = JSON.stringify(rows);
-        console.log('JSON-result:', json);
+        //console.log('JSON-result:', json);
 
 		if (typeof callback === "function")
 			callback(null, json);

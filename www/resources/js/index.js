@@ -18,6 +18,20 @@ window.onload = function getDataOnLoad(){
 	displayNav() 		//nav.js
 	displayContent() 	//nav.js
 
+	initSocket()
+
+}
+
+function initSocket() {
+    var socket = io.connect('http://localhost:80');
+    socket.on('message', function (data) {
+        if(data.message) {
+            console.log(data.message)
+        } else {
+            console.log("There is a problem:", data);
+        }
+    });
+    socket.emit('send', { message: "test LOL" });
 }
 
 function friendList(){
@@ -33,7 +47,6 @@ function friendList(){
     		var result = JSON.parse(this.responseText)
 
 			var text = ''
-
 
 			//requests
 			for(var i = 0; i < result.length; i++) {
@@ -181,7 +194,8 @@ function postMessageInChat() {
 	var xhttp = new XMLHttpRequest()
 	xhttp.onreadystatechange = function () {
 		if (this.readyState == 4 && this.status == 200) {
-			loadChat()
+			printChat()
+			document.getElementById('message').value = ''
 		}
 	}
 	xhttp.open("POST", "/api")
@@ -227,10 +241,9 @@ function printChat() {
 					var time = ''
 
 					if( !(date.getFullYear() == currentdate.getFullYear() && date.getMonth() == currentdate.getMonth() && date.getDate() == currentdate.getDate())) {
-						console.log("nottoday")
-						time = date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate() + ' '
+						time = date.getFullYear() + '-' + twodigits(date.getMonth()+1) + '-' + twodigits(date.getDate()) + ' '
 					}
-					time += date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds()
+					time += twodigits(date.getHours()) + ':' + twodigits(date.getMinutes()) + ':' + twodigits(date.getSeconds())
 
 					text += '<div class="messageContainer">'
 					text += 	'<div class="name">'+result[i]['fname']+' '+result[i]['lname']+'</div>'
@@ -251,6 +264,7 @@ function printChat() {
 	xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 	xhttp.send(JSON.stringify(json))
 }
+
 function twodigits(number) {
 	return ("0" + number).slice(-2);
 }
