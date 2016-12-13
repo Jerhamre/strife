@@ -49,6 +49,12 @@ Api.prototype.handleRequest = function(req, res, session) {
 		console.log('in api: joinRoom')
 		room.joinRoom(req['data'], session, res)
 	}
+
+	if (method == 'createRoom'){
+		console.log('in api: createRoom')
+		room.createRoom(req['data'], session, res)
+	}
+
 }
 
 
