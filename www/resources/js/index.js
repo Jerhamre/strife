@@ -39,9 +39,9 @@ function initSocket() {
     		console.log('chatid==chatid')
     		printMessagesToChat(data)
     	}
-    	
-										
-					
+	});										
+	socket.on('joinRoom', function (data)  {
+		roomsList()			
     });
     socket.on('sendFriendRequest', function (data) {
         friendList()
@@ -325,6 +325,67 @@ function respondToFriendRequest(iduser1, iduser2, answer) {
 		if (this.readyState == 4 && this.status == 200) {
 			var json = JSON.parse(this.responseText)
 			friendList()
+
+		}
+	}
+	xhttp.open("POST", "/api")
+	xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+	xhttp.send(JSON.stringify(json))
+
+}
+
+
+function joinRoom() {
+
+	var idroom = $('#joinRoom').val()
+
+	if (idroom == "") {
+		//sendFriendRequestError('Please enter a valid email')
+		return
+	}
+
+	var json = {
+			"method": "joinRoom",
+			"data": [{"idroom": idroom}],
+		}
+
+	console.log(json)
+
+	var xhttp = new XMLHttpRequest()
+	xhttp.onreadystatechange = function () {
+		if (this.readyState == 4 && this.status == 200) {
+			// response here
+
+
+		}
+	}
+	xhttp.open("POST", "/api")
+	xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+	xhttp.send(JSON.stringify(json))
+
+}
+
+function createRoom() {
+	console.log('running createRoom')
+	var room_name = $('#createRoom').val()
+
+	if (room_name == "") {
+		//sendFriendRequestError('Please enter a valid email')
+		return
+	}
+
+	var json = {
+			"method": "createRoom",
+			"data": [{"room_name": room_name}],
+		}
+
+	console.log(json)
+
+	var xhttp = new XMLHttpRequest()
+	xhttp.onreadystatechange = function () {
+		if (this.readyState == 4 && this.status == 200) {
+			// response here
+
 
 		}
 	}

@@ -80,6 +80,9 @@ function startServer(db_in, user_in, api_in) {
 
 //[array of idusers], type of message (socketIO on function), json
 function sendSocketMessage(ids, type, message) {
+    console.log('sendSocketMessage: type: '+ type)
+    console.log('sendSocketMessage: type: '+ ids)
+    
     if(ids == null) {
         var keys = Object.keys(clients)
         for(var i = 0; i < keys.length; i++) {
