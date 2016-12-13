@@ -56,7 +56,7 @@ function startServer(db_in, user_in, api_in) {
     var server = http.createServer(app);
     server.listen(port); // start listening on server
 
-    var serverHTTPS = https.createServer(app)
+    var serverHTTPS = https.createServer(options, app)
     serverHTTPS.listen(portSSL) // start listening on secure server
 
     io = require('socket.io')(serverHTTPS);
