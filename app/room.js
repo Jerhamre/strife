@@ -2,9 +2,11 @@
 
 var db = null;
 var api = null;
+var server = null;
 
 function Room(db_in, server_in, api_in) {
 	db = db_in;
+	server = server_in;
 	api = api_in;
 };
 
@@ -39,7 +41,8 @@ Room.prototype.getRooms = function(session, res) {
 				retval.push(retjson)
 			}
 
-        	res.send(JSON.stringify(retval))
+        	//res.send(JSON.stringify(retval))
+        	server.sendSocketMessage(session.idusers, 'rooms', JSON.stringify(retval))
 		}
 
 		db.query(callback, sql, [rooms])
@@ -48,6 +51,30 @@ Room.prototype.getRooms = function(session, res) {
 
 	db.query(callback, sql, [session.idusers])
 
+}
+
+Room.prototype.joinRoom = function(session, data, res){
+	var sql = 'SELECT idroom FROM room WHERE chat_idchat IN (?);'
+	
+		var callback = function (err, result){
+
+			result = JSON.parse(result)
+			var room_idroom = result[0]['idroom']
+
+			var sql = 'INTO users_has_room (users_idusers, room_idroom) VALUES (?, ?);'
+
+			var callback = function (err, result){
+
+				getRooms(session, res)
+				
+
+			}
+
+			db.query(callback, sql, [session.idusers,room_idroom])
+			
+		}
+
+	db.query(callback, sql, [data['idroom']])
 }
 
 module.exports.Room = Room

@@ -44,6 +44,11 @@ Api.prototype.handleRequest = function(req, res, session) {
 		console.log('in api: postToChat')
 		chat.postToChat(req['data'], session.idusers, res)
 	}
+
+	if (method == 'joinRoom'){
+		console.log('in api: joinRoom')
+		room.joinRoom(req['data'], session, res)
+	}
 }
 
 

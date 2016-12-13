@@ -310,3 +310,34 @@ function respondToFriendRequest(iduser1, iduser2, answer) {
 	xhttp.send(JSON.stringify(json))
 
 }
+
+
+function joinRoom() {
+
+	var idroom = $('#joinRoom').val()
+
+	if (idroom == "") {
+		//sendFriendRequestError('Please enter a valid email')
+		return
+	}
+
+	var json = {
+			"method": "joinRoom",
+			"data": [{"idroom": idroom}],
+		}
+
+	console.log(json)
+
+	var xhttp = new XMLHttpRequest()
+	xhttp.onreadystatechange = function () {
+		if (this.readyState == 4 && this.status == 200) {
+			// response here
+
+
+		}
+	}
+	xhttp.open("POST", "/api")
+	xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+	xhttp.send(JSON.stringify(json))
+
+}
