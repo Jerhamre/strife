@@ -39,7 +39,7 @@ Room.prototype.getRooms = function(session, res) {
 				// get users avatar
 				var avatar = ''
 				fs = require('fs')
-				var filepath = __dirname + '\\avatars\\room\\' + result[i]['chat_idchat']
+				var filepath = __dirname + '/avatars/room/' + result[i]['chat_idchat']
 				if (fs.existsSync(filepath)) {
 				    avatar = fs.readFileSync(filepath, 'utf-8')
 				}

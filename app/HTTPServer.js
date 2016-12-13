@@ -242,7 +242,7 @@ app.post('/avatar', upload.single('avatar'), function (req, res, next) {
     console.log("AVATAR CROP")
 
     sharp(req.file.path)
-        .png()
+        .raw()
         .resize(40, 40)
         .min()
         .toFile(filepath, function(err) {
