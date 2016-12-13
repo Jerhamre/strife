@@ -221,13 +221,11 @@ app.post('/avatar', upload.single('avatar'), function (req, res, next) {
         filepath += req.session.idusers
     }
 
-    /*fs.readFile(req.file.path, 'base64', function (err,data) {
+    fs.readFile(req.file.path, 'base64', function (err,data) {
         if (err) {
             res.send()
             return console.log(err)
         } else {
-
-            
 
             fs.writeFile(filepath, data, function(err) {
                 if(err) {
@@ -238,20 +236,7 @@ app.post('/avatar', upload.single('avatar'), function (req, res, next) {
 
             sendSocketMessage(null, 'avatarUpdated', null)
         }
-    });*/
-    console.log("AVATAR CROP")
-
-    sharp(req.file.path)
-        .raw()
-        .resize(40, 40)
-        .min()
-        .toFile(filepath, function(err) {
-            // output.jpg is a 200 pixels wide and 200 pixels high image
-            // containing a scaled and cropped version of input.jpg
-            fs.unlink(req.file.path)
-            sendSocketMessage(null, 'avatarUpdated', null)
-            console.log("AVATAR CROPED")
-        });
+    });
 
     res.send()
 })

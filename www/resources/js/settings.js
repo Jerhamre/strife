@@ -7,8 +7,8 @@ function populateSettings() {
 		html += '<h3>Room settings</h3>'
 
 		html += '<div class="avatar">'
-		html += '<div class="text">Choose a image to upload and use as avatar from this room</div>'
-		html += '<input class="avatarinput" id="avatarUploadRoom" type="file" name="avatar" accept="image/*" onchange="previewAvatarJS(\'room\')">'
+		html += '<div class="text">Choose a image to upload and use as avatar from this room (15kb max)</div>'
+		html += '<input class="avatarinput" data-max-size="16384" id="avatarUploadRoom" type="file" name="avatar" accept="image/*" onchange="previewAvatarJS(\'room\')">'
 		html += '<button class="uploadAvatar" onclick="sendAvatar(\'room\')">Upload</button>'
 		html += '<img class="preview" id="previewAvatarRoom" src=""/>'
 		html += '</div>'
@@ -18,8 +18,8 @@ function populateSettings() {
 	html += '<h3>User settings</h3>'
 
 	html += '<div class="avatar">'
-	html += '<div class="text">Choose a image to upload and use as avatar from your profile</div>'
-	html += '<input class="avatarinput" id="avatarUpload" type="file" name="avatar" accept="image/*" onchange="previewAvatarJS(\'user\')">'
+	html += '<div class="text">Choose a image to upload and use as avatar from your profile (15kb max)</div>'
+	html += '<input class="avatarinput" data-max-size="16384" id="avatarUpload" type="file" name="avatar" accept="image/*" onchange="previewAvatarJS(\'user\')">'
 	html += '<button class="uploadAvatar" onclick="sendAvatar(\'user\')">Upload</button>'
 	html += '<img class="preview" id="previewAvatar" src=""/>'
 	html += '</div>'
@@ -34,6 +34,7 @@ function sendAvatar(type) {
 
 	var fd = new FormData();
 
+	var input
 
 	var image
 
@@ -41,10 +42,23 @@ function sendAvatar(type) {
 		image = fileRoom.files[0]
 		var roomid = window.location.href.split('/')[4]
 		fd.append("roomid", roomid)
+		input = fileRoom
 	}
 	if(type == 'user') {
 		image = file.files[0]
+		input = file
 	}
+
+	var maxSize = input.data('max-size');
+
+	var fileSize = input.files[0].size;
+
+	if(fileSize>maxSize){
+		alert("Too big avatar, 15kb max")
+		return
+	}
+
+
 	fd.append("avatar", image);
 	fd.append("type", type);
 
