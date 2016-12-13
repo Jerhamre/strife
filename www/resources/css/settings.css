@@ -3,7 +3,32 @@
  *	SETTINGS
  */
 
- #settingscontent {
+#settingscontent {
  	margin-left: 20px;
  	margin-right: 20px;
- }
+}
+
+#settingscontent h3 {
+	clear: both;
+ 	color: lightgreen;
+}
+
+#settingscontent .avatar {}
+#settingscontent .avatar .text {
+	margin-bottom: 5px;
+}
+#settingscontent .avatar .avatarinput {
+	margin-bottom: 5px;
+	float: left;
+}
+#settingscontent .avatar .uploadAvatar {
+	float: right;
+	margin-bottom: 5px;
+}
+#settingscontent .avatar .preview {
+	clear: both;
+	margin-bottom: 5px;
+	float: left;
+	max-height: 140px;
+	max-width: 140px;
+}

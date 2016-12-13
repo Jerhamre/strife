@@ -2,26 +2,27 @@ function populateSettings() {
 
 	var html = ''
 
-	html += '<img id="blah" alt="your image" width="100" height="100" />'
-
-	html += '<input type="file" onchange="document.getElementById("blah").src = window.URL.createObjectURL(this.files[0])">'
-
 	if(window.location.href.includes("room")) {
 		
 		html += '<h3>Room settings</h3>'
 
-		html += 'Choose a image to upload and use as avatar from this room'
-		html += '<input id="avatarUploadRoom" type="file" name="avatar" accept="image/*">'
-		html += '<button onclick="sendAvatar(\'room\')">Upload</button>'
+		html += '<div class="avatar">'
+		html += '<div class="text">Choose a image to upload and use as avatar from this room</div>'
+		html += '<input class="avatarinput" id="avatarUploadRoom" type="file" name="avatar" accept="image/*" onchange="previewAvatarJS(\'room\')">'
+		html += '<button class="uploadAvatar" onclick="sendAvatar(\'room\')">Upload</button>'
+		html += '<img class="preview" id="previewAvatarRoom" src=""/>'
+		html += '</div>'
 
 	}
 		
 	html += '<h3>User settings</h3>'
 
-	html += 'Choose a image to upload and use as avatar from your profile'
-	html += '<input id="avatarUpload" type="file" name="avatar" accept="image/*">'
-	html += '<button onclick="sendAvatar(\'user\')">Upload</button>'
-	html += '<img id="blah" src="#" alt="your image" />'
+	html += '<div class="avatar">'
+	html += '<div class="text">Choose a image to upload and use as avatar from your profile</div>'
+	html += '<input class="avatarinput" id="avatarUpload" type="file" name="avatar" accept="image/*" onchange="previewAvatarJS(\'user\')">'
+	html += '<button class="uploadAvatar" onclick="sendAvatar(\'user\')">Upload</button>'
+	html += '<img class="preview" id="previewAvatar" src=""/>'
+	html += '</div>'
 
 	document.getElementById("settingscontent").innerHTML = html
 }
@@ -69,21 +70,36 @@ function sendAvatar(type) {
 	xhttp.send(fd);
 }
 
-function readURL(input) {
-	console.log('readURL')
+function readURL(type) {
+
+	var fileRoom = document.getElementById("avatarUploadRoom");
+	var file = document.getElementById("avatarUpload");
+
+	var input
+
+	if(type == 'room'){
+		input = fileRoom
+	}
+	if(type == 'user'){
+		input = file
+	}
 
     if (input.files && input.files[0]) {
         var reader = new FileReader();
-
+            
         reader.onload = function (e) {
-            $('#blah').attr('src', e.target.result);
+        	if(type == 'room'){
+				$('#previewAvatarRoom').attr('src', e.target.result);
+        	}
+			if(type == 'user') {
+            	$('#previewAvatar').attr('src', e.target.result);
+			}
         }
-
+            
         reader.readAsDataURL(input.files[0]);
     }
 }
 
-$("#avatarUpload").change(function(){
-	console.log('change')
-    readURL(this);
-});
+function previewAvatarJS(type) {
+    readURL(type);
+}
