@@ -45,7 +45,7 @@ function loadMessage(result, chatid, idusers, res){
 			// get users avatar
 			var avatar = ''
 			fs = require('fs')
-			var filepath = __dirname + '\\avatars\\user\\' + result[i]['idusers']
+			var filepath = __dirname + '/avatars/user/' + result[i]['idusers']
 			if (fs.existsSync(filepath)) {
 			    avatar = fs.readFileSync(filepath, 'utf-8')
 			}
@@ -104,7 +104,7 @@ function getInsertedMessage(chat_idchat, message_idmessage, res){
 		// get users avatar
 		var avatar = ''
 		fs = require('fs')
-		var filepath = __dirname + '\\avatars\\user\\' + result[0]['idusers']
+		var filepath = __dirname + '/avatars/user/' + result[0]['idusers']
 		if (fs.existsSync(filepath)) {
 		    avatar = fs.readFileSync(filepath, 'utf-8')
 		}
