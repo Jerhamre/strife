@@ -14,6 +14,9 @@ function navClick(location) {
 		url[3] = location
 	}
 
+	if(location == 'chat') {
+		url.pop()
+	}
 	var string = ''
 
 	for(var i = 0; i < url.length; i++) {
@@ -35,10 +38,10 @@ function displayNav() {
 			html += '<div id="navTopChat" onclick="navClick(\'chat\')" class="navOption">Chat</div>'
 
 			if(window.location.href.includes("room")) {
-				html += '<div id="navTopScrum" onclick="navClick(\'scrum\')" class="navOption">Scrum</div>'
+				//html += '<div id="navTopScrum" onclick="navClick(\'scrum\')" class="navOption">Scrum</div>'
 			}
 
-			html += '<div id="navTopFiles" onclick="navClick(\'files\')" class="navOption">Files</div>'
+			//html += '<div id="navTopFiles" onclick="navClick(\'files\')" class="navOption">Files</div>'
 		}
 
 		html += '<div id="navTopSettings" onclick="navClick(\'settings\')" class="navOption">Settings</div>'
@@ -50,7 +53,7 @@ function displayNav() {
 		// set selected
 		var location = window.location.href.split('/')[5]
 		
-		if (location == null && document.getElementById('navTopChat')) {
+		if ((location == null || location == '') && document.getElementById('navTopChat')) {
 			document.getElementById('navTopChat').className += ' selected';
 		}
 		if (location == 'chat' && document.getElementById('navTopChat')) {
@@ -77,7 +80,8 @@ function displayContent() {
 
 	if(window.location.href.includes("room") || window.location.href.includes("friend")) {
 		var location = window.location.href.split('/')[5]
-		if (location == null || location == 'chat') {
+
+		if (location == null || location == '' || location == 'chat') {
 			$("#content").load("/resources/utilhtml/chat.ejs"); 
 		}
 		if (location == 'scrum') {

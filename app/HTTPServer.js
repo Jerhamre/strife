@@ -13,8 +13,6 @@ var session         = Session({secret: secret, resave: true, saveUninitialized: 
 var multer          = require('multer')
 var upload          = multer({ dest: __dirname + '\\avatars' })
 var fs              = require('fs');
-var btoa            = require('btoa')
-var atob            = require('atob')
 
 /*var options = {
     key: fs.readFileSync('/etc/letsencrypt/live/cloud-59.skelabb.ltu.se/privkey.pem'),
@@ -234,7 +232,7 @@ app.post('/avatar', upload.single('avatar'), function (req, res, next) {
                 }
             })
             fs.unlink(req.file.path)
-            
+
             sendSocketMessage(null, 'avatarUpdated', null)
         }
     });
