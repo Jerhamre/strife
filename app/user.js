@@ -129,7 +129,17 @@ function getFriendsName(idusers, bothusers, chatid, invite, res) {
 		var response = []
 		result = JSON.parse(result)
 		for (var i = 0; i < result.length; i++) {
-			var jsonrow = {'fname':result[i]['fname'] ,'lname':result[i]['lname'], 'chatid':chatid[result[i]['idusers']], 'invite': invite[result[i]['idusers']], 'users': bothusers}
+
+			// get users avatar
+			var avatar = ''
+			fs = require('fs')
+			var filepath = __dirname + '\\avatars\\user\\' + result[i]['idusers']
+			if (fs.existsSync(filepath)) {
+			    avatar = fs.readFileSync(filepath, 'utf-8')
+			}
+
+			var jsonrow = {'fname':result[i]['fname'] ,'lname':result[i]['lname'], 'chatid':chatid[result[i]['idusers']], 'invite': invite[result[i]['idusers']], 'users': bothusers, 'avatar': avatar}
+
 			response.push(jsonrow) 
 				
 
@@ -142,7 +152,6 @@ function getFriendsName(idusers, bothusers, chatid, invite, res) {
 };
 
 User.prototype.sendFriendRequest = function(data, idusers, res) {
-	console.log("sendFriendRequest")
 
 	var response = {'error': '', 'response': ''}
 
@@ -153,10 +162,8 @@ User.prototype.sendFriendRequest = function(data, idusers, res) {
 	var sql = "SELECT * FROM users WHERE email=?"
 
 	var callback = function(err, result) {
-		console.log("result " + result) 
 
 		var json = JSON.parse(result)
-		console.log("000")
 
 		// User not found
 		if(json.length == 0) {
@@ -164,7 +171,6 @@ User.prototype.sendFriendRequest = function(data, idusers, res) {
 			res.send(JSON.stringify(response)); 
 			return
 		}
-		console.log("111")
 
 		// Cant add yourself
 		if (json[0]["idusers"] == idusers) {
@@ -172,27 +178,18 @@ User.prototype.sendFriendRequest = function(data, idusers, res) {
 			res.send(JSON.stringify(response)); 
 			return
 		}
-		console.log("222")
 
 		var sql = 'INSERT INTO chat VALUES (null);'
 
 		var callback = function(err, result) {
-
-			console.log("create chat")
-			console.log(err)
-			console.log(result)
 			result = JSON.parse(result)
 
 			var chatid = result['insertId']
-			console.log('chatid: ' + chatid)
 
 			var sql = "INSERT INTO users_has_users (users_idusers, users_idusers1, chat_idchat, invite) VALUES (?,?,?,?);"
 
 
 			var callback = function(err, result) {
-
-				console.log(err)
-				console.log(result)
 
 				if(err) {
 
@@ -218,6 +215,8 @@ User.prototype.sendFriendRequest = function(data, idusers, res) {
 						} else {
 							response['response'] = 'Friend request sent!'
 						}
+
+						server.sendSocketMessage([json[0]["idusers"], idusers], 'sendFriendRequest', null)
 
 						res.send(JSON.stringify(response)); 
 						return
@@ -254,6 +253,9 @@ User.prototype.respondToFriendRequest = function(data, res) {
 			var sql = 'UPDATE users_has_users SET invite=0 WHERE users_idusers=? AND users_idusers1=?'
 
 			var callback = function(err, result) {
+
+				server.sendSocketMessage([data['idusers'], data['idusers1']], 'respondToFriendRequest', null)
+
 				res.send('ok'); 
 			}
 
@@ -273,6 +275,9 @@ User.prototype.respondToFriendRequest = function(data, res) {
 			var sql = 'DELETE FROM users_has_users WHERE users_idusers=? AND users_idusers1=?'
 
 			var callback = function(err, result) {
+
+				server.sendSocketMessage([data['idusers'], data['idusers1']], 'respondToFriendRequest', null)
+
 				res.send('ok'); 
 			}
 
@@ -281,6 +286,10 @@ User.prototype.respondToFriendRequest = function(data, res) {
 
 		db.query(callback, sql, [data['idusers'], data['idusers1']])
 	}
+}
+
+User.prototype.uploadAvatar = function(idusers, data) {
+	
 }
 
 module.exports.User = User

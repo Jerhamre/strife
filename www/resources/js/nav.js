@@ -6,7 +6,13 @@ function navClick(location) {
 		url.pop()
 	}
 
-	url[5] = location
+	if(url.length == 5) {
+		url[5] = location
+	}
+
+	if(url.length == 4) {
+		url[3] = location
+	}
 
 	var string = ''
 
@@ -33,9 +39,9 @@ function displayNav() {
 			}
 
 			html += '<div id="navTopFiles" onclick="navClick(\'files\')" class="navOption">Files</div>'
-
-			html += '<div id="navTopSettings" onclick="navClick(\'settings\')" class="navOption">Settings</div>'
 		}
+
+		html += '<div id="navTopSettings" onclick="navClick(\'settings\')" class="navOption">Settings</div>'
 		
 		html += '<div onclick="navClick(\'logout\')" class="navOption">Logout</div>'
 
@@ -59,6 +65,12 @@ function displayNav() {
 		if (location == 'settings' && document.getElementById('navTopSettings')) {
 			document.getElementById('navTopSettings').className += ' selected';
 		}
+
+		var location = window.location.href.split('/')[3]
+		
+		if (location == 'settings' && document.getElementById('navTopSettings')) {
+			document.getElementById('navTopSettings').className += ' selected';
+		}
 }
 
 function displayContent() {
@@ -79,6 +91,13 @@ function displayContent() {
 		}
 		
 	} else {
+		
+		var location = window.location.href.split('/')[3]
+		
+		if (location == 'settings') {
+			$("#content").load("/resources/utilhtml/settings.ejs"); 
+		} else {
 			$("#content").load("/resources/utilhtml/noselection.ejs"); 
+		}
 	}
 }

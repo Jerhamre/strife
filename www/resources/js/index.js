@@ -43,7 +43,17 @@ function initSocket() {
 										
 					
     });
-    socket.emit('send', { message: "test LOL" });
+    socket.on('sendFriendRequest', function (data) {
+        friendList()
+    });
+    socket.on('respondToFriendRequest', function (data) {
+        friendList()
+    });
+    socket.on('avatarUpdated', function (data) {
+    	console.log('avatarUpdated')
+    	roomsList()
+        friendList()
+    });
 }
 
 function friendList(){
@@ -65,21 +75,26 @@ function friendList(){
 				if(result[i]['invite'] != 1)
 					continue;
 				text += '<div class="friend">'
-				text += '<a href="/friend/' + result[i]['chatid'] + '" class="pic"></a>'
+				text += '<a class="apic" href="/friend/' + result[i]['chatid'] + '">'
+				if(result[i]['avatar'] != '')
+					text += '<img class="pic" src="' + 'data:image/jpeg;base64,' + result[i]['avatar'] + '">'
+				text += '</a>'
 				text += '<a href="/friend/' + result[i]['chatid'] + '" class="title">'+ result[i]['fname']+' '+result[i]['lname'] + '</a>';
 				text += '<div class="invite">';
 				text += 	'<div class="button accept" onclick="respondToFriendRequest(' + result[i]['users'][0] + ', ' +  result[i]['users'][1] + ', ' + 1 + ')">A</div>';
 				text += 	'<div class="button decline" onclick="respondToFriendRequest(' + result[i]['users'][0] + ', ' + result[i]['users'][1] + ', ' + 0 + ')">D</div>';
 				text += '</div>';
 				text += '</div>'
-				console.log()
 			}
 			//friends
 			for(var i = 0; i < result.length; i++) {
 				if(result[i]['invite'] != 0)
 					continue;
 				text += '<div class="friend">'
-				text += '<a href="/friend/' + result[i]['chatid'] + '" class="pic"></a>'
+				text += '<a class="apic" href="/friend/' + result[i]['chatid'] + '">'
+				if(result[i]['avatar'] != '')
+					text += '<img class="pic" src="' + 'data:image/jpeg;base64,' + result[i]['avatar'] + '">'
+				text += '</a>'
 				text += '<a href="/friend/' + result[i]['chatid'] + '" class="title">'+ result[i]['fname']+' '+result[i]['lname'] + '</a>';
 				text += '</div>'
 			}
@@ -89,7 +104,10 @@ function friendList(){
 				if(result[i]['invite'] != -1)
 					continue;
 				text += '<div class="friend">'
-				text += '<a href="/friend/' + result[i]['chatid'] + '" class="pic"></a>'
+				text += '<a class="apic" href="/friend/' + result[i]['chatid'] + '">'
+				if(result[i]['avatar'] != '')
+					text += '<img class="pic" src="' + 'data:image/jpeg;base64,' + result[i]['avatar'] + '">'
+				text += '</a>'
 				text += '<a href="/friend/' + result[i]['chatid'] + '" class="title">'+ result[i]['fname']+' '+result[i]['lname'] + '</a>';
 				text += '<div class="invite">';
 				text += 	'<div class="button pending">P</div>';
@@ -126,7 +144,10 @@ function roomsList() {
 
 			for(var i = 0; i < result.length; i++) {
 				text += '<a href="/room/' + result[i]['idchat'] + '" class="room">'
-				text += '<div class="pic"></div>'
+				text += '<div class="apic">'
+				if(result[i]['avatar'] != '')
+					text += '<img class="pic" src="' + 'data:image/jpeg;base64,' + result[i]['avatar'] + '">'
+				text += '</div>'
 				text += '<div class="title">'+ result[i]['room_name']+'</div>'
 				text += '</a>'
 			}

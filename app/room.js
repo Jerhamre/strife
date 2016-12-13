@@ -37,7 +37,16 @@ Room.prototype.getRooms = function(session, res) {
 			result = JSON.parse(result)
 
 			for (var i = 0; i < result.length; i++) {
-				var retjson = {'idchat': result[i]['chat_idchat'], 'room_name': result[i]['room_name']}
+
+				// get users avatar
+				var avatar = ''
+				fs = require('fs')
+				var filepath = __dirname + '\\avatars\\room\\' + result[i]['chat_idchat']
+				if (fs.existsSync(filepath)) {
+				    avatar = fs.readFileSync(filepath, 'utf-8')
+				}
+
+				var retjson = {'idchat': result[i]['chat_idchat'], 'room_name': result[i]['room_name'], 'avatar': avatar}
 				retval.push(retjson)
 			}
 
