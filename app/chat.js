@@ -91,8 +91,11 @@ function getInsertedMessage(chat_idchat, message_idmessage, res){
 	console.log(message_idmessage)
 	function callback(err, result){
 		result = JSON.parse(result)
+		var message = []
+		message.push({'chatid':chat_idchat,'message':result[0]['message'],'fname':result[0]['fname'],'lname':result[0]['lname'],'timestamp':result[0]['timestamp']})
+			
 		console.log(result)
-		getUsersInChat(chat_idchat, result, res)
+		getUsersInChat(chat_idchat, message, res)
 	}
 
 	db.query(callback, sql, [message_idmessage])
