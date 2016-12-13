@@ -37,7 +37,6 @@ const port=80;
 const portSSL=443;
 var io
 var clients = {}
-var sequence = 1;
 
 var db = null;
 var user = null;
@@ -55,9 +54,12 @@ function startServer(db_in, user_in, api_in) {
     });*/
     
     var server = http.createServer(app);
-    server.listen(port); // start listening
+    server.listen(port); // start listening on server
 
-    io = require('socket.io')(server);
+    var serverHTTPS = https.createServer(app)
+    serverHTTPS.listen(portSSL) // start listening on secure server
+
+    io = require('socket.io')(serverHTTPS);
     io.use(ios(session));
     io.sockets.on('connection', function (socket) {
         if(socket.handshake.session.idusers != null) {
@@ -70,9 +72,6 @@ function startServer(db_in, user_in, api_in) {
                 delete clients[socket.handshake.session.idusers]
             });
         }
-    });
-    https.createServer(options, app).listen(portSSL, function(){
-        console.log("Express HTTPS server listening on port " + portSSL);
     });
 }
 
