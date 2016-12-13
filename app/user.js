@@ -133,7 +133,7 @@ function getFriendsName(idusers, bothusers, chatid, invite, res) {
 			// get users avatar
 			var avatar = ''
 			fs = require('fs')
-			var filepath = __dirname + '\\avatars\\user\\' + result[i]['idusers']
+			var filepath = __dirname + '/avatars/user/' + result[i]['idusers']
 			if (fs.existsSync(filepath)) {
 			    avatar = fs.readFileSync(filepath, 'utf-8')
 			}

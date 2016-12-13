@@ -24,8 +24,8 @@ window.onload = function getDataOnLoad(){
 
 function initSocket() {
 
-    //var socket = io.connect('http://cloud-59.skelabb.ltu.se:80')
-    var socket = io.connect('http://localhost:80')
+    var socket = io.connect('https://cloud-59.skelabb.ltu.se', {secure: true})
+    //var socket = io.connect('http://localhost:80')
     socket.on('message', function (data) {
 
     	// reads the url of the page to determine which chat 
@@ -238,7 +238,7 @@ function postMessageInChat() {
 function printChat() {
 	console.log("printChat client side");
 
-	var queryString = (window.location.href).split("/").pop(-1);
+	var queryString = (window.location.href).split("/")[4];
 	var room = decodeURIComponent(queryString);
 
 	if(room==""){
@@ -253,7 +253,6 @@ function printChat() {
 	xhttp.onreadystatechange = function () {
 
 		if (this.readyState == 4 && this.status == 200) {
-			console.log('server has responded'+this.responseText)
 			printMessagesToChat(this.responseText)
 		}
 	}
@@ -296,7 +295,10 @@ function printMessagesToChat(result){
 
 		text += '<div class="messageContainer">'
 		text += 	'<div class="name">'+result[i]['fname']+' '+result[i]['lname']+'</div>'
-		text += 	'<div class="pic"></div>'
+		text += 	'<div class="apic">'
+		if(result[i]['avatar'] != '')
+			text += 	'<img class="pic" src="' + 'data:image/jpeg;base64,' + result[i]['avatar'] + '">'
+		text += 	'</div>'
 		text += 	'<div class="message">'
 		text += 		'<div class="text">'+result[i]['message']+'</div>'
 		text += 		'<div class="timestamp">'+time+'</div>'

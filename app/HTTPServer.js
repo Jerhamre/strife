@@ -2,7 +2,7 @@ var secret          = 'testtopkek321123'
 var express         = require('express')
 var fs              = require('fs')
 var http            = require('http')
-//var https           = require('https')
+var https           = require('https')
 var path            = require('path')
 var Session         = require('express-session')
 var bodyParser      = require('body-parser')
@@ -13,14 +13,13 @@ var session         = Session({secret: secret, resave: true, saveUninitialized: 
 var multer          = require('multer')
 var upload          = multer({ dest: __dirname + '\\avatars' })
 var fs              = require('fs');
-var btoa            = require('btoa')
-var atob            = require('atob')
+var sharp           = require('sharp')
 
-/*var options = {
+var options = {
     key: fs.readFileSync('/etc/letsencrypt/live/cloud-59.skelabb.ltu.se/privkey.pem'),
     cert: fs.readFileSync('/etc/letsencrypt/live/cloud-59.skelabb.ltu.se/cert.pem'),
     ca: fs.readFileSync('/etc/letsencrypt/live/cloud-59.skelabb.ltu.se/chain.pem')
-};*/
+};
 
 var app = express()
 
@@ -39,7 +38,6 @@ const port=80;
 const portSSL=443;
 var io
 var clients = {}
-var sequence = 1;
 
 var db = null;
 var user = null;
@@ -54,14 +52,15 @@ function startServer(db_in, user_in, api_in) {
     /* legacy backup
     http.createServer(app).listen(port, function(){
         console.log("Express HTTP server listening on port " + port);
-    });
-    /*https.createServer(options, app).listen(portSSL, function(){
-        console.log("Express HTTPS server listening on port " + portSSL);
     });*/
+    
     var server = http.createServer(app);
-    server.listen(port); // start listening
+    server.listen(port); // start listening on server
 
-    io = require('socket.io')(server);
+    var serverHTTPS = https.createServer(options, app)
+    serverHTTPS.listen(portSSL) // start listening on secure server
+
+    io = require('socket.io')(serverHTTPS);
     io.use(ios(session));
     io.sockets.on('connection', function (socket) {
         if(socket.handshake.session.idusers != null) {
@@ -110,12 +109,12 @@ function checkAuth(req, res, next) {
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-/*app.use(function requireHTTPS(req, res, next) {
+app.use(function requireHTTPS(req, res, next) {
   if (!req.secure) {
     return res.redirect('https://' + req.headers.host + req.url);
   }
   next();
-})*/
+})
 
 app.get('/', checkAuth, function (req, res) {
     req.session.test = 'test'
@@ -217,19 +216,21 @@ app.post('/avatar', upload.single('avatar'), function (req, res, next) {
         }
     }
 
-    fs.readFile(req.file.path, 'base64', function (err,data) {
+    var filepath = __dirname + '/avatars/' + req.body.type + '/'
+    if(req.body.type == 'room') {
+        filepath += req.body.roomid
+    }
+    if(req.body.type == 'user') {
+        filepath += req.session.idusers
+    }
+
+    /*fs.readFile(req.file.path, 'base64', function (err,data) {
         if (err) {
             res.send()
             return console.log(err)
         } else {
 
-            var filepath = __dirname + '\\avatars\\' + req.body.type + '\\'
-            if(req.body.type == 'room') {
-                filepath += req.body.roomid
-            }
-            if(req.body.type == 'user') {
-                filepath += req.session.idusers
-            }
+            
 
             fs.writeFile(filepath, data, function(err) {
                 if(err) {
@@ -237,10 +238,23 @@ app.post('/avatar', upload.single('avatar'), function (req, res, next) {
                 }
             })
             fs.unlink(req.file.path)
-            
+
             sendSocketMessage(null, 'avatarUpdated', null)
         }
-    });
+    });*/
+    console.log("AVATAR CROP")
+
+    sharp(req.file.path)
+        .raw()
+        .resize(40, 40)
+        .min()
+        .toFile(filepath, function(err) {
+            // output.jpg is a 200 pixels wide and 200 pixels high image
+            // containing a scaled and cropped version of input.jpg
+            fs.unlink(req.file.path)
+            sendSocketMessage(null, 'avatarUpdated', null)
+            console.log("AVATAR CROPED")
+        });
 
     res.send()
 })
