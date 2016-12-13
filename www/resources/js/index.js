@@ -24,7 +24,7 @@ window.onload = function getDataOnLoad(){
 
 function initSocket() {
 
-    var socket = io.connect('http://cloud-59.skelabb.ltu.se:80')
+    var socket = io.connect('https://cloud-59.skelabb.ltu.se', {secure: true})
     //var socket = io.connect('http://localhost:80')
     socket.on('message', function (data) {
 
