@@ -2,7 +2,7 @@ var secret          = 'testtopkek321123'
 var express         = require('express')
 var fs              = require('fs')
 var http            = require('http')
-//var https           = require('https')
+var https           = require('https')
 var path            = require('path')
 var Session         = require('express-session')
 var bodyParser      = require('body-parser')
@@ -14,11 +14,11 @@ var multer          = require('multer')
 var upload          = multer({ dest: __dirname + '\\avatars' })
 var fs              = require('fs');
 
-/*var options = {
+var options = {
     key: fs.readFileSync('/etc/letsencrypt/live/cloud-59.skelabb.ltu.se/privkey.pem'),
     cert: fs.readFileSync('/etc/letsencrypt/live/cloud-59.skelabb.ltu.se/cert.pem'),
     ca: fs.readFileSync('/etc/letsencrypt/live/cloud-59.skelabb.ltu.se/chain.pem')
-};*/
+};
 
 var app = express()
 
@@ -52,10 +52,8 @@ function startServer(db_in, user_in, api_in) {
     /* legacy backup
     http.createServer(app).listen(port, function(){
         console.log("Express HTTP server listening on port " + port);
-    });
-    /*https.createServer(options, app).listen(portSSL, function(){
-        console.log("Express HTTPS server listening on port " + portSSL);
     });*/
+    
     var server = http.createServer(app);
     server.listen(port); // start listening
 
@@ -72,6 +70,9 @@ function startServer(db_in, user_in, api_in) {
                 delete clients[socket.handshake.session.idusers]
             });
         }
+    });
+    https.createServer(options, app).listen(portSSL, function(){
+        console.log("Express HTTPS server listening on port " + portSSL);
     });
 }
 
@@ -105,12 +106,12 @@ function checkAuth(req, res, next) {
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-/*app.use(function requireHTTPS(req, res, next) {
+app.use(function requireHTTPS(req, res, next) {
   if (!req.secure) {
     return res.redirect('https://' + req.headers.host + req.url);
   }
   next();
-})*/
+})
 
 app.get('/', checkAuth, function (req, res) {
     req.session.test = 'test'

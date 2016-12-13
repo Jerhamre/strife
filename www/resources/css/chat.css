@@ -47,12 +47,21 @@
 	line-height: 14px;
 	font-weight: bold;
 }
-#content #chat #messages .messageContainer .pic {
+#content #chat #messages .messageContainer .apic {
 	float: left;
 	height: 40px;
 	width: 40px;
 	border-radius: 20px;
-	background-color: var(--color-lightdark);
+	background-color: lightgreen;
+	border: 2px solid var(--color-white);
+    -webkit-transition: border 0.2s; /* For Safari 3.1 to 6.0 */
+    transition: border 0.2s;
+}
+#content #chat #messages .messageContainer .apic .pic {
+	width: 100%; /* or any custom size */
+    height: 100%; 
+    object-fit: cover;
+	border-radius: 20px;
 }
 #content #chat #messages .messageContainer .message {
 	background-color: var(--color-lightdark);

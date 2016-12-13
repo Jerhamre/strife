@@ -253,7 +253,6 @@ function printChat() {
 	xhttp.onreadystatechange = function () {
 
 		if (this.readyState == 4 && this.status == 200) {
-			console.log('server has responded'+this.responseText)
 			printMessagesToChat(this.responseText)
 		}
 	}
@@ -296,7 +295,10 @@ function printMessagesToChat(result){
 
 		text += '<div class="messageContainer">'
 		text += 	'<div class="name">'+result[i]['fname']+' '+result[i]['lname']+'</div>'
-		text += 	'<div class="pic"></div>'
+		text += 	'<div class="apic">'
+		if(result[i]['avatar'] != '')
+			text += 	'<img class="pic" src="' + 'data:image/jpeg;base64,' + result[i]['avatar'] + '">'
+		text += 	'</div>'
 		text += 	'<div class="message">'
 		text += 		'<div class="text">'+result[i]['message']+'</div>'
 		text += 		'<div class="timestamp">'+time+'</div>'
