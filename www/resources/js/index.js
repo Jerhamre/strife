@@ -32,7 +32,12 @@ function initSocket() {
             console.log("There is a problem:", data);
         }
     });
-    socket.emit('send', { message: "test LOL" });
+    socket.on('sendFriendRequest', function (data) {
+        friendList()
+    });
+    socket.on('respondToFriendRequest', function (data) {
+        friendList()
+    });
 }
 
 function friendList(){
