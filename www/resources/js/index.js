@@ -27,8 +27,19 @@ function initSocket() {
     //var socket = io.connect('http://cloud-59.skelabb.ltu.se:80')
     var socket = io.connect('http://localhost:80')
     socket.on('message', function (data) {
-    	console.log('message recieved')
-    	printMessagesToChat(data)
+
+    	// reads the url of the page to determine which chat 
+		var queryString = (window.location.href).split("/").pop(-1);
+		var chatid = decodeURIComponent(queryString);
+
+		var response = JSON.parse(data)
+		console.log('chatid: '+ chatid)
+		console.log('response: '+ response[0['chatid']])
+    	if(response[0]['chatid']==chatid){
+    		console.log('chatid==chatid')
+    		printMessagesToChat(data)
+    	}
+    	
 										
 					
     });
@@ -268,6 +279,7 @@ function printMessagesToChat(result){
 					</div>
 				</div>
 				*/
+
 
 	var text = ""
 	result = JSON.parse(result)
