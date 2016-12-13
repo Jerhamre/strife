@@ -129,7 +129,17 @@ function getFriendsName(idusers, bothusers, chatid, invite, res) {
 		var response = []
 		result = JSON.parse(result)
 		for (var i = 0; i < result.length; i++) {
-			var jsonrow = {'fname':result[i]['fname'] ,'lname':result[i]['lname'], 'chatid':chatid[result[i]['idusers']], 'invite': invite[result[i]['idusers']], 'users': bothusers}
+
+			// get users avatar
+			var avatar = ''
+			fs = require('fs')
+			var filepath = __dirname + '\\avatars\\user\\' + result[i]['idusers']
+			if (fs.existsSync(filepath)) {
+			    avatar = fs.readFileSync(filepath, 'utf-8')
+			}
+
+			var jsonrow = {'fname':result[i]['fname'] ,'lname':result[i]['lname'], 'chatid':chatid[result[i]['idusers']], 'invite': invite[result[i]['idusers']], 'users': bothusers, 'avatar': avatar}
+
 			response.push(jsonrow) 
 				
 

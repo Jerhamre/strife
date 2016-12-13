@@ -126,7 +126,7 @@ a:active {
 	width: 100%;
 	clear: both;
 }
-#sidebar #rooms .room .pic, #sidebar #friends .friend .pic {
+#sidebar #rooms .room .apic, #sidebar #friends .friend .apic {
 	width: 40px;
 	height: 40px;
 	background-color: lightgreen;
@@ -136,11 +136,17 @@ a:active {
     -webkit-transition: border 0.2s; /* For Safari 3.1 to 6.0 */
     transition: border 0.2s;
 }
-#sidebar #rooms .room .pic:hover, #sidebar #friends .friend .pic:hover {
+#sidebar #rooms .room .apic:hover, #sidebar #friends .friend .apic:hover {
 	border: 2px solid var(--color-lightwhite);
 }
-#sidebar #rooms .room .pic:active, #sidebar #friends .friend .pic:active {
+#sidebar #rooms .room .apic:active, #sidebar #friends .friend .apic:active {
 	border: 2px solid var(--color-dimwhite);
+}
+#sidebar #rooms .room .apic .pic, #sidebar #friends .friend .apic .pic {
+	width: 100%; /* or any custom size */
+    height: 100%; 
+    object-fit: cover;
+	border-radius: 20px;
 }
 #sidebar #rooms .room .title, #sidebar #friends .friend .title {
 	max-width: 230px;

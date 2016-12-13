@@ -81,9 +81,18 @@ function startServer(db_in, user_in, api_in) {
 
 //[array of idusers], type of message (socketIO on function), json
 function sendSocketMessage(ids, type, message) {
-    for(var i = 0; i < ids.length; i++) {
-        if(clients[ids[i]]) {
-            clients[ids[i]].emit(type, message);
+    if(ids == null) {
+        var keys = Object.keys(clients)
+        for(var i = 0; i < keys.length; i++) {
+            if(clients[keys[i]]) {
+                clients[keys[i]].emit(type, message);
+            }
+        }
+    } else {
+        for(var i = 0; i < ids.length; i++) {
+            if(clients[ids[i]]) {
+                clients[ids[i]].emit(type, message);
+            }
         }
     }
 }
@@ -225,6 +234,8 @@ app.post('/avatar', upload.single('avatar'), function (req, res, next) {
                 }
             })
             fs.unlink(req.file.path)
+            
+            sendSocketMessage(null, 'avatarUpdated', null)
         }
     });
 
