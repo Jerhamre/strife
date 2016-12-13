@@ -49,7 +49,7 @@ function sendAvatar(type) {
 		input = file
 	}
 
-	var maxSize = input.data('max-size');
+	var maxSize = 16384;
 
 	var fileSize = input.files[0].size;
 
