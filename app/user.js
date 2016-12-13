@@ -80,9 +80,6 @@ User.prototype.register = function(email, fname, lname, password, res) {
 User.prototype.getFriends = function(idusers, res) {
 
 	var sql = 'SELECT * FROM users_has_users WHERE users_idusers=? ORDER BY invite DESC;'
-	console.log("-------------INSIDE-GET-FRIENDS--------------")
-	console.log("getFriends")
-	console.log(sql)
 
 	var callback = function(err, result) {
 		console.log(result)
@@ -127,9 +124,6 @@ User.prototype.getFriends = function(idusers, res) {
 function getFriendsName(idusers, bothusers, chatid, invite, res) {
 
 	var sql = 'SELECT * FROM users WHERE idusers IN (?);'
-	console.log("-------------INSIDE-GET-FRIENDS-NAME-------------")
-	console.log("getFriends")
-	console.log(sql)
 
 	var callback = function(err, result) {
 		var response = []

@@ -23,14 +23,14 @@ window.onload = function getDataOnLoad(){
 }
 
 function initSocket() {
+
     //var socket = io.connect('http://cloud-59.skelabb.ltu.se:80')
     var socket = io.connect('http://localhost:80')
     socket.on('message', function (data) {
-        if(data.message) {
-            console.log(data.message)
-        } else {
-            console.log("There is a problem:", data);
-        }
+    	console.log('message recieved')
+    	printMessagesToChat(data)
+										
+					
     });
     socket.on('sendFriendRequest', function (data) {
         friendList()
@@ -200,7 +200,6 @@ function postMessageInChat() {
 	var xhttp = new XMLHttpRequest()
 	xhttp.onreadystatechange = function () {
 		if (this.readyState == 4 && this.status == 200) {
-			printChat()
 			document.getElementById('message').value = ''
 		}
 	}
@@ -218,7 +217,6 @@ function printChat() {
 	if(room==""){
 		return;
 	}
-	console.log(room);
 	var json = {
 			"method": "loadChat",
 			"data": [{"idchat": room}],//document.getElementById('message').value
@@ -226,44 +224,11 @@ function printChat() {
 
 	var xhttp = new XMLHttpRequest()
 	xhttp.onreadystatechange = function () {
+
 		if (this.readyState == 4 && this.status == 200) {
-			var text = ""
-			var result = JSON.parse(this.responseText)
-			
-				/*
-				<div class="messageContainer">
-					<div class="name">Henrik Nilsson Harnert</div>
-					<div class="pic"></div>
-					<div class="message">
-						<div class="text">Herp derp</div>
-						<div class="timestamp">16:57</div>
-					</div>
-				</div>
-				*/
-
-				for(var i = 0; i < result.length; i++) {
-					var date = new Date(result[i]['timestamp'])
-					var currentdate = new Date();
-					var time = ''
-
-					if( !(date.getFullYear() == currentdate.getFullYear() && date.getMonth() == currentdate.getMonth() && date.getDate() == currentdate.getDate())) {
-						time = date.getFullYear() + '-' + twodigits(date.getMonth()+1) + '-' + twodigits(date.getDate()) + ' '
-					}
-					time += twodigits(date.getHours()) + ':' + twodigits(date.getMinutes()) + ':' + twodigits(date.getSeconds())
-
-					text += '<div class="messageContainer">'
-					text += 	'<div class="name">'+result[i]['fname']+' '+result[i]['lname']+'</div>'
-					text += 	'<div class="pic"></div>'
-					text += 	'<div class="message">'
-					text += 		'<div class="text">'+result[i]['message']+'</div>'
-					text += 		'<div class="timestamp">'+time+'</div>'
-					text += 	'</div>'
-					text += '</div>'
-			}
-
-			document.getElementById('messages').innerHTML = text
+			console.log('server has responded'+this.responseText)
+			printMessagesToChat(this.responseText)
 		}
-
 	}
 	
 	xhttp.open("POST", "/api")
@@ -274,6 +239,49 @@ function printChat() {
 function twodigits(number) {
 	return ("0" + number).slice(-2);
 }
+
+function printMessagesToChat(result){
+
+	/*
+				<div class="messageContainer">
+					<div class="name">Henrik Nilsson Harnert</div>
+					<div class="pic"></div>
+					<div class="message">
+						<div class="text">Herp derp</div>
+						<div class="timestamp">16:57</div>
+					</div>
+				</div>
+				*/
+
+	var text = ""
+	result = JSON.parse(result)
+
+	for(var i = 0; i < result.length; i++) {
+		var date = new Date(result[i]['timestamp'])
+		var currentdate = new Date();
+		var time = ''
+
+		if( !(date.getFullYear() == currentdate.getFullYear() && date.getMonth() == currentdate.getMonth() && date.getDate() == currentdate.getDate())) {
+			time = date.getFullYear() + '-' + twodigits(date.getMonth()+1) + '-' + twodigits(date.getDate()) + ' '
+		}
+		time += twodigits(date.getHours()) + ':' + twodigits(date.getMinutes()) + ':' + twodigits(date.getSeconds())
+
+		text += '<div class="messageContainer">'
+		text += 	'<div class="name">'+result[i]['fname']+' '+result[i]['lname']+'</div>'
+		text += 	'<div class="pic"></div>'
+		text += 	'<div class="message">'
+		text += 		'<div class="text">'+result[i]['message']+'</div>'
+		text += 		'<div class="timestamp">'+time+'</div>'
+		text += 	'</div>'
+		text += '</div>'
+	}
+
+	document.getElementById('messages').innerHTML += text
+
+	var div = document.getElementById('messages');
+	div.scrollTop = div.scrollHeight - div.clientHeight;;
+}
+
 
 function respondToFriendRequest(iduser1, iduser2, answer) {
 
