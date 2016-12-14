@@ -46,7 +46,7 @@ User.prototype.login = function(email, password, session, res) {
 
 
 
-User.prototype.register = function(email, fname, lname, password, res) {
+User.prototype.register = function(email, fname, lname, password, session, res) {
 	
 	var salt = crypto.randomBytes(64).toString('base64');
 	var hash = crypto.createHmac('sha256', password).update(salt).digest('hex');

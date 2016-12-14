@@ -175,7 +175,7 @@ app.post('/register', function (req, res) {
     if (password != confirmpassword)
         res.redirect('/register');
 
-    user.register(email, fname, lname, password, res)
+    user.register(email, fname, lname, password, req.session, res)
 })
 
 app.get('/logout', function (req, res) {
