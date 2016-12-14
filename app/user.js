@@ -63,9 +63,10 @@ User.prototype.register = function(email, fname, lname, password, res) {
 
 			idusers = result[0]['idusers']
 			if (idusers == null || idusers == '') {
-				server.setSessionUserID(null, '/', res)
+				res.redirect('/')
 			} else {
-				server.setSessionUserID(idusers, '/', res)
+				session.idusers = idusers
+				res.redirect('/')
 			}
 		}
 
