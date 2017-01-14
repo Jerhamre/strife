@@ -13,7 +13,6 @@ var session         = Session({secret: secret, resave: true, saveUninitialized: 
 var multer          = require('multer')
 var upload          = multer({ dest: __dirname + '\\avatars' })
 var fs              = require('fs');
-var sharp           = require('sharp')
 
 var options = {
     key: fs.readFileSync('/etc/letsencrypt/live/cloud-59.skelabb.ltu.se/privkey.pem'),
