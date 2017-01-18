@@ -18,12 +18,24 @@ Git clone Strife any folder on your system
 git clone https://github.com/strifechat/strife.git
 cd strife
 ```
-Install Node.js and npm by following this [guide](https://howtonode.org/how-to-install-nodejs) or the instruction on [Node.js](https://nodejs.org/en/) and [npm](https://www.npmjs.com/). Install the following packages
+Install Node.js and npm by following this [guide](https://howtonode.org/how-to-install-nodejs) or the instruction on [Node.js](https://nodejs.org/en/) and [npm](https://www.npmjs.com/). There is a install script located in the strife folder called [install_dependencies.sh](https://github.com/strifechat/strife/blob/master/install_dependencies.sh) or you could simply run the following commands in terminal.
 ```Bash
-npm install mysql, express, express-session, body-parser, socket.io, socket.io-express-session, session-file-store, multer
+npm install mysql
+npm install express
+npm install express-session
+npm install body-parser
+npm install socket.io
+npm install socket.io-express-session
+npm install session-file-store
+npm install multer
 ```
 
 Install MySQL database ([mysql_getting_started](http://dev.mysql.com/doc/mysql-getting-started/en/#mysql-getting-started-installing)). A list of MySQL queries needed to set up the database can be found on github in the textfile [dbscript](https://github.com/strifechat/strife/blob/master/dbscript). There is also a .mwb file of the database layout found in the strife folder under [db.mwb](https://github.com/strifechat/strife/blob/master/db.mwb) if you want to setup the database using MySQLWorkbench and forward engineer to the database. Create a file *strife/password* and save the database password.
+
+Update line 27 in *strife/www/resources/js/index.js* to the adress of your server that you are planning to host your server on and set *secure: true* if you are planning on using SSL, otherwise *secure: false*. 
+```JavaScript
+var socket = io.connect('https://cloud-59.skelabb.ltu.se', {secure: true})
+```
 
 ### Running strife with SSL
 If you want to browse the site via a secure connection you have to get certificate files. A free and easy alternative is [Let’s Encrypt](https://letsencrypt.org/getting-started/). You also have to modify lines 17-21 in *strife/app/HTTPServer.js* so they point to your SSL certificate files.
