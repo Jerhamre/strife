@@ -1,7 +1,7 @@
 # Strife
 ## A Chat Application
 Strife is a website which allows a user to communicate with other users in real time using a dynamically updated text chat. The website allows a user to create chatrooms which other users can join and talk in aswell as allow users to add other users as friends and chat with them in private chat rooms. The website is hosted using node.js and is built in object-oriented JavaScript. For storage, a MySQL relational database is used to storage user information. The front end is written in JavaScript together with HTML5 and CSS. Communication between the client and the server is done using a custom API with help of JSON objects. 
-## Dependancies
+## Dependencies
 The following npm packets needs to be installed to run Strife:
 * mysql
 * express
