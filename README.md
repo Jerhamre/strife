@@ -31,12 +31,14 @@ npm install multer
 npm install ejs
 ```
 
-Install MySQL database ([mysql_getting_started](http://dev.mysql.com/doc/mysql-getting-started/en/#mysql-getting-started-installing)). A list of MySQL queries needed to set up the database can be found on github in the textfile [dbscript](https://github.com/strifechat/strife/blob/master/dbscript). There is also a .mwb file of the database layout found in the strife folder under [db.mwb](https://github.com/strifechat/strife/blob/master/db.mwb) if you want to setup the database using MySQLWorkbench and forward engineer to the database. Create a file *strife/password* and save the database password.
+Install MySQL database ([mysql_getting_started](http://dev.mysql.com/doc/mysql-getting-started/en/#mysql-getting-started-installing)). A list of MySQL queries needed to set up the database can be found on github in the textfile [dbscript](https://github.com/strifechat/strife/blob/master/dbscript). There is also a .mwb file of the database layout found in the strife folder under [db.mwb](https://github.com/strifechat/strife/blob/master/db.mwb) if you want to setup the database using MySQLWorkbench and forward engineer to the database. Create a file *strife/password* and save the database password. Strifes connection to the database can be changed in *strife/app/database.js* on lines 20-22 if you want to change host adress, port or user.
 
 Update line 27 in *strife/www/resources/js/index.js* to the adress of your server that you are planning to host your server on and set *secure: true* if you are planning on using SSL, otherwise *secure: false*. 
 ```JavaScript
-var socket = io.connect('https://cloud-59.skelabb.ltu.se', {secure: true})
+var socket = io.connect('localhost', {secure: true})
 ```
+
+Update line 27 in *strife/www/resources/js/index.js* so that the adress point to where your server is located.
 
 ### Running strife with SSL
 If you want to browse the site via a secure connection you have to get certificate files. A free and easy alternative is [Let’s Encrypt](https://letsencrypt.org/getting-started/). You also have to modify lines 17-21 in *strife/app/HTTPServer.js* so they point to your SSL certificate files.
