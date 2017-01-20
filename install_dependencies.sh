@@ -7,3 +7,4 @@ npm install socket.io
 npm install socket.io-express-session
 npm install session-file-store
 npm install multer
+npm install ejs
