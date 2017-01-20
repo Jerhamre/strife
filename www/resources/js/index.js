@@ -24,8 +24,9 @@ window.onload = function getDataOnLoad(){
 
 function initSocket() {
 
-    var socket = io.connect('https://cloud-59.skelabb.ltu.se', {secure: true})
-    //var socket = io.connect('http://localhost:80')
+    var socket = io.connect('cloud-59.skelabb.ltu.se', {secure: true})
+    //var socket = io.connect('localhost')
+    
     socket.on('message', function (data) {
 
     	// reads the url of the page to determine which chat 
