@@ -28,6 +28,7 @@ npm install socket.io
 npm install socket.io-express-session
 npm install session-file-store
 npm install multer
+npm install ejs
 ```
 
 Install MySQL database ([mysql_getting_started](http://dev.mysql.com/doc/mysql-getting-started/en/#mysql-getting-started-installing)). A list of MySQL queries needed to set up the database can be found on github in the textfile [dbscript](https://github.com/strifechat/strife/blob/master/dbscript). There is also a .mwb file of the database layout found in the strife folder under [db.mwb](https://github.com/strifechat/strife/blob/master/db.mwb) if you want to setup the database using MySQLWorkbench and forward engineer to the database. Create a file *strife/password* and save the database password.
